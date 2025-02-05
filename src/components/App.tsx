@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FoodList from "./FoodList.tsx";
 import LoginPage from "./LoginPage.tsx";
 import { fetchHelper } from "../helper/fetchHelper.ts";
+import CreateAccount from "./CreateAccount.tsx";
 const API_URL = import.meta.env.VITE_API_URL as string;
 function App() {
   // useStates and variables
@@ -38,7 +39,8 @@ function App() {
       {/* <p>{fetchedResult}</p> */}
 
       {/* <FoodList /> */}
-      <LoginPage />
+      {/* <LoginPage /> */}
+      <CreateAccount />
     </>
   );
 }
