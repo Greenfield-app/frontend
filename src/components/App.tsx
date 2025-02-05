@@ -9,6 +9,7 @@ function App() {
   // let url = "http://localhost:8080/";
   // const [foods, setFoods] = useState<string[]>([]);
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
+  const [view, setView] = useState<string | null>("foodlist");
   // const [text, setText] = useState<null | string>(null);
   useEffect(() => {
     console.log(import.meta.env.VITE_API_URL);
@@ -19,28 +20,41 @@ function App() {
     initialFetch();
   });
   // useEffects
-  // useEffect(() => {
-  //   getFood();
-  // }, []);
+  useEffect(() => {
+    console.log("view changed");
+  }, [view]);
 
   // handler functions
   // async function getFood() {}
+
+  const changeView = (newView: string): void => {
+    setView(newView);
+  };
+
   // return
   return (
     <>
       <nav className="l-header header">
-        <h1>What's Eat</h1>
+        <h1 onClick={() => changeView("foodlist")}>What's Eat</h1>
         <form action="">
           <label htmlFor="">New Food</label>
           <input type="text" />
           <button>Submit</button>
         </form>
+        <h1 onClick={() => changeView("createaccount")}>Create Account</h1>
+        <h1 onClick={() => changeView("loginpage")}>Login</h1>
       </nav>
       {/* <p>{fetchedResult}</p> */}
 
-      {/* <FoodList /> */}
-      {/* <LoginPage /> */}
-      <CreateAccount />
+      {view === "foodlist" ? (
+        <FoodList />
+      ) : view === "loginpage" ? (
+        <LoginPage />
+      ) : view === "createaccount" ? (
+        <CreateAccount />
+      ) : (
+        <p>Something went wrong :/</p>
+      )}
     </>
   );
 }
