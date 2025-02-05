@@ -23,3 +23,5 @@ D - delete a card if you decide your sick of a certain food
 
 Download this repo as well as the backend repo: https://github.com/Greenfield-app/backend/tree/main
 
+Or check out the deployed app at https://frontend-gd1y.onrender.com/
+
