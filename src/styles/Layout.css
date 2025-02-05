@@ -12,16 +12,17 @@
   padding: 1rem;
   width: 50%;
   margin: 0 auto;
+  grid-template-columns: 1fr;
 }
 
-@media (min-width: 1024) {
+@media (min-width: 1024px) {
   .l-food-list {
-    grid-template-columns: repeat(3, 1fr);
+    min-height: 80vh;
   }
 }
 
-@media (max-width: 768) {
+@media (max-width: 768px) {
   .l-food-list {
-    grid-template-columns: 1fr;
+    min-height: 45vh;
   }
 }

@@ -1,7 +1,8 @@
 .food-list {
-  color: white;
+  color: #128c7e;
 }
 
 .food {
   text-align: center;
+  background-color: #ece5dd;
 }
