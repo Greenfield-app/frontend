@@ -26,11 +26,7 @@ function App() {
   // return
   return (
     <>
-
-<!--       <nav className="l-header"> -->
-
-      <nav className='l-header header'>
-
+      <nav className="l-header header">
         <h1>What's Eat</h1>
       </nav>
       <p>{fetchedResult}</p>
