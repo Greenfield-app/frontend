@@ -1,4 +1,7 @@
 .food-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  color: white;
+}
+
+.food {
+  text-align: center;
 }

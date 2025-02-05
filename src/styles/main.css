@@ -3,3 +3,7 @@
 @import "layout.css";
 @import "modules/index.css";
 @import "state.css";
+
+* {
+  outline: 1px solid rgb(212, 98, 98) !important;
+}
