@@ -1,0 +1,11 @@
+.loginpage {
+  color: #25d366;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginpage > * {
+  margin: 1%;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import FoodList from "./FoodList.tsx";
+import LoginPage from "./LoginPage.tsx";
 import { fetchHelper } from "../helper/fetchHelper.ts";
 const API_URL = import.meta.env.VITE_API_URL as string;
 function App() {
@@ -34,9 +35,10 @@ function App() {
           <button>Submit</button>
         </form>
       </nav>
-      <p>{fetchedResult}</p>
+      {/* <p>{fetchedResult}</p> */}
 
-      <FoodList />
+      {/* <FoodList /> */}
+      <LoginPage />
     </>
   );
 }
