@@ -3,11 +3,13 @@ import FoodList from "./FoodList.tsx";
 import LoginPage from "./LoginPage.tsx";
 import { fetchHelper } from "../helper/fetchHelper.ts";
 import CreateAccount from "./CreateAccount.tsx";
+import { FoodInfo } from "../vite-env";
+
 const API_URL = import.meta.env.VITE_API_URL as string;
 function App() {
   // useStates and variables
   // let url = "http://localhost:8080/";
-  // const [foods, setFoods] = useState<string[]>([]);
+  const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
   const [view, setView] = useState<string | null>("foodlist");
   // const [text, setText] = useState<null | string>(null);
@@ -34,11 +36,11 @@ function App() {
   // return
   return (
     <>
-      <nav className="l-header header">
+      <nav className='l-header header'>
         <h1 onClick={() => changeView("foodlist")}>What's Eat</h1>
-        <form action="">
-          <label htmlFor="">New Food</label>
-          <input type="text" />
+        <form action=''>
+          <label htmlFor=''>New Food</label>
+          <input type='text' />
           <button>Submit</button>
         </form>
         <h1 onClick={() => changeView("createaccount")}>Create Account</h1>
@@ -47,7 +49,7 @@ function App() {
       {/* <p>{fetchedResult}</p> */}
 
       {view === "foodlist" ? (
-        <FoodList />
+        <FoodList foods={foods} setFoods={setFoods} />
       ) : view === "loginpage" ? (
         <LoginPage />
       ) : view === "createaccount" ? (
