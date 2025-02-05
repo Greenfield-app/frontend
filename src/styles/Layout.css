@@ -10,19 +10,21 @@
   list-style: none;
   gap: 1rem;
   padding: 1rem;
-  width: 50%;
   margin: 0 auto;
-  grid-template-columns: 1fr;
+  justify-items: center;
 }
 
-@media (min-width: 1024px) {
-  .l-food-list {
-    min-height: 80vh;
-  }
+.food {
+  display: flex;
+  border-radius: 5px;
+  height: 10vh;
+  width: 30vw;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
-  .l-food-list {
-    min-height: 45vh;
+  .food {
+    min-width: 30vh;
   }
 }
