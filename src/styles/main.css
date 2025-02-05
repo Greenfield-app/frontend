@@ -1,5 +1,5 @@
 /* main.css */
-@import "base.css";
-@import "layout.css";
-@import "modules/index.css";
+@import "./Base.css";
+@import "./Layout.css";
+@import "./modules/";
 @import "state.css";
