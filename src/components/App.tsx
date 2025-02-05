@@ -28,6 +28,11 @@ function App() {
     <>
       <nav className="l-header header">
         <h1>What's Eat</h1>
+        <form action="">
+          <label htmlFor="">New Food</label>
+          <input type="text" />
+          <button>Submit</button>
+        </form>
       </nav>
       <p>{fetchedResult}</p>
 
