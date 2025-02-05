@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../styles/App.css";
 import FoodList from "./FoodList.tsx";
 
 function App() {
@@ -19,7 +18,7 @@ function App() {
 
   return (
     <>
-      <nav>
+      <nav className='l-header'>
         <h1>What's Eat</h1>
       </nav>
       <FoodList />
