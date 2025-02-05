@@ -10,18 +10,21 @@
   list-style: none;
   gap: 1rem;
   padding: 1rem;
-  width: 50%;
   margin: 0 auto;
+  justify-items: center;
 }
 
-@media (min-width: 1024) {
-  .l-food-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.food {
+  display: flex;
+  border-radius: 5px;
+  height: 10vh;
+  width: 30vw;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 768) {
-  .l-food-list {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .food {
+    min-width: 30vh;
   }
 }
