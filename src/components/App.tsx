@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FoodList from "./FoodList.tsx";
 import LoginPage from "./LoginPage.tsx";
+import AddNewCard from "./AddNewCard.tsx";
 import { fetchHelper } from "../helper/fetchHelper.ts";
 import CreateAccount from "./CreateAccount.tsx";
 import { FoodInfo } from "../vite-env";
@@ -13,14 +14,14 @@ function App() {
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
   const [view, setView] = useState<string | null>("foodlist");
   // const [text, setText] = useState<null | string>(null);
-  useEffect(() => {
-    console.log(import.meta.env.VITE_API_URL);
-    const initialFetch = async () => {
-      const response = await fetchHelper<{ message: string }>(API_URL);
-      setFetchedResult(response.message);
-    };
-    initialFetch();
-  });
+  // useEffect(() => {
+  //   console.log(import.meta.env.VITE_API_URL);
+  //   const initialFetch = async () => {
+  //     const response = await fetchHelper<{ message: string }>(API_URL);
+  //     setFetchedResult(response.message);
+  //   };
+  //   initialFetch();
+  // }, []);
   // useEffects
   useEffect(() => {
     console.log("view changed");
@@ -36,13 +37,19 @@ function App() {
   // return
   return (
     <>
-      <nav className='l-header header'>
+      <nav className="l-header header">
         <h1 onClick={() => changeView("foodlist")}>What's Eat</h1>
-        <form action=''>
+        {/* <form action=''>
           <label htmlFor=''>New Food</label>
           <input type='text' />
           <button>Submit</button>
-        </form>
+        </form> */}
+        <button
+          className="btn-addfoodcard"
+          onClick={() => changeView("addnewcard")}
+        >
+          +
+        </button>
         <h1 onClick={() => changeView("createaccount")}>Create Account</h1>
         <h1 onClick={() => changeView("loginpage")}>Login</h1>
       </nav>
@@ -54,6 +61,8 @@ function App() {
         <LoginPage />
       ) : view === "createaccount" ? (
         <CreateAccount />
+      ) : view === "addnewcard" ? (
+        <AddNewCard />
       ) : (
         <p>Something went wrong :/</p>
       )}
