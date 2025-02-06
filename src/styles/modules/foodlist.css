@@ -16,6 +16,14 @@
   align-items: center;
 }
 
+.food-eat-icon {
+  cursor: pointer;
+}
+
+.food-delete-icon {
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .food {
     min-width: 30vh;
