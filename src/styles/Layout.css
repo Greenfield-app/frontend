@@ -18,21 +18,6 @@
   justify-items: center;
 }
 
-.food {
-  display: flex;
-  border-radius: 5px;
-  height: 10vh;
-  width: 30vw;
-  justify-content: center;
-  align-items: center;
-}
-
 .btn-addfoodcard {
   width: 50px;
-}
-
-@media (max-width: 768px) {
-  .food {
-    min-width: 30vh;
-  }
 }
