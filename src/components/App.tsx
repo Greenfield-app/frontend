@@ -11,8 +11,8 @@ function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
-  const [view, setView] = useState<string | null>("foodlist");
-  const [currentUser, setCurrentUser] = useState<string | null>("guest");
+  const [view, setView] = useState<string | null>("loginpage");
+  const [currentUser, setCurrentUser] = useState<string | null>("user1");
 
   // const [text, setText] = useState<null | string>(null);
   // useEffect(() => {
@@ -57,16 +57,14 @@ function App() {
       </nav>
       {/* <p>{fetchedResult}</p> */}
 
-      {view === "foodlist" ? (
+      {view === "foodlist" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <FoodList foods={foods} setFoods={setFoods} currentUser={currentUser} />
-      ) : view === "loginpage" ? (
-        <LoginPage setCurrentUser={setCurrentUser} />
       ) : view === "createaccount" ? (
         <CreateAccount />
       ) : view === "addnewcard" ? (
         <AddNewCard />
       ) : (
-        <p>Something went wrong :/</p>
+        <LoginPage setCurrentUser={setCurrentUser} /> //by default, see login page
       )}
     </>
   );
