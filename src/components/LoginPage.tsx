@@ -1,6 +1,9 @@
-type LoginPageProps = {};
+type LoginPageProps = {
+  setCurrentUser: Function; //will use this function to change current user if login successful
+};
 import "../styles/modules/loginpage.css";
 //  (props) temp removed for build
+
 const LoginPage: React.FC<LoginPageProps> = (props) => {
   return (
     <div className="loginpage">

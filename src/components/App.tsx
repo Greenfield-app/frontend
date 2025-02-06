@@ -9,10 +9,11 @@ import { FoodInfo } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 function App() {
   // useStates and variables
-  // let url = "http://localhost:8080/";
   const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
   const [view, setView] = useState<string | null>("foodlist");
+  const [currentUser, setCurrentUser] = useState<string | null>("guest");
+
   // const [text, setText] = useState<null | string>(null);
   // useEffect(() => {
   //   console.log(import.meta.env.VITE_API_URL);
@@ -22,6 +23,7 @@ function App() {
   //   };
   //   initialFetch();
   // }, []);
+
   // useEffects
   useEffect(() => {
     console.log("view changed");
@@ -37,7 +39,7 @@ function App() {
   // return
   return (
     <>
-      <nav className='l-header header'>
+      <nav className="l-header header">
         <h1 onClick={() => changeView("foodlist")}>What's Eat</h1>
         {/* <form action=''>
           <label htmlFor=''>New Food</label>
@@ -45,7 +47,7 @@ function App() {
           <button>Submit</button>
         </form> */}
         <button
-          className='btn-addfoodcard'
+          className="btn-addfoodcard"
           onClick={() => changeView("addnewcard")}
         >
           +
@@ -56,9 +58,9 @@ function App() {
       {/* <p>{fetchedResult}</p> */}
 
       {view === "foodlist" ? (
-        <FoodList foods={foods} setFoods={setFoods} />
+        <FoodList foods={foods} setFoods={setFoods} currentUser={currentUser} />
       ) : view === "loginpage" ? (
-        <LoginPage />
+        <LoginPage setCurrentUser={setCurrentUser} />
       ) : view === "createaccount" ? (
         <CreateAccount />
       ) : view === "addnewcard" ? (

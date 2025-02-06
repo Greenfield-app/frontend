@@ -6,6 +6,7 @@ import { useEffect } from "react";
 interface FoodListProps {
   setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
   foods: FoodInfo[]; // to get current Food list
+  currentUser: string;
 }
 
 //  (props) temp removed for build
@@ -32,14 +33,14 @@ const FoodList: React.FC<FoodListProps> = (props) => {
   };
 
   return (
-    <ul className='food-list l-food-list'>
+    <ul className="food-list l-food-list">
       {props.foods.map((food) => (
-        <li key={food.id} className='food'>
-          <h3 className='food-title'>{food.name}</h3>
+        <li key={food.id} className="food">
+          <h3 className="food-title">{food.name}</h3>
           <img
-            className='food-delete-icon'
+            className="food-delete-icon"
             src={trashIcon}
-            alt='red trash icon'
+            alt="red trash icon"
             onClick={() => handleDeleteFood(food.id)}
           />
         </li>
