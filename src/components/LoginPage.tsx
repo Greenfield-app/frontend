@@ -7,17 +7,26 @@ import "../styles/modules/loginpage.css";
 
 const LoginPage: React.FC<LoginPageProps> = (props) => {
   return (
-    <div className="loginpage">
-      <h1>Login</h1>
-      <label htmlFor="">Username: </label>
-      <input type="text" />
-      <label htmlFor="">Password: </label>
-      <input type="text" />
-      <button>Submit</button>
-      <h3 className="signup" onClick={() => props.changeView("createaccount")}>
-        No Account? Sign up today!
-      </h3>
-    </div>
+    <>
+      <nav className="l-header header">
+        <h1>What's Eat</h1>
+      </nav>
+
+      <div className="loginpage">
+        <h1>Login</h1>
+        <label htmlFor="">Username: </label>
+        <input type="text" />
+        <label htmlFor="">Password: </label>
+        <input type="text" />
+        <button>Submit</button>
+        <h3
+          className="signup"
+          onClick={() => props.changeView("createaccount")}
+        >
+          No Account? Sign up today!
+        </h3>
+      </div>
+    </>
   );
 };
 
