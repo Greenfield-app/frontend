@@ -49,7 +49,7 @@ function App() {
           changeView={changeView}
         />
       ) : view === "createaccount" ? (
-        <CreateAccount />
+        <CreateAccount changeView={changeView} />
       ) : view === "addnewcard" ? (
         <AddNewCard changeView={changeView} />
       ) : (
