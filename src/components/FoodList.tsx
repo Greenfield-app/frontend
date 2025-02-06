@@ -1,4 +1,5 @@
 import { FoodInfo } from "../vite-env";
+import trashIcon from "../assets/icons/icon-monster-trash.svg";
 import { useEffect } from "react";
 
 // types from App.tsx
@@ -26,11 +27,21 @@ const FoodList: React.FC<FoodListProps> = (props) => {
     props.setFoods(sampleFoods);
   }, []);
 
+  const handleDeleteFood = (foodCardId: number) => {
+    console.log("food card with id ", foodCardId, " was deleted!");
+  };
+
   return (
-    <ul className="food-list l-food-list">
-      {sampleFoods.map((food) => (
-        <li key={food.id} className="food">
-          {food.name}
+    <ul className='food-list l-food-list'>
+      {props.foods.map((food) => (
+        <li key={food.id} className='food'>
+          <h3 className='food-title'>{food.name}</h3>
+          <img
+            className='food-delete-icon'
+            src={trashIcon}
+            alt='red trash icon'
+            onClick={() => handleDeleteFood(food.id)}
+          />
         </li>
       ))}
     </ul>

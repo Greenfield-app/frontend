@@ -37,7 +37,7 @@ function App() {
   // return
   return (
     <>
-      <nav className="l-header header">
+      <nav className='l-header header'>
         <h1 onClick={() => changeView("foodlist")}>What's Eat</h1>
         {/* <form action=''>
           <label htmlFor=''>New Food</label>
@@ -45,7 +45,7 @@ function App() {
           <button>Submit</button>
         </form> */}
         <button
-          className="btn-addfoodcard"
+          className='btn-addfoodcard'
           onClick={() => changeView("addnewcard")}
         >
           +

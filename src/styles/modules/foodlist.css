@@ -5,3 +5,29 @@
 .food-list .food {
   background-color: #ece5dd;
 }
+
+.food-delete-icon {
+  align-self: flex-start;
+  margin-top: 3px;
+  margin-right: 3px;
+  margin-left: auto;
+}
+/* 
+.food-title {
+  
+} */
+
+.food {
+  display: flex;
+  border-radius: 5px;
+  height: 10vh;
+  width: 30vw;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .food {
+    min-width: 30vh;
+  }
+}
