@@ -11,7 +11,7 @@ function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
-  const [view, setView] = useState<string | null>("loginpage");
+  const [view, setView] = useState<string | null>("foodlist");
   const [currentUser, setCurrentUser] = useState<string | null>("user1");
 
   // const [text, setText] = useState<null | string>(null);
@@ -39,32 +39,21 @@ function App() {
   // return
   return (
     <>
-      <nav className="l-header header">
-        <h1 onClick={() => changeView("foodlist")}>What's Eat</h1>
-        {/* <form action=''>
-          <label htmlFor=''>New Food</label>
-          <input type='text' />
-          <button>Submit</button>
-        </form> */}
-        <button
-          className="btn-addfoodcard"
-          onClick={() => changeView("addnewcard")}
-        >
-          +
-        </button>
-        <h1 onClick={() => changeView("createaccount")}>Create Account</h1>
-        <h1 onClick={() => changeView("loginpage")}>Login</h1>
-      </nav>
       {/* <p>{fetchedResult}</p> */}
 
       {view === "foodlist" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
-        <FoodList foods={foods} setFoods={setFoods} currentUser={currentUser} />
+        <FoodList
+          foods={foods}
+          setFoods={setFoods}
+          currentUser={currentUser}
+          changeView={changeView}
+        />
       ) : view === "createaccount" ? (
         <CreateAccount />
       ) : view === "addnewcard" ? (
-        <AddNewCard />
+        <AddNewCard changeView={changeView} />
       ) : (
-        <LoginPage setCurrentUser={setCurrentUser} /> //by default, see login page
+        <LoginPage setCurrentUser={setCurrentUser} changeView={changeView} /> //by default, see login page
       )}
     </>
   );

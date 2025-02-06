@@ -9,3 +9,7 @@
 .loginpage > * {
   margin: 1%;
 }
+
+.signup {
+  cursor: pointer;
+}

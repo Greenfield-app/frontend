@@ -1,5 +1,6 @@
 type LoginPageProps = {
   setCurrentUser: Function; //will use this function to change current user if login successful
+  changeView: Function;
 };
 import "../styles/modules/loginpage.css";
 //  (props) temp removed for build
@@ -13,6 +14,9 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
       <label htmlFor="">Password: </label>
       <input type="text" />
       <button>Submit</button>
+      <h3 className="signup" onClick={() => props.changeView("createaccount")}>
+        No Account? Sign up today!
+      </h3>
     </div>
   );
 };
