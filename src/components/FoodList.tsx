@@ -1,4 +1,5 @@
 import { FoodInfo } from "../vite-env";
+import { useEffect } from "react";
 
 // types from App.tsx
 interface FoodListProps {
@@ -20,12 +21,15 @@ const FoodList: React.FC<FoodListProps> = (props) => {
   ];
 
   // set foods state to the samples
-  props.setFoods(sampleFoods);
+
+  useEffect(() => {
+    props.setFoods(sampleFoods);
+  }, []);
 
   return (
-    <ul className='food-list l-food-list'>
+    <ul className="food-list l-food-list">
       {sampleFoods.map((food) => (
-        <li key={food.id} className='food'>
+        <li key={food.id} className="food">
           {food.name}
         </li>
       ))}

@@ -1,0 +1,29 @@
+.addnewcardview {
+  /* display: grid;
+  list-style: none;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0 auto;
+  justify-items: center; */
+
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.newcard {
+  background-color: #ece5dd;
+  color: #128c7e;
+  height: 20vh;
+  width: 40vw;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.newcard > * {
+  margin: 5px;
+  padding: 5px;
+}
