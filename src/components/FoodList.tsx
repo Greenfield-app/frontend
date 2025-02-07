@@ -43,7 +43,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
   return (
     <>
       <nav className="l-header header">
-        <h1 onClick={() => props.setView("foodlist")}>What's Eat</h1>
+        <h1 onClick={() => props.setView("home")}>What's Eat</h1>
         <button
           className="btn-addfoodcard"
           onClick={() => props.setView("addnewcard")}
