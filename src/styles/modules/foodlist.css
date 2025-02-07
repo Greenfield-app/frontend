@@ -6,10 +6,10 @@
   background-color: #ece5dd;
 }
 
-.food {
+.food-card {
   display: flex;
   border-radius: 5px;
-  height: 10vh;
+  height: 15vh;
   width: 30vw;
   justify-content: center;
   justify-content: space-around;
@@ -25,7 +25,7 @@
 }
 
 @media (max-width: 768px) {
-  .food {
+  .food-card {
     min-width: 30vh;
   }
 }
