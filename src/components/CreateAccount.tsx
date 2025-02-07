@@ -13,18 +13,19 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   setView,
 }) => {
   useEffect(() => {
-    console.log(newRegisterInfo);
+
     validateInput();
+    console.log(newRegisterInfo);
   }, [newRegisterInfo]);
+
+
   const [error, setError] = useState<signupError>({
     userName: false,
     password: false,
     confirmPassword: false,
   });
   const [submitError, setSubmitError] = useState<boolean>(false);
-
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
-
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,9 +54,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           ...newRegisterInfo,
           userName: currentElementValue,
         });
-
- 
-
 
         break;
       case "password":
@@ -116,7 +114,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         )}
         <label htmlFor="">Password: </label>
         <input
-
           type="password"
 
           id="password"
@@ -131,8 +128,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         <label htmlFor="">Confirm Password: </label>
         <input
           type="password"
-
-     
 
           id="password-confirm"
           onChange={(e) => changeHandler(e)}
