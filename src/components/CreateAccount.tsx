@@ -90,9 +90,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <div className='l-login-signup-container'>
+    <div className="l-login-signup-container">
       {/* title side */}
-      <header className='login-signup-title'>
+      <header className="login-signup-title">
         <h1>WhatsEat</h1>
         <p>
           Hungry but can't decide? <br />
@@ -102,52 +102,52 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
       {/* signup side */}
       <form
-        className='login-signup-form'
+        className="login-signup-form"
         onSubmit={(e) => {
           submitHandler(e);
         }}
       >
         <h1>Create Account</h1>
-        <label htmlFor=''>Username: </label>
+        <label htmlFor="">Username: </label>
         <input
-          type='text'
-          id='username'
+          type="text"
+          id="username"
           onChange={(e) => changeHandler(e)}
-          placeholder='UserName'
+          placeholder="UserName"
         />
 
         {error.userName && (
-          <span className='error-signin'>
+          <span className="error-signin">
             Username must be at least 3 characters
           </span>
         )}
-        <label htmlFor=''>Password: </label>
+        <label htmlFor="">Password: </label>
         <input
-          type='password'
-          id='password'
+          type="password"
+          id="password"
           onChange={(e) => changeHandler(e)}
-          placeholder='Password'
+          placeholder="Password"
         />
         {error.password && (
-          <span className='error-signin'>
+          <span className="error-signin">
             Password must be at least 6 characters
           </span>
         )}
-        <label htmlFor=''>Confirm Password: </label>
+        <label htmlFor="">Confirm Password: </label>
         <input
-          type='password'
-          id='password-confirm'
+          type="password"
+          id="password-confirm"
           onChange={(e) => changeHandler(e)}
-          placeholder='Confirm Password'
+          placeholder="Confirm Password"
         />
         {error.confirmPassword && (
-          <span className='error-signin'>Passwords do not match</span>
+          <span className="error-signin">Passwords do not match</span>
         )}
-        <button type='submit'>Submit</button>
+        <button type="submit">Submit</button>
 
         {/* link back to login page */}
         <small
-          className='cursor-pointer login-signup-link'
+          className="cursor-pointer login-signup-link"
           onClick={() => setView("login")}
         >
           Have an account? Sign in today!
@@ -155,9 +155,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
         {/* Error messages */}
         <div>
-          {submitError && <span className='error-submit'>Sign Up Failed</span>}
+          {submitError && <span className="error-submit">Sign Up Failed</span>}
           {submitSuccess && (
-            <span className='success-submit'>Sign Up Success</span>
+            <span className="success-submit">Sign Up Success</span>
           )}
         </div>
       </form>
