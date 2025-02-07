@@ -8,7 +8,7 @@ interface FoodListProps {
   setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
   foods: FoodInfo[]; // to get current Food list
   currentUser: string;
-  changeView: Function;
+  setView: Function;
 }
 
 //  (props) temp removed for build
@@ -43,17 +43,17 @@ const FoodList: React.FC<FoodListProps> = (props) => {
   return (
     <>
       <nav className="l-header header">
-        <h1 onClick={() => props.changeView("foodlist")}>What's Eat</h1>
+        <h1 onClick={() => props.setView("foodlist")}>What's Eat</h1>
         <button
           className="btn-addfoodcard"
-          onClick={() => props.changeView("addnewcard")}
+          onClick={() => props.setView("addnewcard")}
         >
           +
         </button>
         {/* <h1 onClick={() => props.changeView("createaccount")}>
           Create Account
         </h1> */}
-        <h1 onClick={() => props.changeView("loginpage")}>Logout</h1>
+        <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
       <ul className="food-list l-food-list">
         {props.foods.map((food) => (

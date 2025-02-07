@@ -1,5 +1,5 @@
 interface AddNewCardProps {
-  changeView: Function;
+  setView: Function;
 }
 import "../styles/modules/addnewcard.css";
 //  (props) temp removed for build
@@ -7,17 +7,17 @@ const AddNewCard: React.FC<AddNewCardProps> = (props) => {
   return (
     <>
       <nav className="l-header header">
-        <h1 onClick={() => props.changeView("foodlist")}>What's Eat</h1>
+        <h1 onClick={() => props.setView("foodlist")}>What's Eat</h1>
         <button
           className="btn-addfoodcard"
-          onClick={() => props.changeView("addnewcard")}
+          onClick={() => props.setView("addnewcard")}
         >
           +
         </button>
         {/* <h1 onClick={() => props.changeView("createaccount")}>
           Create Account
         </h1> */}
-        <h1 onClick={() => props.changeView("loginpage")}>Logout</h1>
+        <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
       <div className="addnewcardview">
         <div className="newcard">
