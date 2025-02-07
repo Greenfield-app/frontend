@@ -28,7 +28,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
       const result = await sendRegisterInfo(newRegisterInfo);
       console.log(result);
       if (result) {
-        changeView("foodlist");
+        setView("foodlist");
       }
     } catch (error) {
       console.error(error);
@@ -126,7 +126,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         <button type="submit">Submit</button>
       </form>
       <div>{error ? <></> : <div>Registeration Failed!</div>}</div>
-      <h3 className="signup" onClick={() => props.setView("login")}>
+      <h3 className="signup" onClick={() => setView("login")}>
         Have an account? Sign in today!
       </h3>
     </div>

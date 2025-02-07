@@ -10,43 +10,22 @@ import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
 function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
-<<<<<<< HEAD
   const [view, setView] = useState<string | null>("foodlist");
-  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
   const [newRegisterInfo, setNewRegisterInfo] = useState<registerInfo>({
     userName: "default userName",
     password: "",
     confirmPassword: "",
   });
-=======
-  const [fetchedResult, setFetchedResult] = useState<null | string>(null);
-  const [view, setView] = useState<string | null>("home"); // possible views: login, createaccount, home, foodlist,
-  const [currentUser, setCurrentUser] = useState<string | null>("user1");
-
-  // const [text, setText] = useState<null | string>(null);
-  // useEffect(() => {
-  //   console.log(import.meta.env.VITE_API_URL);
-  //   const initialFetch = async () => {
-  //     const response = await fetchHelper<{ message: string }>(API_URL);
-  //     setFetchedResult(response.message);
-  //   };
-  //   initialFetch();
-  // }, []);
->>>>>>> main
 
   // useEffects
   useEffect(() => {
     console.log("view changed");
   }, [view]);
 
-<<<<<<< HEAD
   const changeView = (newView: string): void => {
     setView(newView);
   };
-=======
-  // handler functions
-  // async function getFood() {}
->>>>>>> main
 
   // return
   return (
@@ -62,15 +41,11 @@ function App() {
           view={view}
         />
       ) : view === "createaccount" ? (
-<<<<<<< HEAD
         <CreateAccount
-          changeView={changeView}
+          setView={setView}
           newRegisterInfo={newRegisterInfo}
           setNewRegisterInfo={setNewRegisterInfo}
         />
-=======
-        <CreateAccount setView={setView} />
->>>>>>> main
       ) : view === "addnewcard" ? (
         <AddNewCard setView={setView} />
       ) : view === "foodlist" ? (
