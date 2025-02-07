@@ -23,6 +23,7 @@ function App() {
     console.log("view changed");
   }, [view]);
 
+
   // return
   return (
     <>
