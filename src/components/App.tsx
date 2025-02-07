@@ -45,11 +45,21 @@ function App() {
           setFoods={setFoods}
           currentUser={currentUser}
           setView={setView}
+          view={view}
         />
       ) : view === "createaccount" ? (
         <CreateAccount setView={setView} />
       ) : view === "addnewcard" ? (
         <AddNewCard setView={setView} />
+      ) : view === "foodlist" ? (
+        <FoodList
+          setFoods={setFoods}
+          foods={foods}
+          currentUser={currentUser}
+          setView={setView}
+        />
+      ) : view === "eatitorleaveit" ? (
+        <EatItOrLeaveIt setView={setView} />
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}
