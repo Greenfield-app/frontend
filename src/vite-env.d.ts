@@ -17,3 +17,13 @@ export interface registerInfo {
   password: string;
   confirmPassword: string;
 }
+
+export interface signupError {
+  userName: boolean;
+  password: boolean;
+  confirmPassword: boolean;
+}
+export interface signinError {
+  userName: boolean;
+  password: boolean;
+}
