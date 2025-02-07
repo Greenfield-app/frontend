@@ -22,15 +22,24 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     confirmPassword: false,
   });
   const [submitError, setSubmitError] = useState<boolean>(false);
+
+  const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+
+
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const result = await sendRegisterInfo(newRegisterInfo);
       console.log(result);
       if (result) {
-        setView("foodlist");
+
+        setSubmitSuccess(true);
+        await setTimeout(() => {
+          setView("foodlist");
+        }, 3000);
       }
     } catch (error) {
+      setSubmitError(true);
       console.error(error);
     }
   };
@@ -44,6 +53,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           ...newRegisterInfo,
           userName: currentElementValue,
         });
+
+ 
+
 
         break;
       case "password":
@@ -62,6 +74,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     }
     console.log(error);
   };
+
   const validateInput = () => {
     if (newRegisterInfo.userName.length < 3) {
       setError((prev) => ({ ...prev, ["userName"]: true }));
@@ -103,7 +116,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         )}
         <label htmlFor="">Password: </label>
         <input
-          type="text"
+
+          type="password"
+
           id="password"
           onChange={(e) => changeHandler(e)}
           placeholder="Password"
@@ -115,7 +130,10 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         )}
         <label htmlFor="">Confirm Password: </label>
         <input
-          type="text"
+          type="password"
+
+     
+
           id="password-confirm"
           onChange={(e) => changeHandler(e)}
           placeholder="Confirm Password"
@@ -125,7 +143,13 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         )}
         <button type="submit">Submit</button>
       </form>
-      <div>{error ? <></> : <div>Registeration Failed!</div>}</div>
+      <div>
+        {submitError && <span className="error-submit">Sign Up Failed</span>}
+        {submitSuccess && (
+          <span className="success-submit">Sign Up Success</span>
+        )}
+      </div>
+
       <h3 className="signup" onClick={() => setView("login")}>
         Have an account? Sign in today!
       </h3>

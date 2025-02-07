@@ -23,9 +23,6 @@ function App() {
     console.log("view changed");
   }, [view]);
 
-  const changeView = (newView: string): void => {
-    setView(newView);
-  };
 
   // return
   return (
