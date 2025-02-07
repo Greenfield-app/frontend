@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import FoodList from "./FoodList.tsx";
+import Home from "./Home.tsx";
+import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import AddNewCard from "./AddNewCard.tsx";
 import { fetchHelper } from "../helper/fetchHelper.ts";
@@ -11,7 +13,7 @@ function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [fetchedResult, setFetchedResult] = useState<null | string>(null);
-  const [view, setView] = useState<string | null>("foodlist");
+  const [view, setView] = useState<string | null>("home"); // possible views: login, createaccount, home, foodlist,
   const [currentUser, setCurrentUser] = useState<string | null>("user1");
 
   // const [text, setText] = useState<null | string>(null);
@@ -32,28 +34,24 @@ function App() {
   // handler functions
   // async function getFood() {}
 
-  const changeView = (newView: string): void => {
-    setView(newView);
-  };
-
   // return
   return (
     <>
       {/* <p>{fetchedResult}</p> */}
 
-      {view === "foodlist" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
-        <FoodList
+      {view === "home" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
+        <Home
           foods={foods}
           setFoods={setFoods}
           currentUser={currentUser}
-          changeView={changeView}
+          setView={setView}
         />
       ) : view === "createaccount" ? (
-        <CreateAccount changeView={changeView} />
+        <CreateAccount setView={setView} />
       ) : view === "addnewcard" ? (
-        <AddNewCard changeView={changeView} />
+        <AddNewCard setView={setView} />
       ) : (
-        <LoginPage setCurrentUser={setCurrentUser} changeView={changeView} /> //by default, see login page
+        <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}
     </>
   );

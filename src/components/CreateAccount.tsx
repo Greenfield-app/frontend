@@ -1,5 +1,5 @@
 type CreateAccountProps = {
-  changeView: Function;
+  setView: Function;
 };
 import "../styles/modules/createaccount.css";
 //  (props) temp removed for build
@@ -19,7 +19,7 @@ const CreateAccount: React.FC<CreateAccountProps> = (props) => {
         <label htmlFor="">Confirm Password: </label>
         <input type="text" />
         <button>Submit</button>
-        <h3 className="signup" onClick={() => props.changeView("login")}>
+        <h3 className="signup" onClick={() => props.setView("login")}>
           Have an account? Sign in today!
         </h3>
       </div>
