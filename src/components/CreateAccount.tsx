@@ -5,12 +5,12 @@ import { sendRegisterInfo } from "../helper/fetchHelper";
 interface CreateAccountProps {
   newRegisterInfo: registerInfo;
   setNewRegisterInfo: (registerInfo: registerInfo) => void;
-  changeView: (view: string) => void;
+  setView: (view: string) => void;
 }
 const CreateAccount: React.FC<CreateAccountProps> = ({
   newRegisterInfo,
   setNewRegisterInfo,
-  changeView,
+  setView,
 }) => {
   useEffect(() => {
     console.log(newRegisterInfo);
@@ -126,6 +126,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         <button type="submit">Submit</button>
       </form>
       <div>{error ? <></> : <div>Registeration Failed!</div>}</div>
+      <h3 className="signup" onClick={() => props.setView("login")}>
+        Have an account? Sign in today!
+      </h3>
     </div>
   );
 };

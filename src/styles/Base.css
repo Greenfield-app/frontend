@@ -54,6 +54,7 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  color: #25d366;
 }
 
 a:hover {
