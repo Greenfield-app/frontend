@@ -8,6 +8,7 @@ interface FoodListProps {
   setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
   foods: FoodInfo[]; // to get current Food list
   currentUser: string;
+  //change to UserInfo obj!!!!!;
   changeView: Function;
 }
 
