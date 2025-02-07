@@ -4,35 +4,28 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import AddNewCard from "./AddNewCard.tsx";
-import { fetchHelper } from "../helper/fetchHelper.ts";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo } from "../vite-env";
+import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
 
-const API_URL = import.meta.env.VITE_API_URL as string;
 function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
-  const [fetchedResult, setFetchedResult] = useState<null | string>(null);
-  const [view, setView] = useState<string | null>("home"); // possible views: login, createaccount, home, foodlist,
-  const [currentUser, setCurrentUser] = useState<string | null>("user1");
-
-  // const [text, setText] = useState<null | string>(null);
-  // useEffect(() => {
-  //   console.log(import.meta.env.VITE_API_URL);
-  //   const initialFetch = async () => {
-  //     const response = await fetchHelper<{ message: string }>(API_URL);
-  //     setFetchedResult(response.message);
-  //   };
-  //   initialFetch();
-  // }, []);
+  const [view, setView] = useState<string | null>("foodlist");
+  const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
+  const [newRegisterInfo, setNewRegisterInfo] = useState<registerInfo>({
+    userName: "default userName",
+    password: "",
+    confirmPassword: "",
+  });
 
   // useEffects
   useEffect(() => {
     console.log("view changed");
   }, [view]);
 
-  // handler functions
-  // async function getFood() {}
+  const changeView = (newView: string): void => {
+    setView(newView);
+  };
 
   // return
   return (
@@ -48,7 +41,11 @@ function App() {
           view={view}
         />
       ) : view === "createaccount" ? (
-        <CreateAccount setView={setView} />
+        <CreateAccount
+          setView={setView}
+          newRegisterInfo={newRegisterInfo}
+          setNewRegisterInfo={setNewRegisterInfo}
+        />
       ) : view === "addnewcard" ? (
         <AddNewCard setView={setView} />
       ) : view === "foodlist" ? (
