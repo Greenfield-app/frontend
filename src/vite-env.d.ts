@@ -10,7 +10,6 @@ export interface UserInfo {
   userId: number;
   email: string;
   userName: string;
-  password: string;
 }
 
 export interface RegisterInfo {

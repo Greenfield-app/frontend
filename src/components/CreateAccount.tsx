@@ -24,8 +24,8 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     password: false,
     confirmPassword: false,
   });
-  const [submitError, setSubmitError] = useState<boolean>(false);
-  //TODO: add property of submiterror, tell user which type of error it is(409--email already exist, 400--DB error, use error.property&&span)
+  const [submitError, setsubmitError] = useState<boolean>(false);
+  //TODO: add property of submitError, tell user which type of error it is(409--email already exist, 400--DB error, use error.property&&span)
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,8 +40,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         }, 3000);
       }
     } catch (error) {
-      setSubmitError(true);
-
+      setsubmitError(true);
       console.error(error);
     }
   };

@@ -1,16 +1,16 @@
 import "../styles/modules/loginpage.css";
 import { UserInfo, LoginError, LoginInfo } from "../vite-env";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useReducer } from "react";
 import { vertifyLogin } from "../helper/fetchHelper";
 interface LoginPageProps {
   setCurrentUser: (UserInfo: UserInfo) => void;
   setView: (view: string) => void;
 }
 
-const LoginPage: React.FC<LoginPageProps> = (props) => {
-  const [submitError, setSubmitError] = useState<LoginError>({
-    email: false,
-    password: false,
+const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
+  const [submitState, setSubmitState] = useState<LoginError>({
+    submitted: false,
+    loginSuccessful: false,
   });
 
   const vertifyHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -20,9 +20,18 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
       password: e.currentTarget.password.value,
     };
     try {
-      const result = await vertifyLogin(currentLoginInfo);
+      const result: UserInfo = await vertifyLogin(currentLoginInfo);
       console.log(result);
+      setCurrentUser(result);
+      setSubmitState({
+        submitted: true,
+        loginSuccessful: true,
+      });
+      await setTimeout(() => {
+        setView("foodlist");
+      }, 3000);
     } catch (error) {
+      setSubmitState({ submitted: true, loginSuccessful: false });
       console.error(error);
     }
   };
@@ -44,7 +53,17 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
         <input type="password" id="password" placeholder="Password" />
         <button type="submit">Submit</button>
       </form>
-      <h3 className="signup" onClick={() => props.setView("createaccount")}>
+      <div>
+        {submitState.submitted === true &&
+          submitState.loginSuccessful === false && (
+            <span className="error-submit">Log In Failed</span>
+          )}
+        {submitState.submitted === true &&
+          submitState.loginSuccessful === true && (
+            <span className="success-submit">Log In Success</span>
+          )}
+      </div>
+      <h3 className="signup" onClick={() => setView("createaccount")}>
         No Account? Sign up today!
       </h3>
     </div>
