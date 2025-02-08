@@ -25,6 +25,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     confirmPassword: false,
   });
   const [submitError, setSubmitError] = useState<boolean>(false);
+  //TODO: add property of submiterror, tell user which type of error it is(409--email already exist, 400--DB error, use error.property&&span)
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,6 +41,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
       }
     } catch (error) {
       setSubmitError(true);
+
       console.error(error);
     }
   };
@@ -118,7 +120,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="UserName"
         />
         {error.userName && (
-          <span className="error-signin">
+          <span className="error-register">
             Username must be at least 3 characters
           </span>
         )}
@@ -131,7 +133,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Email"
         />
         {error.email && (
-          <span className="error-signin">Not valid email address</span>
+          <span className="error-register">Not valid email address</span>
         )}
 
         <label htmlFor="">Password: </label>
@@ -142,7 +144,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Password"
         />
         {error.password && (
-          <span className="error-signin">
+          <span className="error-register">
             Password must be at least 6 characters
           </span>
         )}
@@ -154,7 +156,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Confirm Password"
         />
         {error.confirmPassword && (
-          <span className="error-signin">Passwords do not match</span>
+          <span className="error-register">Passwords do not match</span>
         )}
         <button type="submit">Submit</button>
       </form>

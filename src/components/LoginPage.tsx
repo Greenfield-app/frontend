@@ -12,13 +12,19 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
     email: false,
     password: false,
   });
-  const [loginUser, setLoginUser] = useState<LoginInfo>({
-    email: "",
-    password: "",
-  });
 
   const vertifyHandler = async (e: FormEvent<HTMLFormElement>) => {
-    // const result = vertifyLogin({userId:3,password:""});
+    e.preventDefault();
+    const currentLoginInfo: LoginInfo = {
+      email: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
+    };
+    try {
+      const result = await vertifyLogin(currentLoginInfo);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className="loginpage">
@@ -27,24 +33,20 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
       </nav>
       <form
         onSubmit={(e) => {
-          console.log(e);
+          vertifyHandler(e);
         }}
       >
         <h1>Login</h1>
-
-        <label htmlFor="">Username: </label>
-        <input type="text" id="username" placeholder="UserName" />
-
         <label htmlFor="">Emial: </label>
         <input type="email" id="email" placeholder="Email" />
 
         <label htmlFor="">Password: </label>
         <input type="password" id="password" placeholder="Password" />
+        <button type="submit">Submit</button>
       </form>
       <h3 className="signup" onClick={() => props.setView("createaccount")}>
         No Account? Sign up today!
       </h3>
-      <button>Submit</button>
     </div>
   );
 };
