@@ -1,4 +1,4 @@
-import { FoodInfo, registerInfo, userInfo } from "../vite-env";
+import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 async function fetchHelper<T>(): Promise<T> {

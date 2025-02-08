@@ -1,7 +1,6 @@
 import { FoodInfo } from "../vite-env";
-import trashIcon from "../assets/icons/icon-monster-trash.svg";
-import eatIcon from "../assets/icons/eat.svg";
 import { useEffect } from "react";
+import FoodCard from "./FoodCard.tsx";
 
 // types from App.tsx
 interface FoodListProps {
@@ -30,22 +29,12 @@ const FoodList: React.FC<FoodListProps> = (props) => {
     // props.setAvailableFoods(sampleFoods);
   }, []);
 
-  const handleDeleteFood = (foodCard: FoodInfo) => {
-    console.log(foodCard, " was deleted!");
-    // delete in database
-  };
-
-  const handleEatFood = (foodCard: FoodInfo) => {
-    console.log(foodCard, " was eaten!");
-    // send to database Records of when eaten
-  };
-
   return (
     <>
-      <nav className="l-header header">
+      <nav className='l-header header'>
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
         <button
-          className="btn-addfoodcard"
+          className='btn-addfoodcard'
           onClick={() => props.setView("addnewcard")}
         >
           +
@@ -55,22 +44,10 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         </h1> */}
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
-      <ul className="food-list l-food-list">
+      <ul className='food-list l-food-list'>
         {props.availableFoods.map((food) => (
-          <li key={food.foodName} className="food">
-            <img
-              className="food-eat-icon"
-              src={eatIcon}
-              alt="eat icon"
-              onClick={() => handleEatFood(food)}
-            />
-            <h3 className="food-title">{food.foodName}</h3>
-            <img
-              className="food-delete-icon"
-              src={trashIcon}
-              alt="red trash icon"
-              onClick={() => handleDeleteFood(food)}
-            />
+          <li key={food.foodName} className='food'>
+            <FoodCard food={food} />
           </li>
         ))}
       </ul>
