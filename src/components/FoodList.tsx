@@ -9,6 +9,7 @@ interface FoodListProps {
   availableFoods: FoodInfo[]; // to get current Food list
   currentUser: string;
   setView: Function;
+  singleUsersFoods: FoodInfo[];
 }
 
 //  (props) temp removed for build
@@ -56,7 +57,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
       <ul className="food-list l-food-list">
-        {props.availableFoods.map((food) => (
+        {props.singleUsersFoods.map((food) => (
           <li key={food.foodName} className="food">
             <img
               className="food-eat-icon"

@@ -27,3 +27,10 @@ export interface signinError {
   userName: boolean;
   password: boolean;
 }
+
+export interface Record {
+  id: number;
+  user_id: number;
+  food_id: number;
+  record_at: string;
+}
