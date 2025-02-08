@@ -1,5 +1,5 @@
 import "../styles/modules/createaccount.css";
-import { RegisterInfo, SignupError } from "../vite-env";
+import { RegisterInfo, RegisterError } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
 import { validateEmail } from "../helper/validateEmali";
@@ -18,7 +18,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     console.log(newRegisterInfo);
   }, [newRegisterInfo]);
 
-  const [error, setError] = useState<SignupError>({
+  const [error, setError] = useState<RegisterError>({
     userName: false,
     email: false,
     password: false,

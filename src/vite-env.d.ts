@@ -20,14 +20,19 @@ export interface RegisterInfo {
   confirmPassword: string;
 }
 
-export interface SignupError {
+export interface RegisterError {
   userName: boolean;
   email: boolean;
   password: boolean;
   confirmPassword: boolean;
 }
-export interface SigninError {
-  userName: boolean;
+
+export interface LoginInfo {
+  email: string;
+  password: string;
+}
+
+export interface LoginError {
   email: boolean;
   password: boolean;
 }

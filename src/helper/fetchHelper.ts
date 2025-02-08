@@ -12,6 +12,7 @@ async function fetchHelper<T>(): Promise<T> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+
 async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
   if (RegisterInfo !== null) {
   }
@@ -33,17 +34,26 @@ async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function vertifySignin<T>(signinInfo: UserInfo): Promise<T> {
+async function vertifyLogin<T>(loginInfo: UserInfo): Promise<T> {
   const response = await fetch(`${API_URL}/api/signin`, {
     method: "PATCH",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      userId: loginInfo.userId,
+      email: loginInfo.email,
+      password: loginInfo.password,
+    }),
   });
   try {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
     return (await response.json()) as T;
   } catch (error) {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-export { fetchHelper, sendRegisterInfo };
+export { fetchHelper, sendRegisterInfo, vertifyLogin };
 //example:
 // const [text, setText] = useState<null | string>(null);
 // useEffect(() => {
