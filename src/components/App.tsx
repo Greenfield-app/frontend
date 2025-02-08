@@ -6,7 +6,11 @@ import LoginPage from "./LoginPage.tsx";
 import AddNewCard from "./AddNewCard.tsx";
 import CreateAccount from "./CreateAccount.tsx";
 import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
-import { getAllAvailableFoods } from "../helper/fetchHelper";
+import {
+  fetchAllRecordsOfSingleUser,
+  fetchSingleFoodById,
+  getAllAvailableFoods,
+} from "../helper/fetchHelper";
 
 function App() {
   // useStates and variables
@@ -29,10 +33,29 @@ function App() {
   // pulls available foods from database (if database not set up locally, can change back to sample data in food list)
   useEffect(() => {
     async function resolveAvailableFoodsPromise() {
-      let foodData = await getAllAvailableFoods();
+      const foodData = await getAllAvailableFoods();
       setAvailableFoods(foodData);
     }
     resolveAvailableFoodsPromise();
+  }, []);
+
+  useEffect(() => {
+    fetchAllRecordsOfSingleUser(7);
+  });
+
+  // gets all of the foods of a logged in user
+  useEffect(() => {
+    async function resolveRecordArrayPromise() {
+      const recordData = await fetchAllRecordsOfSingleUser(7); // update the user number based on database or logged in user
+      const foodIdArr = recordData.map((record) => record.food_id);
+      const foodPromisesArr = foodIdArr.map(
+        async (foodId) => await fetchSingleFoodById(foodId)
+      );
+      Promise.all(foodPromisesArr).then((foodArr) => {
+        setSingleUsersFoods(foodArr);
+      });
+    }
+    resolveRecordArrayPromise();
   }, []);
 
   // return
@@ -62,6 +85,7 @@ function App() {
         <FoodList
           setAvailableFoods={setAvailableFoods}
           availableFoods={availableFoods}
+          singleUsersFoods={singleUsersFoods}
           currentUser={currentUser}
           setView={setView}
         />
