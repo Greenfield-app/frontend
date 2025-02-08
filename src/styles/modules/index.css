@@ -1,5 +1,6 @@
 @import "foodlist.css";
 @import "header.css";
-@import "createaccount.css";
 @import "addnewcard.css";
-@import "loginpage.css";
+@import "login&signup-page.css";
+@import "eatitorleaveit.css";
+@import "home.css";
