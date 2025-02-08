@@ -20,6 +20,7 @@ async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       userName: RegisterInfo.userName,
+      email: RegisterInfo.email,
       password: RegisterInfo.password,
     }),
   });
@@ -32,13 +33,15 @@ async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function vertifySignin<T>(signinInfo: userInfo): Promise<T> {
+async function vertifySignin<T>(signinInfo: UserInfo): Promise<T> {
   const response = await fetch(`${API_URL}/api/signin`, {
     method: "PATCH",
   });
   try {
     return (await response.json()) as T;
-  } catch (error) {}
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
 }
 export { fetchHelper, sendRegisterInfo };
 //example:

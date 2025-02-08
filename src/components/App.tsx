@@ -13,7 +13,7 @@ function App() {
   const [view, setView] = useState<string | null>("foodlist");
   const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
-    userName: "default userName",
+    userName: "",
     email: "",
     password: "",
     confirmPassword: "",

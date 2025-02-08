@@ -2,6 +2,7 @@ import "../styles/modules/createaccount.css";
 import { RegisterInfo, SignupError } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
+import { validateEmail } from "../helper/validateEmali";
 interface CreateAccountProps {
   newRegisterInfo: RegisterInfo;
   setNewRegisterInfo: (RegisterInfo: RegisterInfo) => void;
@@ -53,6 +54,12 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           userName: currentElementValue,
         });
         break;
+      case "email":
+        await setNewRegisterInfo({
+          ...newRegisterInfo,
+          email: currentElementValue,
+        });
+        break;
       case "password":
         console.log(e.currentTarget);
         await setNewRegisterInfo({
@@ -76,6 +83,13 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     } else {
       setError((prev) => ({ ...prev, ["userName"]: false }));
     }
+    //How to detect it's format of email?
+    if (!validateEmail(newRegisterInfo.email)) {
+      setError((prev) => ({ ...prev, ["email"]: true }));
+    } else {
+      setError((prev) => ({ ...prev, ["email"]: false }));
+    }
+
     if (newRegisterInfo.password.length < 6) {
       setError((prev) => ({ ...prev, ["password"]: true }));
     } else {
@@ -103,12 +117,23 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           onChange={(e) => changeHandler(e)}
           placeholder="UserName"
         />
-
         {error.userName && (
           <span className="error-signin">
             Username must be at least 3 characters
           </span>
         )}
+
+        <label htmlFor="">Emial: </label>
+        <input
+          type="email"
+          id="email"
+          onChange={(e) => changeHandler(e)}
+          placeholder="Email"
+        />
+        {error.email && (
+          <span className="error-signin">Not valid email address</span>
+        )}
+
         <label htmlFor="">Password: </label>
         <input
           type="password"
