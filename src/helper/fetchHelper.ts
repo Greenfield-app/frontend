@@ -32,6 +32,14 @@ async function sendRegisterInfo<T>(registerInfo: registerInfo): Promise<T> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+async function vertifySignin<T>(signinInfo: userInfo): Promise<T> {
+  const response = await fetch(`${API_URL}/api/signin`, {
+    method: "PATCH",
+  });
+  try {
+    return (await response.json()) as T;
+  } catch (error) {}
+}
 export { fetchHelper, sendRegisterInfo };
 //example:
 // const [text, setText] = useState<null | string>(null);
