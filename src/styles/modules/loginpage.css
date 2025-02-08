@@ -1,15 +1,76 @@
-.loginpage {
-  color: #25d366;
+/* 
+==============================
+left side of login box, unless in mobile(top portion of box)
+==============================
+*/
+
+.login-title {
+  width: 40%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: #ece5dd;
+}
+
+.login-title h1 {
+  color: #25d366;
+}
+
+.login-title p {
+  color: rgb(65, 65, 65);
+}
+
+/*
+==============================
+ Right side of login box, unless in mobile(bottom)
+==============================
+ */
+
+.login-form {
+  width: 60%;
+  background: rgba(0, 0, 0, 0.8); /*make right side dark transparent*/
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.loginpage > * {
-  margin: 1%;
+.login-form h1 {
+  color: #25d366;
 }
 
-.signup {
+.signup-link {
   cursor: pointer;
+}
+
+/* 
+=========================
+@Media: When under 680pm width (mobile) and under 1024px (tablets)
+=========================
+ */
+@media (max-width: 680px) {
+  .login-title {
+    width: 100%;
+    height: 45%;
+  }
+
+  .login-form {
+    width: 100%;
+    height: 55%;
+  }
+}
+
+@media (min-width: 680px) and (max-width: 1024px) {
+  .login-title {
+    width: 100%;
+    height: 45%;
+  }
+
+  .login-form {
+    width: 100%;
+    height: 55%;
+  }
 }

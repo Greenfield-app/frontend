@@ -2,7 +2,7 @@
 
 @import "./Base.css";
 @import "./Layout.css";
-@import "./modules/";
+@import "./modules/index.css";
 @import "./State.css";
 
 * {

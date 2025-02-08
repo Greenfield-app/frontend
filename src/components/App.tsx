@@ -26,6 +26,8 @@ function App() {
   // return
   return (
     <>
+      {/* background image whole screen */}
+      <div className='bg-image is-unfocused' />
       {/* <p>{fetchedResult}</p> */}
 
       {view === "home" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
