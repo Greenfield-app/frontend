@@ -14,20 +14,20 @@ interface FoodListProps {
 //  (props) temp removed for build
 const FoodList: React.FC<FoodListProps> = (props) => {
   // temporary food list until database/ apis done
-  const sampleFoods: FoodInfo[] = [
-    { id: 1, name: "ramen", description: null },
-    { id: 2, name: "yakiniku", description: null },
-    { id: 3, name: "mexican", description: null },
-    { id: 4, name: "italian", description: null },
-    { id: 5, name: "pizza", description: null },
-    { id: 6, name: "sushi", description: null },
-    { id: 7, name: "oden", description: null },
-  ];
+  // const sampleFoods: FoodInfo[] = [
+  //   { id: 1, name: "ramen", description: null },
+  //   { id: 2, name: "yakiniku", description: null },
+  //   { id: 3, name: "mexican", description: null },
+  //   { id: 4, name: "italian", description: null },
+  //   { id: 5, name: "pizza", description: null },
+  //   { id: 6, name: "sushi", description: null },
+  //   { id: 7, name: "oden", description: null },
+  // ];
 
   // set foods state to the samples
 
   useEffect(() => {
-    props.setAvailableFoods(sampleFoods);
+    // props.setAvailableFoods(sampleFoods);
   }, []);
 
   const handleDeleteFood = (foodCard: FoodInfo) => {
@@ -57,14 +57,14 @@ const FoodList: React.FC<FoodListProps> = (props) => {
       </nav>
       <ul className="food-list l-food-list">
         {props.availableFoods.map((food) => (
-          <li key={food.id} className="food">
+          <li key={food.foodName} className="food">
             <img
               className="food-eat-icon"
               src={eatIcon}
               alt="eat icon"
               onClick={() => handleEatFood(food)}
             />
-            <h3 className="food-title">{food.name}</h3>
+            <h3 className="food-title">{food.foodName}</h3>
             <img
               className="food-delete-icon"
               src={trashIcon}

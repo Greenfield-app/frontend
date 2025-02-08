@@ -2,7 +2,7 @@
 
 export interface FoodInfo {
   id: number;
-  name: string;
+  foodName: string;
   description: string | null; // nullable
   // feat top places near me: string[] ?
 }
