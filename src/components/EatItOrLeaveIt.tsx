@@ -17,17 +17,17 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = (props) => {
 
   // temporary food list until database/ apis done
   const sampleFoods: FoodInfo[] = [
-    { id: 1, name: "ramen", description: null },
-    { id: 2, name: "yakiniku", description: null },
-    { id: 3, name: "mexican", description: null },
-    { id: 4, name: "italian", description: null },
-    { id: 5, name: "pizza", description: null },
-    { id: 6, name: "sushi", description: null },
-    { id: 7, name: "oden", description: null },
+    { id: 1, foodName: "ramen", description: null },
+    { id: 2, foodName: "yakiniku", description: null },
+    { id: 3, foodName: "mexican", description: null },
+    { id: 4, foodName: "italian", description: null },
+    { id: 5, foodName: "pizza", description: null },
+    { id: 6, foodName: "sushi", description: null },
+    { id: 7, foodName: "oden", description: null },
   ];
 
   // eventually want to use this to make random food suggestion
-  const getRandomFoodIndex = (arrLength) => {
+  const getRandomFoodIndex = (arrLength: number) => {
     return Math.floor(Math.random() * arrLength);
   };
 
