@@ -31,7 +31,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
           {/* greyed out link to sign-up page */}
           <small
             className='signup-link'
-            onClick={() => props.changeView("createaccount")}
+            onClick={() => props.setView("createaccount")}
           >
             No Account? Sign up today!
           </small>
