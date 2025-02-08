@@ -5,8 +5,8 @@ import { useEffect } from "react";
 
 // types from App.tsx
 interface FoodListProps {
-  setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
-  foods: FoodInfo[]; // to get current Food list
+  setAvailableFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
+  availableFoods: FoodInfo[]; // to get current Food list
   currentUser: string;
   setView: Function;
 }
@@ -27,7 +27,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
   // set foods state to the samples
 
   useEffect(() => {
-    props.setFoods(sampleFoods);
+    props.setAvailableFoods(sampleFoods);
   }, []);
 
   const handleDeleteFood = (foodCard: FoodInfo) => {
@@ -56,7 +56,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
       <ul className="food-list l-food-list">
-        {props.foods.map((food) => (
+        {props.availableFoods.map((food) => (
           <li key={food.id} className="food">
             <img
               className="food-eat-icon"
