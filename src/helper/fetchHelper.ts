@@ -32,7 +32,20 @@ async function sendRegisterInfo<T>(registerInfo: registerInfo): Promise<T> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-export { fetchHelper, sendRegisterInfo };
+
+async function getAllAvailableFoods<T>(): Promise<FoodInfo[]> {
+  const response = await fetch(`${API_URL}/api/foods`, { method: "GET" });
+  try {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return (await response.json()) as FoodInfo[];
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
+}
+
+export { fetchHelper, sendRegisterInfo, getAllAvailableFoods };
 //example:
 // const [text, setText] = useState<null | string>(null);
 // useEffect(() => {
