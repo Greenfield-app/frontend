@@ -26,15 +26,14 @@ function App() {
     console.log("view changed");
   }, [view]);
 
-  // pulls available foods from database
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     let foodData = await getAllAvailableFoods();
-  //     setAvailableFoods(foodData);
-  //   }
-  //   fetchData();
-  //   console.log(availableFoods);
-  // }, []);
+  // pulls available foods from database (if database not set up locally, can change back to sample data in food list)
+  useEffect(() => {
+    async function resolveAvailableFoodsPromise() {
+      let foodData = await getAllAvailableFoods();
+      setAvailableFoods(foodData);
+    }
+    resolveAvailableFoodsPromise();
+  }, []);
 
   // return
   return (
