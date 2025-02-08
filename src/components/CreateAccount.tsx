@@ -1,10 +1,10 @@
-import { registerInfo, signupError } from "../vite-env";
+import { RegisterInfo, RegisterError } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
 
 interface CreateAccountProps {
-  newRegisterInfo: registerInfo;
-  setNewRegisterInfo: (registerInfo: registerInfo) => void;
+  newRegisterInfo: RegisterInfo;
+  setNewRegisterInfo: (registerInfo: RegisterInfo) => void;
   setView: (view: string) => void;
 }
 
@@ -18,8 +18,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     console.log(newRegisterInfo);
   }, [newRegisterInfo]);
 
-  const [error, setError] = useState<signupError>({
+  const [error, setError] = useState<RegisterError>({
     userName: false,
+    email: false,
     password: false,
     confirmPassword: false,
   });
@@ -115,12 +116,23 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           onChange={(e) => changeHandler(e)}
           placeholder="UserName"
         />
-
         {error.userName && (
-          <span className="error-signin">
+          <span className="error-register">
             Username must be at least 3 characters
           </span>
         )}
+
+        <label htmlFor="">Emial: </label>
+        <input
+          type="email"
+          id="email"
+          onChange={(e) => changeHandler(e)}
+          placeholder="Email"
+        />
+        {error.email && (
+          <span className="error-register">Not valid email address</span>
+        )}
+
         <label htmlFor="">Password: </label>
         <input
           type="password"
@@ -129,7 +141,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Password"
         />
         {error.password && (
-          <span className="error-signin">
+          <span className="error-register">
             Password must be at least 6 characters
           </span>
         )}
@@ -141,26 +153,19 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Confirm Password"
         />
         {error.confirmPassword && (
-          <span className="error-signin">Passwords do not match</span>
+          <span className="error-register">Passwords do not match</span>
         )}
         <button type="submit">Submit</button>
-
-        {/* link back to login page */}
-        <small
-          className="cursor-pointer login-signup-link"
-          onClick={() => setView("login")}
-        >
-          Have an account? Sign in today!
-        </small>
-
-        {/* Error messages */}
-        <div>
-          {submitError && <span className="error-submit">Sign Up Failed</span>}
-          {submitSuccess && (
-            <span className="success-submit">Sign Up Success</span>
-          )}
-        </div>
       </form>
+      <div>
+        {submitError && <span className="error-submit">Sign Up Failed</span>}
+        {submitSuccess && (
+          <span className="success-submit">Sign Up Success</span>
+        )}
+      </div>
+      <h3 className="signup" onClick={() => setView("login")}>
+        Have an account? Sign in today!
+      </h3>
     </div>
   );
 };

@@ -24,6 +24,9 @@ function App() {
     console.log("view changed");
   }, [view]);
 
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
   // return
   return (
     <>
