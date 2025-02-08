@@ -5,15 +5,16 @@ import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import AddNewCard from "./AddNewCard.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
 
 function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("foodlist");
   const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
-  const [newRegisterInfo, setNewRegisterInfo] = useState<registerInfo>({
+  const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "default userName",
+    email: "",
     password: "",
     confirmPassword: "",
   });

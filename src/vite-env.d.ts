@@ -8,22 +8,26 @@ export interface FoodInfo {
 }
 export interface UserInfo {
   userId: number;
+  email: string;
   userName: string;
   password: string;
 }
 
-export interface registerInfo {
+export interface RegisterInfo {
   userName: string;
+  email: string;
   password: string;
   confirmPassword: string;
 }
 
-export interface signupError {
+export interface SignupError {
   userName: boolean;
+  email: boolean;
   password: boolean;
   confirmPassword: boolean;
 }
-export interface signinError {
+export interface SigninError {
   userName: boolean;
+  email: boolean;
   password: boolean;
 }

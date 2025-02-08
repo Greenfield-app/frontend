@@ -1,4 +1,4 @@
-import { FoodInfo, registerInfo, userInfo } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 async function fetchHelper<T>(): Promise<T> {
@@ -12,15 +12,15 @@ async function fetchHelper<T>(): Promise<T> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function sendRegisterInfo<T>(registerInfo: registerInfo): Promise<T> {
-  if (registerInfo !== null) {
+async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
+  if (RegisterInfo !== null) {
   }
   const response = await fetch(`${API_URL}/api/signup`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
-      userName: registerInfo.userName,
-      password: registerInfo.password,
+      userName: RegisterInfo.userName,
+      password: RegisterInfo.password,
     }),
   });
   try {
