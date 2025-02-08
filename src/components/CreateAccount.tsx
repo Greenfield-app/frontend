@@ -1,12 +1,13 @@
-import "../styles/modules/createaccount.css";
 import { registerInfo, signupError } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
+
 interface CreateAccountProps {
   newRegisterInfo: registerInfo;
   setNewRegisterInfo: (registerInfo: registerInfo) => void;
   setView: (view: string) => void;
 }
+
 const CreateAccount: React.FC<CreateAccountProps> = ({
   newRegisterInfo,
   setNewRegisterInfo,
@@ -89,8 +90,19 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <div className='creataccount'>
+    <div className='l-login-signup-container'>
+      {/* title side */}
+      <header className='login-signup-title'>
+        <h1>WhatsEat</h1>
+        <p>
+          Hungry but can't decide? <br />
+          We've got you!
+        </p>
+      </header>
+
+      {/* signup side */}
       <form
+        className='login-signup-form'
         onSubmit={(e) => {
           submitHandler(e);
         }}
@@ -132,17 +144,23 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           <span className='error-signin'>Passwords do not match</span>
         )}
         <button type='submit'>Submit</button>
-      </form>
-      <div>
-        {submitError && <span className='error-submit'>Sign Up Failed</span>}
-        {submitSuccess && (
-          <span className='success-submit'>Sign Up Success</span>
-        )}
-      </div>
 
-      <h3 className='signup' onClick={() => setView("login")}>
-        Have an account? Sign in today!
-      </h3>
+        {/* link back to login page */}
+        <small
+          className='cursor-pointer login-signup-link'
+          onClick={() => setView("login")}
+        >
+          Have an account? Sign in today!
+        </small>
+
+        {/* Error messages */}
+        <div>
+          {submitError && <span className='error-submit'>Sign Up Failed</span>}
+          {submitSuccess && (
+            <span className='success-submit'>Sign Up Success</span>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

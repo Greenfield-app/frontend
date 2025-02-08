@@ -18,11 +18,12 @@
   justify-items: center;
 }
 
-.l-login-container {
+.l-login-signup-container {
   display: flex;
   flex-direction: row;
   top: 50%;
   left: 50%;
+  width: 60vw;
   height: 75vh;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -32,24 +33,16 @@
 }
 
 @media (max-width: 680px) {
-  .l-login-container {
-    width: 75vw;
-    min-height: 70vh;
-    flex-direction: column;
-  }
-}
-
-@media (min-width: 680px) and (max-width: 1024px) {
-  .l-login-container {
-    flex-direction: column;
+  .l-login-signup-container {
     width: 65vw;
-    min-height: 70vh;
+    height: 60vh;
+    flex-direction: column;
   }
 }
 
-@media (min-width: 1024px) {
-  .l-login-container {
-    width: 55vw;
+@media (min-width: 680px) and (max-width: 800px) {
+  .l-login-signup-container {
+    width: 75vw;
     min-height: 70vh;
   }
 }
