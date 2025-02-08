@@ -18,6 +18,38 @@
   justify-items: center;
 }
 
-.btn-addfoodcard {
-  width: 50px;
+.l-login-container {
+  display: flex;
+  flex-direction: row;
+  top: 50%;
+  left: 50%;
+  height: 75vh;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+  overflow: hidden;
+}
+
+@media (max-width: 680px) {
+  .l-login-container {
+    width: 75vw;
+    min-height: 70vh;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 680px) and (max-width: 1024px) {
+  .l-login-container {
+    flex-direction: column;
+    width: 65vw;
+    min-height: 70vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .l-login-container {
+    width: 55vw;
+    min-height: 70vh;
+  }
 }

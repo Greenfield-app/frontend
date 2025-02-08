@@ -12,7 +12,6 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: #e1e1e1;
   font-family: Helvetica Neue, Helvetica Neue, Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
@@ -67,4 +66,16 @@ button {
 
 #root {
   isolation: isolate;
+  height: 100vh;
+}
+
+/* default background is food image */
+.bg-image {
+  position: fixed;
+  background-image: url("../assets/icons/revised_bg_food.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
 }

@@ -1,3 +1,9 @@
 .div {
   border: 0cap;
 }
+
+/* if need to be darkened */
+.is-unfocused {
+  /* opacity: 0.5; */
+  filter: brightness(48%);
+}

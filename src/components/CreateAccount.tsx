@@ -13,11 +13,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   setView,
 }) => {
   useEffect(() => {
-
     validateInput();
     console.log(newRegisterInfo);
   }, [newRegisterInfo]);
-
 
   const [error, setError] = useState<signupError>({
     userName: false,
@@ -33,7 +31,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
       const result = await sendRegisterInfo(newRegisterInfo);
       console.log(result);
       if (result) {
-
         setSubmitSuccess(true);
         await setTimeout(() => {
           setView("foodlist");
@@ -92,60 +89,58 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <div className="creataccount">
+    <div className='creataccount'>
       <form
         onSubmit={(e) => {
           submitHandler(e);
         }}
       >
         <h1>Create Account</h1>
-        <label htmlFor="">Username: </label>
+        <label htmlFor=''>Username: </label>
         <input
-          type="text"
-          id="username"
+          type='text'
+          id='username'
           onChange={(e) => changeHandler(e)}
-          placeholder="UserName"
+          placeholder='UserName'
         />
 
         {error.userName && (
-          <span className="error-signin">
+          <span className='error-signin'>
             Username must be at least 3 characters
           </span>
         )}
-        <label htmlFor="">Password: </label>
+        <label htmlFor=''>Password: </label>
         <input
-          type="password"
-
-          id="password"
+          type='password'
+          id='password'
           onChange={(e) => changeHandler(e)}
-          placeholder="Password"
+          placeholder='Password'
         />
         {error.password && (
-          <span className="error-signin">
+          <span className='error-signin'>
             Password must be at least 6 characters
           </span>
         )}
-        <label htmlFor="">Confirm Password: </label>
+        <label htmlFor=''>Confirm Password: </label>
         <input
-          type="password"
-
-          id="password-confirm"
+          type='password'
+          id='password-confirm'
           onChange={(e) => changeHandler(e)}
-          placeholder="Confirm Password"
+          placeholder='Confirm Password'
         />
         {error.confirmPassword && (
-          <span className="error-signin">Passwords do not match</span>
+          <span className='error-signin'>Passwords do not match</span>
         )}
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
       </form>
       <div>
-        {submitError && <span className="error-submit">Sign Up Failed</span>}
+        {submitError && <span className='error-submit'>Sign Up Failed</span>}
         {submitSuccess && (
-          <span className="success-submit">Sign Up Success</span>
+          <span className='success-submit'>Sign Up Success</span>
         )}
       </div>
 
-      <h3 className="signup" onClick={() => setView("login")}>
+      <h3 className='signup' onClick={() => setView("login")}>
         Have an account? Sign in today!
       </h3>
     </div>
