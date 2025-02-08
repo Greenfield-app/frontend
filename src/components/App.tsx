@@ -10,7 +10,7 @@ import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
 function App() {
   // useStates and variables
   const [foods, setFoods] = useState<FoodInfo[]>([]);
-  const [view, setView] = useState<string | null>("foodlist");
+  const [view, setView] = useState<string | null>("eatitorleaveit");
   const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
   const [newRegisterInfo, setNewRegisterInfo] = useState<registerInfo>({
     userName: "default userName",
@@ -52,7 +52,7 @@ function App() {
           setView={setView}
         />
       ) : view === "eatitorleaveit" ? (
-        <EatItOrLeaveIt setView={setView} />
+        <EatItOrLeaveIt setView={setView} foods={foods} setFoods={setFoods} />
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}
