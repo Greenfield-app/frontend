@@ -14,22 +14,21 @@ const FoodCard: React.FC<{ food: FoodInfo }> = ({ food }) => {
   return (
     <>
       {/* Food Card  w/trashIcon*/}
-      <h3 className='food-title'>{food.foodName}</h3>
-      <img
-        className='food-delete-icon'
-        src={trashIcon}
-        alt='red trash icon'
-        onClick={() => setDeleteModal(true)}
-      />
+      <div className='food-card'>
+        <h3 className='food-title'>{food.foodName}</h3>
+        <img
+          className='food-delete-icon'
+          src={trashIcon}
+          alt='red trash icon'
+          onClick={() => setDeleteModal(true)}
+        />
+      </div>
       {/* Delete Modal */}
       {deleteModal && (
         // Everything in the screen if clicked will setDeleteModal = false
-        <div
-          className='del-modal-outofbox'
-          onClick={() => setDeleteModal(false)}
-        >
+        <div className='modal-outofbox' onClick={() => setDeleteModal(false)}>
           {/* prevents the above function to effect the modal itself => stopPropagation */}
-          <div className='del-modal-box' onClick={(e) => e.stopPropagation()}>
+          <div className='modal-box' onClick={(e) => e.stopPropagation()}>
             <h3>Are you sure you want to delete?</h3>
 
             {/* modal btns Cancel & Delete */}

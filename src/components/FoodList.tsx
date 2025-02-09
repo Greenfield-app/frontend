@@ -46,7 +46,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
       </nav>
       <ul className='food-list l-food-list'>
         {props.availableFoods.map((food) => (
-          <li key={food.foodName} className='food'>
+          <li key={food.foodName}>
             <FoodCard food={food} />
           </li>
         ))}
