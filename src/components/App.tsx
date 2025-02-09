@@ -16,8 +16,12 @@ function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [view, setView] = useState<string | null>("foodlist");
-  const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
+  const [view, setView] = useState<string | null>("login");
+  const [currentUser, setCurrentUser] = useState<UserInfo>({
+    userId: 0,
+    email: "",
+    userName: "guest",
+  });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
     email: "",
@@ -39,14 +43,14 @@ function App() {
     resolveAvailableFoodsPromise();
   }, []);
 
-  useEffect(() => {
-    fetchAllRecordsOfSingleUser(7);
-  });
+  // useEffect(() => {
+  //   fetchAllRecordsOfSingleUser(currentUser);
+  // });
 
-  // gets all of the foods of a logged in user
+  // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
     async function resolveRecordArrayPromise() {
-      const recordData = await fetchAllRecordsOfSingleUser(7); // update the user number based on database or logged in user
+      const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
       const foodIdArr = recordData.map((record) => record.food_id);
       const foodPromisesArr = foodIdArr.map(
         async (foodId) => await fetchSingleFoodById(foodId)
@@ -56,7 +60,7 @@ function App() {
       });
     }
     resolveRecordArrayPromise();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     console.log(currentUser);
@@ -68,7 +72,7 @@ function App() {
       <div className="bg-image is-unfocused" />
       {/* <p>{fetchedResult}</p> */}
 
-      {view === "home" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
+      {view === "home" && currentUser.userName !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <Home
           availableFoods={availableFoods}
           setAvailableFoods={setAvailableFoods}
