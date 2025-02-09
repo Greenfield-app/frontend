@@ -3,19 +3,19 @@ import FoodList from "./FoodList";
 import EatItOrLeaveIt from "./EatItOrLeaveIt";
 import { FoodInfo, UserInfo } from "../vite-env";
 interface HomeProps {
-  foods: FoodInfo[];
-  setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>;
+  availableFoods: FoodInfo[];
+  setAvailableFoods: Function;
   setView: Function;
   currentUser: UserInfo;
   view: string;
 }
-//  (props) temp removed for build
 
 const Home: React.FC<HomeProps> = (props) => {
   return (
     <>
       <nav className="l-header header">
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
+        <h1>{props.currentUser.userName}</h1>
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
 

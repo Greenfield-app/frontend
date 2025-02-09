@@ -18,9 +18,9 @@ function App() {
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("home");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 0,
-    email: "",
-    userName: "",
+    userId: 38,
+    email: "a@a.a",
+    userName: "aaa",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
@@ -41,17 +41,15 @@ function App() {
       setAvailableFoods(foodData);
     }
     resolveAvailableFoodsPromise();
+    console.log(availableFoods);
   }, []);
-
-  // useEffect(() => {
-  //   fetchAllRecordsOfSingleUser(currentUser);
-  // });
 
   // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      const foodIdArr = recordData.map((record) => record.food_id);
+      console.log(recordData);
+      const foodIdArr = recordData.map((record) => record.foodId);
       const foodPromisesArr = foodIdArr.map(
         async (foodId) => await fetchSingleFoodById(foodId)
       );
@@ -60,7 +58,8 @@ function App() {
       });
     }
     resolveRecordArrayPromise();
-  }, [currentUser]);
+    console.log(singleUsersFoods);
+  }, [currentUser, view]);
 
   useEffect(() => {
     console.log(currentUser);
@@ -99,8 +98,10 @@ function App() {
         />
       ) : view === "eatitorleaveit" ? (
         <EatItOrLeaveIt
+          currentUser={currentUser}
           setView={setView}
           availableFoods={availableFoods}
+          singleUsersFoods={singleUsersFoods}
           setFoods={setAvailableFoods}
         />
       ) : (

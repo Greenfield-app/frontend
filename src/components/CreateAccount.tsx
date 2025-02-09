@@ -61,7 +61,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         });
         break;
       case "password":
-        console.log(e.currentTarget);
         await setNewRegisterInfo({
           ...newRegisterInfo,
           password: currentElementValue,

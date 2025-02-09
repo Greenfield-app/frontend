@@ -94,6 +94,23 @@ async function fetchAllRecordsOfSingleUser<T>(
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+async function sendNewRecord<T>(
+  userId: number,
+  foodId: number
+): Promise<Record> {
+  const newRecord = await fetch(`${API_URL}/api/record/${userId}/${foodId}`, {
+    method: "POST",
+    credentials: "include",
+  });
+  try {
+    if (!newRecord.ok) {
+      throw new Error(newRecord.statusText);
+    }
+    return (await newRecord.json()) as Record;
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
+}
 async function fetchRecommendation<T>(userId: number): Promise<Record[]> {
   //change api, fetch recommendation from backend(backend call those api? not sure ,ask about system design)
   const usersRecordsResponse = await fetch(`${API_URL}/api/records/${userId}`, {
@@ -115,4 +132,6 @@ export {
   getAllAvailableFoods,
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
+  sendNewRecord,
+  fetchRecommendation,
 };

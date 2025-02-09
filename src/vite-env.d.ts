@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 export interface FoodInfo {
-  id: number;
+  foodId: number;
   foodName: string;
   description: string | null; // nullable
   // feat top places near me: string[] ?
@@ -37,7 +37,7 @@ export interface LoginError {
 }
 export interface Record {
   id: number;
-  user_id: number;
-  food_id: number;
-  record_at: string;
+  userId: number;
+  foodId: number;
+  recordAt: string;
 }
