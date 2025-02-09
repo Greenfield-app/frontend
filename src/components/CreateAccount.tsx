@@ -117,7 +117,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="UserName"
         />
         {error.userName && (
-          <span className="error-register">
+          <span className="error-signin">
             Username must be at least 3 characters
           </span>
         )}
@@ -130,7 +130,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Email"
         />
         {error.email && (
-          <span className="error-register">Not valid email address</span>
+          <span className="error-signin">Not valid email address</span>
         )}
 
         <label htmlFor="">Password: </label>
@@ -141,7 +141,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           placeholder="Password"
         />
         {error.password && (
-          <span className="error-register">
+          <span className="error-signin">
             Password must be at least 6 characters
           </span>
         )}
@@ -156,16 +156,20 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           <span className="error-register">Passwords do not match</span>
         )}
         <button type="submit">Submit</button>
+
+        <small
+          className="cursor-pointer login-signup-link"
+          onClick={() => setView("login")}
+        >
+          Have an account? Sign in today!
+        </small>
+        <div>
+          {submitError && <span className="error-submit">Sign Up Failed</span>}
+          {submitSuccess && (
+            <span className="success-submit">Sign Up Success</span>
+          )}
+        </div>
       </form>
-      <div>
-        {submitError && <span className="error-submit">Sign Up Failed</span>}
-        {submitSuccess && (
-          <span className="success-submit">Sign Up Success</span>
-        )}
-      </div>
-      <h3 className="signup" onClick={() => setView("login")}>
-        Have an account? Sign in today!
-      </h3>
     </div>
   );
 };

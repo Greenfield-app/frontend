@@ -16,7 +16,6 @@ function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [foods, setFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("foodlist");
   const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
@@ -31,6 +30,7 @@ function App() {
     console.log("view changed");
   }, [view]);
 
+  // pulls available foods from database (if database not set up locally, can change back to sample data in food list)
   useEffect(() => {
     async function resolveAvailableFoodsPromise() {
       const foodData = await getAllAvailableFoods();
@@ -43,6 +43,7 @@ function App() {
     fetchAllRecordsOfSingleUser(7);
   });
 
+  // gets all of the foods of a logged in user
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(7); // update the user number based on database or logged in user
@@ -63,12 +64,14 @@ function App() {
 
   return (
     <>
+      {/* background image whole screen */}
+      <div className="bg-image is-unfocused" />
       {/* <p>{fetchedResult}</p> */}
 
       {view === "home" && currentUser !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <Home
-          foods={foods}
-          setFoods={setFoods}
+          availableFoods={availableFoods}
+          setAvailableFoods={setAvailableFoods}
           currentUser={currentUser}
           setView={setView}
           view={view}
@@ -85,6 +88,7 @@ function App() {
         <FoodList
           setAvailableFoods={setAvailableFoods}
           availableFoods={availableFoods}
+          setSingleUsersFoods={setSingleUsersFoods}
           singleUsersFoods={singleUsersFoods}
           currentUser={currentUser}
           setView={setView}
@@ -92,6 +96,7 @@ function App() {
       ) : view === "eatitorleaveit" ? (
         <p>eatitorleaveit</p>
       ) : (
+        // <EatItOrLeaveIt setView={setView} availableFoods={availableFoods} setFoods={setAvailableFoods} />
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}
     </>
