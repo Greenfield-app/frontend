@@ -23,8 +23,8 @@
   flex-direction: row;
   top: 50%;
   left: 50%;
-  width: 60vw;
-  /* height: 75vh; */
+  width: 45vw;
+  min-height: 55vh;
   height: auto;
   position: absolute;
   transform: translate(-50%, -50%);
@@ -36,15 +36,15 @@
 @media (max-width: 680px) {
   .l-login-signup-container {
     width: 65vw;
-    height: 60vh;
+    height: auto;
     /* consisder overflow:auto */
     flex-direction: column;
   }
 }
 
-@media (min-width: 680px) and (max-width: 800px) {
+@media (min-width: 680px) and (max-width: 1000px) {
   .l-login-signup-container {
-    width: 75vw;
-    min-height: 70vh;
+    width: 60vw;
+    height: auto;
   }
 }

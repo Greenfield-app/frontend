@@ -7,5 +7,5 @@ add any additional module css files here
 @import "addnewcard.css";
 @import "login&signup-page.css";
 @import "eatitorleaveit.css";
-@import "home.css";
+/* @import "home.css"; */
 @import "modal.css";
