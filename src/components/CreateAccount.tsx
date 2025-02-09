@@ -1,7 +1,7 @@
 import { RegisterInfo, RegisterError } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
-
+import { validateEmail } from "../helper/validateEmali";
 interface CreateAccountProps {
   newRegisterInfo: RegisterInfo;
   setNewRegisterInfo: (registerInfo: RegisterInfo) => void;
@@ -53,7 +53,12 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           ...newRegisterInfo,
           userName: currentElementValue,
         });
-
+        break;
+      case "email":
+        await setNewRegisterInfo({
+          ...newRegisterInfo,
+          email: currentElementValue,
+        });
         break;
       case "password":
         console.log(e.currentTarget);
@@ -78,6 +83,11 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     } else {
       setError((prev) => ({ ...prev, ["userName"]: false }));
     }
+    if (validateEmail(newRegisterInfo.email) === false) {
+      setError((prev) => ({ ...prev, ["email"]: true }));
+    } else {
+      setError((prev) => ({ ...prev, ["email"]: false }));
+    }
     if (newRegisterInfo.password.length < 6) {
       setError((prev) => ({ ...prev, ["password"]: true }));
     } else {
@@ -91,7 +101,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <div className="l-login-signup-container">
+    <section className="l-login-signup-container">
       {/* title side */}
       <header className="login-signup-title">
         <h1>WhatsEat</h1>
@@ -170,7 +180,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           )}
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
