@@ -1,14 +1,14 @@
-type HomeProps = {
-  foods: FoodInfo[];
-  setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>;
-  setView: Function;
-  currentUser: string;
-  view: string;
-};
 import "../styles/modules/home.css";
 import FoodList from "./FoodList";
 import EatItOrLeaveIt from "./EatItOrLeaveIt";
-import { FoodInfo } from "../vite-env";
+import { FoodInfo, UserInfo } from "../vite-env";
+interface HomeProps {
+  foods: FoodInfo[];
+  setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>;
+  setView: Function;
+  currentUser: UserInfo;
+  view: string;
+}
 //  (props) temp removed for build
 
 const Home: React.FC<HomeProps> = (props) => {

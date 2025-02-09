@@ -16,11 +16,11 @@ function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [view, setView] = useState<string | null>("login");
+  const [view, setView] = useState<string | null>("home");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
     userId: 0,
     email: "",
-    userName: "guest",
+    userName: "",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
@@ -72,7 +72,7 @@ function App() {
       <div className="bg-image is-unfocused" />
       {/* <p>{fetchedResult}</p> */}
 
-      {view === "home" && currentUser.userName !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
+      {view === "home" && currentUser.userId !== 0 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <Home
           availableFoods={availableFoods}
           setAvailableFoods={setAvailableFoods}
@@ -98,9 +98,12 @@ function App() {
           setView={setView}
         />
       ) : view === "eatitorleaveit" ? (
-        <p>eatitorleaveit</p>
+        <EatItOrLeaveIt
+          setView={setView}
+          availableFoods={availableFoods}
+          setFoods={setAvailableFoods}
+        />
       ) : (
-        // <EatItOrLeaveIt setView={setView} availableFoods={availableFoods} setFoods={setAvailableFoods} />
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}
     </>

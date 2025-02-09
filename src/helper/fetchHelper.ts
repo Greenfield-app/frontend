@@ -7,23 +7,12 @@ import {
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
-async function fetchHelper<T>(): Promise<T> {
-  const response = await fetch(`${API_URL}/api`, { method: "GET" });
-  try {
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return (await response.json()) as T;
-  } catch (error) {
-    throw error instanceof Error ? error : new Error("Fetch error");
-  }
-}
-
 async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
   if (RegisterInfo !== null) {
   }
   const response = await fetch(`${API_URL}/api/signup`, {
     method: "POST",
+    credentials: "include",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       userName: RegisterInfo.userName,
@@ -43,6 +32,7 @@ async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
 async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
   const response = await fetch(`${API_URL}/api/signin`, {
     method: "PATCH",
+    credentials: "include",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       email: loginInfo.email,
@@ -63,6 +53,7 @@ async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
 async function fetchSingleFoodById<T>(foodId: number): Promise<FoodInfo> {
   const singleFoodResponse = await fetch(`${API_URL}/api/food/${foodId}`, {
     method: "GET",
+    credentials: "include",
   });
   try {
     if (!singleFoodResponse.ok) {
@@ -74,7 +65,10 @@ async function fetchSingleFoodById<T>(foodId: number): Promise<FoodInfo> {
   }
 }
 async function getAllAvailableFoods<T>(): Promise<FoodInfo[]> {
-  const response = await fetch(`${API_URL}/api/foods`, { method: "GET" });
+  const response = await fetch(`${API_URL}/api/foods`, {
+    method: "GET",
+    credentials: "include",
+  });
   try {
     if (!response.ok) {
       throw new Error(response.statusText);
@@ -89,6 +83,22 @@ async function fetchAllRecordsOfSingleUser<T>(
 ): Promise<Record[]> {
   const usersRecordsResponse = await fetch(`${API_URL}/api/records/${userId}`, {
     method: "GET",
+    credentials: "include",
+  });
+  try {
+    if (!usersRecordsResponse.ok) {
+      throw new Error(usersRecordsResponse.statusText);
+    }
+    return (await usersRecordsResponse.json()) as Record[];
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
+}
+async function fetchRecommendation<T>(userId: number): Promise<Record[]> {
+  //change api, fetch recommendation from backend(backend call those api? not sure ,ask about system design)
+  const usersRecordsResponse = await fetch(`${API_URL}/api/records/${userId}`, {
+    method: "GET",
+    credentials: "include",
   });
   try {
     if (!usersRecordsResponse.ok) {
@@ -100,7 +110,6 @@ async function fetchAllRecordsOfSingleUser<T>(
   }
 }
 export {
-  fetchHelper,
   sendRegisterInfo,
   vertifyLogin,
   getAllAvailableFoods,
