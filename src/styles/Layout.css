@@ -37,6 +37,7 @@
   .l-login-signup-container {
     width: 65vw;
     height: 60vh;
+    /* consisder overflow:auto */
     flex-direction: column;
   }
 }
