@@ -1,13 +1,14 @@
-import { FoodInfo } from "../vite-env";
+import { FoodInfo, UserInfo } from "../vite-env";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 import eatIcon from "../assets/icons/eat.svg";
 import { useEffect } from "react";
+import FoodCard from "./FoodCard";
 
 // types from App.tsx
 interface FoodListProps {
   setAvailableFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
   availableFoods: FoodInfo[]; // to get current Food list
-  currentUser: string;
+  currentUser: UserInfo;
   setView: Function;
   setSingleUsersFoods: (FoodInfo: FoodInfo[]) => void;
   singleUsersFoods: FoodInfo[];
@@ -53,6 +54,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         {/* <h1 onClick={() => props.changeView("createaccount")}>
           Create Account
         </h1> */}
+        <h1>{props.currentUser.userName}</h1>
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
       <ul className="food-list l-food-list">

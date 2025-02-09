@@ -2,13 +2,13 @@ type HomeProps = {
   foods: FoodInfo[];
   setFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>;
   setView: Function;
-  currentUser: string;
+  currentUser: UserInfo;
   view: string;
 };
 import "../styles/modules/home.css";
 import FoodList from "./FoodList";
 import EatItOrLeaveIt from "./EatItOrLeaveIt";
-import { FoodInfo } from "../vite-env";
+import { FoodInfo, UserInfo } from "../vite-env";
 //  (props) temp removed for build
 
 const Home: React.FC<HomeProps> = (props) => {
@@ -16,6 +16,7 @@ const Home: React.FC<HomeProps> = (props) => {
     <>
       <nav className="l-header header">
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
+        <h1>{props.currentUser.userName}</h1>
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
 
