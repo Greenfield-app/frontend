@@ -12,7 +12,6 @@ interface EatItOrLeaveItProps {
   singleUsersFoods: FoodInfo[];
   setAvailableFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>;
 }
-//  (props) temp removed for build
 
 const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   currentUser,
@@ -30,7 +29,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
     console.log(e, " was deleted!");
     //change to get next food
-    // delete in database
   };
 
   const handleEatFood = async (e: MouseEvent<HTMLImageElement>) => {

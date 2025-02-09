@@ -45,18 +45,25 @@ left side of login box, unless in mobile(top portion of box)
 
 .login-signup-form h1 {
   color: #25d366;
-  font-size: larger;
+  font-size: calc(1vw + 2vh);
 }
 
 .login-signup-form p,
 .login-signup-form label,
 .login-signup-form span {
-  font-size: small;
+  font-size: 0.7rem;
 }
 
 .login-signup-link {
   color: rgb(128, 128, 128);
   text-decoration: underline;
+}
+
+.login-signup-form input {
+  width: 70%;
+  font-size: 0.8rem;
+  min-width: 1rem;
+  max-width: 12rem;
 }
 
 /* 

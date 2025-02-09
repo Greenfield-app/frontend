@@ -9,8 +9,10 @@
 .food-card {
   display: flex;
   border-radius: 5px;
-  height: 15vh;
-  width: 30vw;
+  height: 30vh;
+  max-height: 4.5rem;
+  width: 50vw;
+  max-width: 16rem;
   justify-content: center;
   justify-content: space-around;
   align-items: center;
