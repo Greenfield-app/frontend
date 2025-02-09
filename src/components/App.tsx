@@ -3,9 +3,9 @@ import FoodList from "./FoodList.tsx";
 import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
-import AddNewCard from "./AddNewCard.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo, registerInfo, UserInfo } from "../vite-env";
+import AddNewCard from "./AddNewCard.tsx";
+import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -18,14 +18,14 @@ function App() {
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("foodlist");
   const [currentUser, setCurrentUser] = useState<UserInfo | string>("guest");
-  const [newRegisterInfo, setNewRegisterInfo] = useState<registerInfo>({
-    userName: "default userName",
+  const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
+    userName: "",
+    email: "",
     password: "",
     confirmPassword: "",
   });
 
   // useEffects
-  // changes view is view state updates
   useEffect(() => {
     console.log("view changed");
   }, [view]);
@@ -58,7 +58,10 @@ function App() {
     resolveRecordArrayPromise();
   }, []);
 
-  // return
+  useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+
   return (
     <>
       {/* background image whole screen */}
@@ -85,6 +88,7 @@ function App() {
         <FoodList
           setAvailableFoods={setAvailableFoods}
           availableFoods={availableFoods}
+          setSingleUsersFoods={setSingleUsersFoods}
           singleUsersFoods={singleUsersFoods}
           currentUser={currentUser}
           setView={setView}

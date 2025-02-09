@@ -9,26 +9,25 @@ interface FoodListProps {
   availableFoods: FoodInfo[]; // to get current Food list
   currentUser: string;
   setView: Function;
+  setSingleUsersFoods: (FoodInfo: FoodInfo[]) => void;
   singleUsersFoods: FoodInfo[];
 }
 
 //  (props) temp removed for build
 const FoodList: React.FC<FoodListProps> = (props) => {
-  // temporary food list until database/ apis done
-  // const sampleFoods: FoodInfo[] = [
-  //   { id: 1, name: "ramen", description: null },
-  //   { id: 2, name: "yakiniku", description: null },
-  //   { id: 3, name: "mexican", description: null },
-  //   { id: 4, name: "italian", description: null },
-  //   { id: 5, name: "pizza", description: null },
-  //   { id: 6, name: "sushi", description: null },
-  //   { id: 7, name: "oden", description: null },
-  // ];
-
-  // set foods state to the samples
-
+  const sampleFoods: FoodInfo[] = [
+    { id: 1, foodName: "ramen", description: null },
+    { id: 2, foodName: "yakiniku", description: null },
+    { id: 3, foodName: "mexican", description: null },
+    { id: 4, foodName: "italian", description: null },
+    { id: 5, foodName: "pizza", description: null },
+    { id: 6, foodName: "sushi", description: null },
+    { id: 7, foodName: "oden", description: null },
+  ];
   useEffect(() => {
+    console.log(sampleFoods);
     // props.setAvailableFoods(sampleFoods);
+    props.setSingleUsersFoods(sampleFoods);
   }, []);
 
   const handleDeleteFood = (foodCard: FoodInfo) => {

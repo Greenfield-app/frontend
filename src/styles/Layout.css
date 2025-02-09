@@ -24,7 +24,8 @@
   top: 50%;
   left: 50%;
   width: 60vw;
-  height: 75vh;
+  /* height: 75vh; */
+  height: auto;
   position: absolute;
   transform: translate(-50%, -50%);
   margin: 0 auto;

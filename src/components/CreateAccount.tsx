@@ -1,10 +1,10 @@
-import { registerInfo, signupError } from "../vite-env";
+import { RegisterInfo, RegisterError } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
-
+import { validateEmail } from "../helper/validateEmali";
 interface CreateAccountProps {
-  newRegisterInfo: registerInfo;
-  setNewRegisterInfo: (registerInfo: registerInfo) => void;
+  newRegisterInfo: RegisterInfo;
+  setNewRegisterInfo: (registerInfo: RegisterInfo) => void;
   setView: (view: string) => void;
 }
 
@@ -18,8 +18,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     console.log(newRegisterInfo);
   }, [newRegisterInfo]);
 
-  const [error, setError] = useState<signupError>({
+  const [error, setError] = useState<RegisterError>({
     userName: false,
+    email: false,
     password: false,
     confirmPassword: false,
   });
@@ -52,7 +53,12 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           ...newRegisterInfo,
           userName: currentElementValue,
         });
-
+        break;
+      case "email":
+        await setNewRegisterInfo({
+          ...newRegisterInfo,
+          email: currentElementValue,
+        });
         break;
       case "password":
         console.log(e.currentTarget);
@@ -77,6 +83,11 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     } else {
       setError((prev) => ({ ...prev, ["userName"]: false }));
     }
+    if (validateEmail(newRegisterInfo.email) === false) {
+      setError((prev) => ({ ...prev, ["email"]: true }));
+    } else {
+      setError((prev) => ({ ...prev, ["email"]: false }));
+    }
     if (newRegisterInfo.password.length < 6) {
       setError((prev) => ({ ...prev, ["password"]: true }));
     } else {
@@ -90,9 +101,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <div className='l-login-signup-container'>
+    <section className="l-login-signup-container">
       {/* title side */}
-      <header className='login-signup-title'>
+      <header className="login-signup-title">
         <h1>WhatsEat</h1>
         <p>
           Hungry but can't decide? <br />
@@ -102,66 +113,74 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
       {/* signup side */}
       <form
-        className='login-signup-form'
+        className="login-signup-form"
         onSubmit={(e) => {
           submitHandler(e);
         }}
       >
         <h1>Create Account</h1>
-        <label htmlFor=''>Username: </label>
+        <label htmlFor="">Username: </label>
         <input
-          type='text'
-          id='username'
+          type="text"
+          id="username"
           onChange={(e) => changeHandler(e)}
-          placeholder='UserName'
+          placeholder="UserName"
         />
-
         {error.userName && (
-          <span className='error-signin'>
+          <span className="error-signin">
             Username must be at least 3 characters
           </span>
         )}
-        <label htmlFor=''>Password: </label>
+
+        <label htmlFor="">Emial: </label>
         <input
-          type='password'
-          id='password'
+          type="email"
+          id="email"
           onChange={(e) => changeHandler(e)}
-          placeholder='Password'
+          placeholder="Email"
+        />
+        {error.email && (
+          <span className="error-signin">Not valid email address</span>
+        )}
+
+        <label htmlFor="">Password: </label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => changeHandler(e)}
+          placeholder="Password"
         />
         {error.password && (
-          <span className='error-signin'>
+          <span className="error-signin">
             Password must be at least 6 characters
           </span>
         )}
-        <label htmlFor=''>Confirm Password: </label>
+        <label htmlFor="">Confirm Password: </label>
         <input
-          type='password'
-          id='password-confirm'
+          type="password"
+          id="password-confirm"
           onChange={(e) => changeHandler(e)}
-          placeholder='Confirm Password'
+          placeholder="Confirm Password"
         />
         {error.confirmPassword && (
-          <span className='error-signin'>Passwords do not match</span>
+          <span className="error-register">Passwords do not match</span>
         )}
-        <button type='submit'>Submit</button>
+        <button type="submit">Submit</button>
 
-        {/* link back to login page */}
         <small
-          className='cursor-pointer login-signup-link'
+          className="cursor-pointer login-signup-link"
           onClick={() => setView("login")}
         >
           Have an account? Sign in today!
         </small>
-
-        {/* Error messages */}
         <div>
-          {submitError && <span className='error-submit'>Sign Up Failed</span>}
+          {submitError && <span className="error-submit">Sign Up Failed</span>}
           {submitSuccess && (
-            <span className='success-submit'>Sign Up Success</span>
+            <span className="success-submit">Sign Up Success</span>
           )}
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
