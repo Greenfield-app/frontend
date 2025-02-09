@@ -27,7 +27,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
         loginSuccessful: true,
       });
       await setTimeout(() => {
-        setView("foodlist");
+        setView("home");
       }, 3000);
     } catch (error) {
       setSubmitState({ submitted: true, loginSuccessful: false });
