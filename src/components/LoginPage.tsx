@@ -37,9 +37,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
   return (
     <>
       {/* container for Title and login form sections */}
-      <section className="l-login-signup-container">
+      <section className='l-content-container'>
         {/* left side of login-container: Title + small description */}
-        <header className="login-signup-title">
+        <header className='login-signup-title'>
           <h1>WhatsEat</h1>
           <p>
             Hungry but can't decide? <br />
@@ -48,20 +48,20 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
         </header>
         {/* right side of login-container: Form for input feild login credentials */}
         <form
-          className="login-signup-form"
+          className='login-signup-form'
           onSubmit={(e) => {
             vertifyHandler(e);
           }}
         >
           <h1>Login</h1>
-          <label htmlFor="">Emial: </label>
-          <input type="email" id="email" placeholder="Email" />
+          <label htmlFor=''>Emial: </label>
+          <input type='email' id='email' placeholder='Email' />
 
-          <label htmlFor="">Password: </label>
-          <input type="password" id="password" placeholder="Password" />
-          <button type="submit">Submit</button>
+          <label htmlFor=''>Password: </label>
+          <input type='password' id='password' placeholder='Password' />
+          <button type='submit'>Submit</button>
           <small
-            className="cursor-pointer login-signup-link"
+            className='cursor-pointer login-signup-link'
             onClick={() => setView("createaccount")}
           >
             No Account? Sign up today!
@@ -69,11 +69,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
           <div>
             {submitState.submitted === true &&
               submitState.loginSuccessful === false && (
-                <span className="error-submit">Log In Failed</span>
+                <span className='error-submit'>Log In Failed</span>
               )}
             {submitState.submitted === true &&
               submitState.loginSuccessful === true && (
-                <span className="success-submit">Log In Success</span>
+                <span className='success-submit'>Log In Success</span>
               )}
           </div>
         </form>

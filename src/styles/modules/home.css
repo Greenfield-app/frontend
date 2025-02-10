@@ -1,1 +1,114 @@
+.home-header {
+  display: flex;
+  flex-direction: row;
+}
 
+.whatseat-icon {
+  width: 2.2em;
+  height: 2.2em;
+}
+
+.nav-text {
+  display: block;
+  color: black;
+  text-decoration: underline;
+  background-color: #25d366;
+  border-radius: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  font-size: small;
+  align-self: center;
+}
+
+.eats-history {
+  width: 40%;
+  background-color: #0f796c;
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.eats-history h1 {
+  background-color: #25d366;
+  color: white;
+  border-radius: 30px;
+  font-size: larger;
+  padding: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  /* border: 1.5px solid black; */
+}
+
+.help-me-choose {
+  width: 60%;
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.747);
+  padding: 20px;
+}
+
+.help-me-choose h1 {
+  color: white;
+  background-color: #25d366;
+  border-radius: 30px;
+  padding: 6px;
+  /* border: 1.5px solid black; */
+  font-size: larger;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 680px) {
+  .eats-history {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  .help-me-choose {
+    width: 100%;
+    flex-grow: 5;
+  }
+}
+
+/* dim effect */
+.eats-history,
+.help-me-choose {
+  transition: all 0.3s ease-in-out;
+}
+
+.eats-history:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.help-me-choose:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.l-content-container:has(.eats-history:hover) .help-me-choose {
+  filter: brightness(0.5);
+}
+
+.l-content-container:has(.help-me-choose:hover) .eats-history {
+  filter: brightness(0.5);
+}
+
+.history-icon {
+  padding-bottom: 15px;
+}
+
+.swipe-icon {
+  padding-bottom: 10px;
+}

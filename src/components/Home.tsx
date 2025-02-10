@@ -2,6 +2,10 @@ import "../styles/modules/home.css";
 import FoodList from "./FoodList";
 import EatItOrLeaveIt from "./EatItOrLeaveIt";
 import { FoodInfo, UserInfo } from "../vite-env";
+import handHistory from "../assets/icons/history-hand.svg";
+import handSwipe from "../assets/icons/swipe-hand.svg";
+import whatsEat from "../assets/icons/whatsEat-icon.png";
+
 interface HomeProps {
   availableFoods: FoodInfo[];
   setAvailableFoods: Function;
@@ -13,15 +17,33 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = (props) => {
   return (
     <>
-      <nav className="l-header header">
-        <h1 onClick={() => props.setView("home")}>What's Eat</h1>
+      <nav className='l-header header'>
+        <header className='home-header'>
+          <img className='whatseat-icon' src={whatsEat} />
+          <h1 onClick={() => props.setView("home")}>WhatsEat</h1>
+        </header>
         <h1>{props.currentUser.userName}</h1>
         <h1>{props.currentUser.userName}</h1>
-        <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
+        <h3 className='nav-text' onClick={() => props.setView("loginpage")}>
+          Logout
+        </h3>
       </nav>
-
-      <h1 onClick={() => props.setView("foodlist")}>My List</h1>
-      <h1 onClick={() => props.setView("eatitorleaveit")}>Help me choose</h1>
+      <section className='l-content-container'>
+        <div
+          className='eats-history pop-dim'
+          onClick={() => props.setView("foodlist")}
+        >
+          <img className='history-icon' src={handHistory} />
+          <h1>Eats History</h1>
+        </div>
+        <div
+          className='help-me-choose pop-dim'
+          onClick={() => props.setView("eatitorleaveit")}
+        >
+          <img className='swipe-icon' src={handSwipe} />
+          <h1>Help me Choose</h1>
+        </div>
+      </section>
     </>
   );
 };
