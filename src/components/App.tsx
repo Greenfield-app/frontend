@@ -18,7 +18,7 @@ function App() {
   const [availableFoodsWithImg, setAvailableFoodsWithImg] =
     useState<FoodInfoDisplay | null>();
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [view, setView] = useState<string | null>("home");
+  const [view, setView] = useState<string | null>("login");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
     userId: 10,
     email: "",
@@ -73,7 +73,7 @@ function App() {
       <div className="bg-image is-unfocused" />
       {/* <p>{fetchedResult}</p> */}
 
-      {view === "home" && currentUser.userId !== 0 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
+      {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <Home
           availableFoods={availableFoods}
           setAvailableFoods={setAvailableFoods}

@@ -34,6 +34,17 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
       console.error(error);
     }
   };
+
+  const handleSignInAsGuest = () => {
+    const guestUser = {
+      userId: 0,
+      email: "",
+      userName: "guest",
+    };
+    setCurrentUser(guestUser);
+    setView("home");
+  };
+
   return (
     <>
       {/* container for Title and login form sections */}
@@ -54,7 +65,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
           }}
         >
           <h1>Login</h1>
-          <label htmlFor="">Emial: </label>
+          <label htmlFor="">Email: </label>
           <input type="email" id="email" placeholder="Email" />
 
           <label htmlFor="">Password: </label>
@@ -65,6 +76,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
             onClick={() => setView("createaccount")}
           >
             No Account? Sign up today!
+          </small>
+          <small>or</small>
+          <small
+            className="cursor-point login-signup-link"
+            onClick={() => handleSignInAsGuest()}
+          >
+            Sign in as guest
           </small>
           <div>
             {submitState.submitted === true &&
