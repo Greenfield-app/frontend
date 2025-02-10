@@ -1,12 +1,18 @@
 .l-header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
   min-height: 10vh;
 }
 
 .l-header h1 {
   cursor: pointer;
+}
+
+.l-header .username-and-logout {
+  display: flex;
+  justify-content: space-between;
+  width: 13%;
 }
 
 .l-food-list {

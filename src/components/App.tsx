@@ -20,7 +20,7 @@ function App() {
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("login");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 10,
+    userId: 0,
     email: "",
     userName: "",
   });

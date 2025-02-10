@@ -15,9 +15,10 @@ const Home: React.FC<HomeProps> = (props) => {
     <>
       <nav className="l-header header">
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
-        <h1>{props.currentUser.userName}</h1>
-        <h1>{props.currentUser.userName}</h1>
-        <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
+        <div className="username-and-logout">
+          <h1>{props.currentUser.userName}</h1>
+          <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
+        </div>
       </nav>
 
       <h1 onClick={() => props.setView("foodlist")}>My List</h1>
