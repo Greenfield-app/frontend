@@ -1,4 +1,3 @@
-import "../styles/modules/home.css";
 import FoodList from "./FoodList";
 import EatItOrLeaveIt from "./EatItOrLeaveIt";
 import { FoodInfo, UserInfo } from "../vite-env";
