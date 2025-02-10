@@ -20,7 +20,7 @@ function App() {
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("login");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 10,
+    userId: 0,
     email: "",
     userName: "",
   });
@@ -100,12 +100,7 @@ function App() {
           setView={setView}
         />
       ) : view === "eatitorleaveit" ? (
-        <EatItOrLeaveIt
-          availableFoodsWithImg={availableFoodsWithImg}
-          setAvailableFoodsWithImg={setAvailableFoodsWithImg}
-          currentUser={currentUser}
-          setView={setView}
-        />
+        <EatItOrLeaveIt currentUser={currentUser} setView={setView} />
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}

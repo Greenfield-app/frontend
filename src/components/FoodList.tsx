@@ -16,17 +16,7 @@ interface FoodListProps {
 
 //  (props) temp removed for build
 const FoodList: React.FC<FoodListProps> = (props) => {
-  // const sampleFoods: FoodInfo[] = [
-  //   { id: 1, foodName: "ramen", description: null },
-  //   { id: 2, foodName: "yakiniku", description: null },
-  //   { id: 3, foodName: "mexican", description: null },
-  //   { id: 4, foodName: "italian", description: null },
-  //   { id: 5, foodName: "pizza", description: null },
-  //   { id: 6, foodName: "sushi", description: null },
-  //   { id: 7, foodName: "oden", description: null },
-  // ];
   useEffect(() => {
-    // console.log(sampleFoods);
     // props.setAvailableFoods(sampleFoods);
     // props.setSingleUsersFoods(sampleFoods);
   }, []);
@@ -36,7 +26,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
       <nav className="l-header header">
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
         {/* <button
-          className='btn-addfoodcard'
+          className="btn-addfoodcard"
           onClick={() => props.setView("addnewcard")}
         >
           +

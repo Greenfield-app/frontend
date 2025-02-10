@@ -1,9 +1,16 @@
 import "../styles/modules/eatitorleaveit.css";
-import { FoodInfo, UserInfo, FoodInfoDisplay } from "../vite-env";
+import {
+  FoodInfo,
+  UserInfo,
+  FoodInfoDisplay,
+  RandomFoodWithRestaurant,
+  RestaurantInfo,
+} from "../vite-env";
 import {
   sendNewRecord,
   fetchRecommendation,
   addNewFood,
+  fetchLocationByIP,
 } from "../helper/fetchHelper";
 import { useState, useEffect, MouseEvent } from "react";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
@@ -12,37 +19,30 @@ import eatIcon from "../assets/icons/eat.svg";
 interface EatItOrLeaveItProps {
   currentUser: UserInfo;
   setView: Function;
-  availableFoodsWithImg: FoodInfoDisplay;
-  setAvailableFoodsWithImg: (foodInfoDisplay: FoodInfoDisplay) => void;
 }
 
 const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   currentUser,
   setView,
-  availableFoodsWithImg,
-  setAvailableFoodsWithImg,
 }) => {
   // random food for picking recommendation from foods array
   const [randomFood, setRandomFood] = useState<FoodInfoDisplay | null>(null);
+  const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo[]>([]);
   const getNextFood = async () => {
-    const recommendationResponse: FoodInfoDisplay = await fetchRecommendation(
-      0
-    );
+    const recommendationResponse: RandomFoodWithRestaurant =
+      await fetchRecommendation(0);
     console.log(recommendationResponse);
-    setRandomFood(recommendationResponse);
+    setRandomFood(recommendationResponse.randomFoodInfo);
+    setRestaurantsInfo(recommendationResponse.restaurants);
   };
   useEffect(() => {
     const resolveRecommendation = async () => {
-      const recommendationResponse: FoodInfoDisplay = await fetchRecommendation(
-        0
-      );
-      console.log(recommendationResponse);
-      setRandomFood(recommendationResponse);
+      getNextFood();
+      await fetchLocationByIP();
     };
     resolveRecommendation();
   }, []);
 
-  useEffect(() => {}, [randomFood]);
   const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
     console.log(e, " was deleted!");
     getNextFood();
@@ -51,8 +51,8 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
 
   const handleEatFood = async (e: MouseEvent<HTMLImageElement>) => {
     console.log(randomFood, " was eaten!");
-    //not guest: send record to db
-    if (currentUser && currentUser.userId !== 0) {
+    //send only not guest record to db
+    if (currentUser && currentUser.userId !== -1 && currentUser.userId !== 0) {
       if (randomFood && randomFood.foodName) {
         try {
           const foodInfoResponse = await addNewFood(randomFood.foodName);
@@ -77,10 +77,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     <>
       <nav className="l-header header">
         <h1 onClick={() => setView("home")}>What's Eat</h1>
-        <div className="username-and-logout">
-          <h1>{currentUser.userName}</h1>
-          <h1 onClick={() => setView("loginpage")}>Logout</h1>
-        </div>
+        <h1 onClick={() => setView("loginpage")}>Logout</h1>
       </nav>
       <div className="eatitorleaveit-container">
         <h1>Eat it or leave it</h1>
@@ -106,6 +103,18 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 alt="red trash icon"
                 onClick={(e) => handleEatFood(e)}
               />
+              {restaurantsInfo !== null && (
+                <div id="places">
+                  {restaurantsInfo.map((restaurant) => {
+                    return (
+                      <div key={restaurant.name} className="single-restaurant">
+                        <div>{restaurant.name} </div>
+                        <div>{restaurant.address} </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
         </div>
