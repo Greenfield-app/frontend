@@ -6,7 +6,6 @@ import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
 import AddNewCard from "./AddNewCard.tsx";
 import { FoodInfo, FoodInfoDisplay, RegisterInfo, UserInfo } from "../vite-env";
-import { FoodInfo, FoodInfoDisplay, RegisterInfo, UserInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -18,15 +17,11 @@ function App() {
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
   const [availableFoodsWithImg, setAvailableFoodsWithImg] =
     useState<FoodInfoDisplay | null>();
-  const [availableFoodsWithImg, setAvailableFoodsWithImg] =
-    useState<FoodInfoDisplay | null>();
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [view, setView] = useState<string | null>("home");
+  const [view, setView] = useState<string | null>("login");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
     userId: 10,
-    userId: 10,
     email: "",
-    userName: "",
     userName: "",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
@@ -49,15 +44,12 @@ function App() {
     }
     resolveAvailableFoodsPromise();
     console.log(availableFoods);
-    console.log(availableFoods);
   }, []);
 
   // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      console.log(recordData);
-      const foodIdArr = recordData.map((record) => record.foodId);
       console.log(recordData);
       const foodIdArr = recordData.map((record) => record.foodId);
       const foodPromisesArr = foodIdArr.map(
@@ -68,8 +60,6 @@ function App() {
       });
     }
     resolveRecordArrayPromise();
-    console.log(singleUsersFoods);
-  }, [currentUser, view]);
     console.log(singleUsersFoods);
   }, [currentUser, view]);
 
@@ -94,7 +84,6 @@ function App() {
       ) : view === "createaccount" ? (
         <CreateAccount
           setCurrentUser={setCurrentUser}
-          setCurrentUser={setCurrentUser}
           setView={setView}
           newRegisterInfo={newRegisterInfo}
           setNewRegisterInfo={setNewRegisterInfo}
@@ -111,19 +100,7 @@ function App() {
           setView={setView}
         />
       ) : view === "eatitorleaveit" ? (
-        <EatItOrLeaveIt
-          availableFoodsWithImg={availableFoodsWithImg}
-          setAvailableFoodsWithImg={setAvailableFoodsWithImg}
-          currentUser={currentUser}
-          setView={setView}
-        />
-      ) : (
-        <EatItOrLeaveIt
-          availableFoodsWithImg={availableFoodsWithImg}
-          setAvailableFoodsWithImg={setAvailableFoodsWithImg}
-          currentUser={currentUser}
-          setView={setView}
-        />
+        <EatItOrLeaveIt currentUser={currentUser} setView={setView} />
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}

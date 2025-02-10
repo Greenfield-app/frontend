@@ -16,27 +16,17 @@ interface FoodListProps {
 
 //  (props) temp removed for build
 const FoodList: React.FC<FoodListProps> = (props) => {
-  // const sampleFoods: FoodInfo[] = [
-  //   { id: 1, foodName: "ramen", description: null },
-  //   { id: 2, foodName: "yakiniku", description: null },
-  //   { id: 3, foodName: "mexican", description: null },
-  //   { id: 4, foodName: "italian", description: null },
-  //   { id: 5, foodName: "pizza", description: null },
-  //   { id: 6, foodName: "sushi", description: null },
-  //   { id: 7, foodName: "oden", description: null },
-  // ];
   useEffect(() => {
-    // console.log(sampleFoods);
     // props.setAvailableFoods(sampleFoods);
     // props.setSingleUsersFoods(sampleFoods);
   }, []);
 
   return (
     <>
-      <nav className='l-header header'>
+      <nav className="l-header header">
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
         <button
-          className='btn-addfoodcard'
+          className="btn-addfoodcard"
           onClick={() => props.setView("addnewcard")}
         >
           +
@@ -47,9 +37,9 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         <h1>{props.currentUser.userName}</h1>
         <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
       </nav>
-      <ul className='food-list l-food-list'>
+      <ul className="food-list l-food-list">
         {props.singleUsersFoods.map((food) => (
-          <li key={food.foodName} className='food'>
+          <li key={food.foodName} className="food">
             <FoodCard food={food} />
           </li>
         ))}

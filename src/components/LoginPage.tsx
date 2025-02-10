@@ -37,7 +37,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
 
   const handleSignInAsGuest = () => {
     const guestUser = {
-      userId: 0,
+      userId: -1,
       email: "",
       userName: "guest",
     };
