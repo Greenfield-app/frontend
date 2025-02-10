@@ -21,7 +21,7 @@ export interface RestaurantInfo {
 }
 export interface RandomFoodWithRestaurant {
   randomFoodInfo: FoodInfoDisplay;
-  restaurant: RestaurantInfo;
+  restaurants: RestaurantInfo[];
 }
 export interface UserInfo {
   userId: number;
@@ -57,6 +57,11 @@ export interface Record {
   userId: number;
   foodId: number;
   recordAt: string;
+}
+export interface Location {
+  latitude: number;
+  longitude: number;
+  city: string;
 }
 export interface Location {
   latitude: number;
