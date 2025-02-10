@@ -27,9 +27,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
 }) => {
   // random food for picking recommendation from foods array
   const [randomFood, setRandomFood] = useState<FoodInfoDisplay | null>(null);
-  const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo | null>(
-    null
-  );
+  const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo[]>([]);
   const getNextFood = async () => {
     const recommendationResponse: RandomFoodWithRestaurant =
       await fetchRecommendation(0);
@@ -79,10 +77,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     <>
       <nav className="l-header header">
         <h1 onClick={() => setView("home")}>What's Eat</h1>
-        <div className="username-and-logout">
-          <h1>{currentUser.userName}</h1>
-          <h1 onClick={() => setView("loginpage")}>Logout</h1>
-        </div>
+        <h1 onClick={() => setView("loginpage")}>Logout</h1>
       </nav>
       <div className="eatitorleaveit-container">
         <h1>Eat it or leave it</h1>
@@ -108,6 +103,18 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 alt="red trash icon"
                 onClick={(e) => handleEatFood(e)}
               />
+              {restaurantsInfo !== null && (
+                <div id="places">
+                  {restaurantsInfo.map((restaurant) => {
+                    return (
+                      <div key={restaurant.name} className="single-restaurant">
+                        <div>{restaurant.name} </div>
+                        <div>{restaurant.address} </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
         </div>
