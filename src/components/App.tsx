@@ -5,7 +5,7 @@ import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
 import AddNewCard from "./AddNewCard.tsx";
-import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
+import { FoodInfo, FoodInfoDisplay, RegisterInfo, UserInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -15,12 +15,14 @@ import {
 function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
+  const [availableFoodsWithImg, setAvailableFoodsWithImg] =
+    useState<FoodInfoDisplay | null>();
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [view, setView] = useState<string | null>("login");
+  const [view, setView] = useState<string | null>("home");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 0,
+    userId: 10,
     email: "",
-    userName: "guest",
+    userName: "",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
@@ -41,17 +43,15 @@ function App() {
       setAvailableFoods(foodData);
     }
     resolveAvailableFoodsPromise();
+    console.log(availableFoods);
   }, []);
-
-  // useEffect(() => {
-  //   fetchAllRecordsOfSingleUser(currentUser);
-  // });
 
   // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      const foodIdArr = recordData.map((record) => record.food_id);
+      console.log(recordData);
+      const foodIdArr = recordData.map((record) => record.foodId);
       const foodPromisesArr = foodIdArr.map(
         async (foodId) => await fetchSingleFoodById(foodId)
       );
@@ -60,7 +60,8 @@ function App() {
       });
     }
     resolveRecordArrayPromise();
-  }, [currentUser]);
+    console.log(singleUsersFoods);
+  }, [currentUser, view]);
 
   useEffect(() => {
     console.log(currentUser);
@@ -72,7 +73,7 @@ function App() {
       <div className="bg-image is-unfocused" />
       {/* <p>{fetchedResult}</p> */}
 
-      {view === "home" && currentUser.userName !== "guest" ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
+      {view === "home" && currentUser.userId !== 0 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <Home
           availableFoods={availableFoods}
           setAvailableFoods={setAvailableFoods}
@@ -82,6 +83,7 @@ function App() {
         />
       ) : view === "createaccount" ? (
         <CreateAccount
+          setCurrentUser={setCurrentUser}
           setView={setView}
           newRegisterInfo={newRegisterInfo}
           setNewRegisterInfo={setNewRegisterInfo}
@@ -98,9 +100,13 @@ function App() {
           setView={setView}
         />
       ) : view === "eatitorleaveit" ? (
-        <p>eatitorleaveit</p>
+        <EatItOrLeaveIt
+          availableFoodsWithImg={availableFoodsWithImg}
+          setAvailableFoodsWithImg={setAvailableFoodsWithImg}
+          currentUser={currentUser}
+          setView={setView}
+        />
       ) : (
-        // <EatItOrLeaveIt setView={setView} availableFoods={availableFoods} setFoods={setAvailableFoods} />
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}
     </>
