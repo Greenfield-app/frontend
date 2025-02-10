@@ -77,7 +77,10 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     <>
       <nav className="l-header header">
         <h1 onClick={() => setView("home")}>What's Eat</h1>
-        <h1 onClick={() => setView("loginpage")}>Logout</h1>
+        <div className="username-and-logout">
+          <h1>{currentUser.userName}</h1>
+          <h1 onClick={() => setView("loginpage")}>Logout</h1>
+        </div>
       </nav>
       <div className="eatitorleaveit-container">
         <h1>Eat it or leave it</h1>
