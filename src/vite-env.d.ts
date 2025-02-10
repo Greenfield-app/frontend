@@ -13,6 +13,16 @@ export interface FoodInfoDisplay {
   imageType: string;
 }
 
+export interface RestaurantInfo {
+  name: string;
+  address: string;
+  rating: number;
+  userRatingsTotal: number;
+}
+export interface RandomFoodWithRestaurant {
+  randomFoodInfo: FoodInfoDisplay;
+  restaurant: RestaurantInfo;
+}
 export interface UserInfo {
   userId: number;
   email: string;
@@ -47,4 +57,9 @@ export interface Record {
   userId: number;
   foodId: number;
   recordAt: string;
+}
+export interface Location {
+  latitude: number;
+  longitude: number;
+  city: string;
 }

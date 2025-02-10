@@ -5,6 +5,8 @@ import {
   UserInfo,
   LoginInfo,
   Record,
+  Location,
+  RandomFoodWithRestaurant,
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -133,10 +135,18 @@ async function sendNewRecord<T>(
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+
 async function fetchRecommendation<T>(
   userId: number
-): Promise<FoodInfoDisplay> {
-  const randomFoodResponse = await fetch(`${API_URL}/api/random`, {
+): Promise<RandomFoodWithRestaurant> {
+  const location: Location = await fetchLocationByIP();
+  const url = new URL(`${API_URL}/api/random`);
+  if (location) {
+    url.searchParams.append("latitude", location.latitude.toString());
+    url.searchParams.append("longitude", location.longitude.toString());
+  }
+
+  const randomFoodResponse = await fetch(`${url.toString()}`, {
     method: "GET",
     credentials: "include",
   });
@@ -144,12 +154,13 @@ async function fetchRecommendation<T>(
     if (!randomFoodResponse.ok) {
       throw new Error(randomFoodResponse.statusText);
     }
-    return (await randomFoodResponse.json()) as FoodInfoDisplay;
+    return (await randomFoodResponse.json()) as RandomFoodWithRestaurant;
   } catch (error) {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function fetchLocationByIP<T>(): Promise<T> {
+
+async function fetchLocationByIP<T>(): Promise<Location> {
   try {
     const response = await fetch("https://ipapi.co/json/");
     const pardedResponse = await response.json();
@@ -158,11 +169,13 @@ async function fetchLocationByIP<T>(): Promise<T> {
       longitude: pardedResponse.longitude,
       city: pardedResponse.city,
     };
+    console.log(location);
     return location;
   } catch (error) {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+
 export {
   sendRegisterInfo,
   vertifyLogin,
@@ -172,4 +185,5 @@ export {
   sendNewRecord,
   fetchRecommendation,
   addNewFood,
+  fetchLocationByIP,
 };
