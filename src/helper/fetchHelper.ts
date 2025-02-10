@@ -149,6 +149,20 @@ async function fetchRecommendation<T>(
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+async function fetchLocationByIP<T>(): Promise<T> {
+  try {
+    const response = await fetch("https://ipapi.co/json/");
+    const pardedResponse = await response.json();
+    const location = {
+      latitude: pardedResponse.latitude,
+      longitude: pardedResponse.longitude,
+      city: pardedResponse.city,
+    };
+    return location;
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
+}
 export {
   sendRegisterInfo,
   vertifyLogin,
