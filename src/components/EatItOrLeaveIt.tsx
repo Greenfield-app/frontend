@@ -1,6 +1,5 @@
 import "../styles/modules/eatitorleaveit.css";
 import {
-  FoodInfo,
   UserInfo,
   FoodInfoDisplay,
   RandomFoodWithRestaurant,
@@ -12,7 +11,7 @@ import {
   addNewFood,
   fetchLocationByIP,
 } from "../helper/fetchHelper";
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect } from "react";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 import eatIcon from "../assets/icons/eat.svg";
 
@@ -30,7 +29,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo[]>([]);
   const getNextFood = async () => {
     const recommendationResponse: RandomFoodWithRestaurant =
-      await fetchRecommendation(0);
+      await fetchRecommendation();
     console.log(recommendationResponse);
     setRandomFood(recommendationResponse.randomFoodInfo);
     setRestaurantsInfo(recommendationResponse.restaurants);
@@ -43,13 +42,12 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     resolveRecommendation();
   }, []);
 
-  const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
-    console.log(e, " was deleted!");
+  const handleDeleteFood = () => {
     getNextFood();
     //change to get next food
   };
 
-  const handleEatFood = async (e: MouseEvent<HTMLImageElement>) => {
+  const handleEatFood = async () => {
     console.log(randomFood, " was eaten!");
     //send only not guest record to db
     if (currentUser && currentUser.userId !== -1 && currentUser.userId !== 0) {
@@ -90,7 +88,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 src={trashIcon}
                 alt="trash icon"
                 className="food-delete-icon"
-                onClick={(e) => handleDeleteFood(e)}
+                onClick={() => handleDeleteFood()}
               />
               <img
                 src={randomFood.image}
@@ -101,25 +99,21 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 className="food-eat-icon"
                 src={eatIcon}
                 alt="red trash icon"
-                onClick={(e) => handleEatFood(e)}
+                onClick={() => handleEatFood()}
               />
-              <div id="outer">
-                {restaurantsInfo !== null && (
-                  <div id="places">
-                    {restaurantsInfo.map((restaurant) => {
-                      return (
-                        <div
-                          key={restaurant.name}
-                          className="single-restaurant"
-                        >
-                          <div>{restaurant.name} </div>
-                          <div>{restaurant.address} </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+
+              {restaurantsInfo !== null && (
+                <div id="places">
+                  {restaurantsInfo.map((restaurant) => {
+                    return (
+                      <div key={restaurant.name} className="single-restaurant">
+                        <div>{restaurant.name} </div>
+                        <div>{restaurant.address} </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
         </div>

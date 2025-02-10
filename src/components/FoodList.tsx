@@ -1,7 +1,5 @@
 import { FoodInfo, UserInfo } from "../vite-env";
-import trashIcon from "../assets/icons/icon-monster-trash.svg";
-import eatIcon from "../assets/icons/eat.svg";
-import { useEffect } from "react";
+
 import FoodCard from "./FoodCard";
 
 // types from App.tsx
@@ -16,11 +14,6 @@ interface FoodListProps {
 
 //  (props) temp removed for build
 const FoodList: React.FC<FoodListProps> = (props) => {
-  useEffect(() => {
-    // props.setAvailableFoods(sampleFoods);
-    // props.setSingleUsersFoods(sampleFoods);
-  }, []);
-
   return (
     <>
       <nav className="l-header header">
