@@ -33,23 +33,25 @@ const FoodList: React.FC<FoodListProps> = (props) => {
 
   return (
     <>
-      <nav className='l-header header'>
+      <nav className="l-header header">
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
-        <button
+        {/* <button
           className='btn-addfoodcard'
           onClick={() => props.setView("addnewcard")}
         >
           +
-        </button>
+        </button> */}
         {/* <h1 onClick={() => props.changeView("createaccount")}>
           Create Account
         </h1> */}
-        <h1>{props.currentUser.userName}</h1>
-        <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
+        <div className="username-and-logout">
+          <h1>{props.currentUser.userName}</h1>
+          <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
+        </div>
       </nav>
-      <ul className='food-list l-food-list'>
+      <ul className="food-list l-food-list">
         {props.singleUsersFoods.map((food) => (
-          <li key={food.foodName} className='food'>
+          <li key={food.foodName} className="food">
             <FoodCard food={food} />
           </li>
         ))}
