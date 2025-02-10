@@ -20,6 +20,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         <h1 onClick={() => props.setView("home")}>What's Eat</h1>
         {/* <button
           className="btn-addfoodcard"
+          className="btn-addfoodcard"
           onClick={() => props.setView("addnewcard")}
         >
           +

@@ -48,7 +48,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   };
 
   const handleEatFood = async () => {
-    console.log(randomFood, " was eaten!");
     //send only not guest record to db
     if (currentUser && currentUser.userId !== -1 && currentUser.userId !== 0) {
       if (randomFood && randomFood.foodName) {
@@ -60,6 +59,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
               currentUser.userId,
               foodInfoResponse.foodId
             );
+            //check if response is ok
             console.log(response);
           }
         } catch (error) {
@@ -101,7 +101,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 alt="red trash icon"
                 onClick={() => handleEatFood()}
               />
-
               {restaurantsInfo !== null && (
                 <div id="places">
                   {restaurantsInfo.map((restaurant) => {
