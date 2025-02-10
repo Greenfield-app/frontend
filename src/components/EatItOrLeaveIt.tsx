@@ -19,19 +19,19 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   setAvailableFoodsWithImg,
 }) => {
   // random food for picking recommendation from foods array
+  const [randomFood, setRandomFood] = useState<FoodInfoDisplay | null>(null);
   useEffect(() => {
     const resolveRecommendation = async () => {
-      const recommendationResponse = await fetchRecommendation(0);
+      const recommendationResponse: FoodInfoDisplay[] =
+        await fetchRecommendation(0);
       console.log(recommendationResponse);
+      setRandomFood(recommendationResponse[0]);
     };
     resolveRecommendation();
   }, []);
-  const [randomFood, setRandomFood] = useState<FoodInfoDisplay>(
-    availableFoodsWithImg[0]
-  );
 
+  useEffect(() => {}, [randomFood]);
   const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
-    availableFoodsWithImg.pop();
     console.log(e, " was deleted!");
     //change to get next food
   };
@@ -44,10 +44,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     // send to database Records of when eaten
   };
 
-  useEffect(() => {
-    console.log(randomFood);
-  }, []);
-
   return (
     <>
       <nav className="l-header header">
@@ -59,19 +55,24 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
         {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
         <li className="food">
-          <img
-            className="food-delete-icon"
-            src={trashIcon}
-            alt="eat icon"
-            onClick={(e) => handleDeleteFood(e)}
-          />
-          <h3 className="food-title">Ramen</h3>
-          <img
-            className="food-eat-icon"
-            src={eatIcon}
-            alt="red trash icon"
-            onClick={(e) => handleEatFood(e)}
-          />
+          {randomFood && (
+            <div>
+              <img
+                src={trashIcon}
+                alt="trash icon"
+                className="food-delete-icon"
+                onClick={(e) => handleDeleteFood(e)}
+              />
+              <img src={randomFood.image} alt="" />
+              <h3 className="food-title">Ramen</h3>
+              <img
+                className="food-eat-icon"
+                src={eatIcon}
+                alt="red trash icon"
+                onClick={(e) => handleEatFood(e)}
+              />
+            </div>
+          )}
         </li>
       </div>
     </>
