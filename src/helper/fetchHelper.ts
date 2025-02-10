@@ -67,6 +67,24 @@ async function fetchSingleFoodById<T>(foodId: number): Promise<FoodInfo> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+async function addNewFood<T>(foodName: string): Promise<FoodInfo> {
+  const newFoodResponse = await fetch(`${API_URL}/api/new-food`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ foodName: foodName, description: null }),
+    // body: JSON.stringify({ foodName: foodName, description: null }),
+  });
+  try {
+    if (!newFoodResponse.ok) {
+      throw new Error(newFoodResponse.statusText);
+    }
+    return (await newFoodResponse.json()) as FoodInfo;
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
+}
+
 async function getAllAvailableFoods<T>(): Promise<FoodInfo[]> {
   const response = await fetch(`${API_URL}/api/foods`, {
     method: "GET",
@@ -101,6 +119,7 @@ async function sendNewRecord<T>(
   userId: number,
   foodId: number
 ): Promise<Record> {
+  console.log(userId, foodId);
   const newRecord = await fetch(`${API_URL}/api/record/${userId}/${foodId}`, {
     method: "POST",
     credentials: "include",
@@ -116,7 +135,7 @@ async function sendNewRecord<T>(
 }
 async function fetchRecommendation<T>(
   userId: number
-): Promise<FoodInfoDisplay[]> {
+): Promise<FoodInfoDisplay> {
   const randomFoodResponse = await fetch(`${API_URL}/api/random`, {
     method: "GET",
     credentials: "include",
@@ -125,7 +144,7 @@ async function fetchRecommendation<T>(
     if (!randomFoodResponse.ok) {
       throw new Error(randomFoodResponse.statusText);
     }
-    return (await randomFoodResponse.json()) as FoodInfoDisplay[];
+    return (await randomFoodResponse.json()) as FoodInfoDisplay;
   } catch (error) {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
@@ -138,4 +157,5 @@ export {
   fetchSingleFoodById,
   sendNewRecord,
   fetchRecommendation,
+  addNewFood,
 };

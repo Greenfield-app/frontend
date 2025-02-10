@@ -1,6 +1,10 @@
 import "../styles/modules/eatitorleaveit.css";
 import { FoodInfo, UserInfo, FoodInfoDisplay } from "../vite-env";
-import { sendNewRecord, fetchRecommendation } from "../helper/fetchHelper";
+import {
+  sendNewRecord,
+  fetchRecommendation,
+  addNewFood,
+} from "../helper/fetchHelper";
 import { useState, useEffect, MouseEvent } from "react";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 import eatIcon from "../assets/icons/eat.svg";
@@ -8,8 +12,8 @@ import eatIcon from "../assets/icons/eat.svg";
 interface EatItOrLeaveItProps {
   currentUser: UserInfo;
   setView: Function;
-  availableFoodsWithImg: FoodInfoDisplay[];
-  setAvailableFoodsWithImg: (foodInfoDisplay: FoodInfoDisplay[]) => void;
+  availableFoodsWithImg: FoodInfoDisplay;
+  setAvailableFoodsWithImg: (foodInfoDisplay: FoodInfoDisplay) => void;
 }
 
 const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
@@ -20,12 +24,20 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
 }) => {
   // random food for picking recommendation from foods array
   const [randomFood, setRandomFood] = useState<FoodInfoDisplay | null>(null);
+  const getNextFood = async () => {
+    const recommendationResponse: FoodInfoDisplay = await fetchRecommendation(
+      0
+    );
+    console.log(recommendationResponse);
+    setRandomFood(recommendationResponse);
+  };
   useEffect(() => {
     const resolveRecommendation = async () => {
-      const recommendationResponse: FoodInfoDisplay[] =
-        await fetchRecommendation(0);
+      const recommendationResponse: FoodInfoDisplay = await fetchRecommendation(
+        0
+      );
       console.log(recommendationResponse);
-      setRandomFood(recommendationResponse[0]);
+      setRandomFood(recommendationResponse);
     };
     resolveRecommendation();
   }, []);
@@ -33,15 +45,32 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   useEffect(() => {}, [randomFood]);
   const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
     console.log(e, " was deleted!");
+    getNextFood();
     //change to get next food
   };
 
   const handleEatFood = async (e: MouseEvent<HTMLImageElement>) => {
-    console.log(e, "was eaten!");
-    console.log(currentUser, randomFood, " was eaten!");
-    // const response = await sendNewRecord(currentUser.userId, randomFood.foodId);
-    // console.log(response);
-    // send to database Records of when eaten
+    console.log(randomFood, " was eaten!");
+    //not guest: send record to db
+    if (currentUser && currentUser.userId !== 0) {
+      if (randomFood && randomFood.foodName) {
+        try {
+          const foodInfoResponse = await addNewFood(randomFood.foodName);
+          if (foodInfoResponse) {
+            console.log(foodInfoResponse);
+            const response = await sendNewRecord(
+              currentUser.userId,
+              foodInfoResponse.foodId
+            );
+            console.log(response);
+          }
+        } catch (error) {
+          console.error(error, "Current user do not exist in database");
+        }
+      }
+    }
+    //if guest or user not exist, just get another random food
+    getNextFood();
   };
 
   return (
@@ -54,7 +83,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
         <h1>Eat it or leave it</h1>
         {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
-        <li className="food">
+        <div className="food">
           {randomFood && (
             <div>
               <img
@@ -63,8 +92,11 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 className="food-delete-icon"
                 onClick={(e) => handleDeleteFood(e)}
               />
-              <img src={randomFood.image} alt="" />
-              <h3 className="food-title">Ramen</h3>
+              <img
+                src={randomFood.image}
+                alt={randomFood.foodName || "Food Name"}
+              />
+              <h3 className="food-title">{randomFood.foodName}</h3>
               <img
                 className="food-eat-icon"
                 src={eatIcon}
@@ -73,7 +105,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
               />
             </div>
           )}
-        </li>
+        </div>
       </div>
     </>
   );

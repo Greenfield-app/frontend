@@ -15,15 +15,14 @@ import {
 function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
-  const [availableFoodsWithImg, setAvailableFoodsWithImg] = useState<
-    FoodInfo[]
-  >([]);
+  const [availableFoodsWithImg, setAvailableFoodsWithImg] =
+    useState<FoodInfoDisplay | null>();
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("home");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 38,
-    email: "a@a.a",
-    userName: "aaa",
+    userId: 10,
+    email: "",
+    userName: "",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
