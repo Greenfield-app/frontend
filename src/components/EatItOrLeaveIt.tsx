@@ -103,18 +103,23 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 alt="red trash icon"
                 onClick={(e) => handleEatFood(e)}
               />
-              {restaurantsInfo !== null && (
-                <div id="places">
-                  {restaurantsInfo.map((restaurant) => {
-                    return (
-                      <div key={restaurant.name} className="single-restaurant">
-                        <div>{restaurant.name} </div>
-                        <div>{restaurant.address} </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              <div id="outer">
+                {restaurantsInfo !== null && (
+                  <div id="places">
+                    {restaurantsInfo.map((restaurant) => {
+                      return (
+                        <div
+                          key={restaurant.name}
+                          className="single-restaurant"
+                        >
+                          <div>{restaurant.name} </div>
+                          <div>{restaurant.address} </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
