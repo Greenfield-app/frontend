@@ -24,7 +24,7 @@
   justify-items: center;
 }
 
-.l-login-signup-container {
+.l-content-container {
   display: flex;
   flex-direction: row;
   top: 50%;
@@ -40,7 +40,7 @@
 }
 
 @media (max-width: 680px) {
-  .l-login-signup-container {
+  .l-content-container {
     width: 65vw;
     height: auto;
     /* consisder overflow:auto */
@@ -49,7 +49,7 @@
 }
 
 @media (min-width: 680px) and (max-width: 1000px) {
-  .l-login-signup-container {
+  .l-content-container {
     width: 60vw;
     height: auto;
   }
