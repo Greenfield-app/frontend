@@ -1,6 +1,6 @@
 import "../styles/modules/eatitorleaveit.css";
-import { FoodInfo, UserInfo } from "../vite-env";
-import { sendNewRecord } from "../helper/fetchHelper";
+import { FoodInfo, UserInfo, FoodInfoDisplay } from "../vite-env";
+import { sendNewRecord, fetchRecommendation } from "../helper/fetchHelper";
 import { useState, useEffect, MouseEvent } from "react";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 import eatIcon from "../assets/icons/eat.svg";
@@ -8,34 +8,39 @@ import eatIcon from "../assets/icons/eat.svg";
 interface EatItOrLeaveItProps {
   currentUser: UserInfo;
   setView: Function;
-  availableFoods: FoodInfo[];
-  singleUsersFoods: FoodInfo[];
-  setAvailableFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>;
+  availableFoodsWithImg: FoodInfoDisplay[];
+  setAvailableFoodsWithImg: (foodInfoDisplay: FoodInfoDisplay[]) => void;
 }
 
 const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   currentUser,
   setView,
-  singleUsersFoods,
-  setAvailableFoods,
-  availableFoods,
+  availableFoodsWithImg,
+  setAvailableFoodsWithImg,
 }) => {
   // random food for picking recommendation from foods array
-  //need this food's id to send fetch
-  const [randomFood, setRandomFood] = useState<FoodInfo>(availableFoods[0]);
-
-  // eventually want to use this to make random food suggestion
+  useEffect(() => {
+    const resolveRecommendation = async () => {
+      const recommendationResponse = await fetchRecommendation(0);
+      console.log(recommendationResponse);
+    };
+    resolveRecommendation();
+  }, []);
+  const [randomFood, setRandomFood] = useState<FoodInfoDisplay>(
+    availableFoodsWithImg[0]
+  );
 
   const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
+    availableFoodsWithImg.pop();
     console.log(e, " was deleted!");
     //change to get next food
   };
 
   const handleEatFood = async (e: MouseEvent<HTMLImageElement>) => {
     console.log(e, "was eaten!");
-    console.log(currentUser, randomFood.foodId, " was eaten!");
-    const response = await sendNewRecord(currentUser.userId, randomFood.foodId);
-    console.log(response);
+    console.log(currentUser, randomFood, " was eaten!");
+    // const response = await sendNewRecord(currentUser.userId, randomFood.foodId);
+    // console.log(response);
     // send to database Records of when eaten
   };
 

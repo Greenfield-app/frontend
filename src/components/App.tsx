@@ -5,7 +5,7 @@ import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
 import AddNewCard from "./AddNewCard.tsx";
-import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
+import { FoodInfo, FoodInfoDisplay, RegisterInfo, UserInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -15,12 +15,15 @@ import {
 function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
+  const [availableFoodsWithImg, setAvailableFoodsWithImg] = useState<
+    FoodInfo[]
+  >([]);
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("home");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 0,
-    email: "",
-    userName: "",
+    userId: 38,
+    email: "a@a.a",
+    userName: "aaa",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
@@ -99,11 +102,10 @@ function App() {
         />
       ) : view === "eatitorleaveit" ? (
         <EatItOrLeaveIt
+          availableFoodsWithImg={availableFoodsWithImg}
+          setAvailableFoodsWithImg={setAvailableFoodsWithImg}
           currentUser={currentUser}
           setView={setView}
-          availableFoods={availableFoods}
-          singleUsersFoods={singleUsersFoods}
-          setAvailableFoods={setAvailableFoods}
         />
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page

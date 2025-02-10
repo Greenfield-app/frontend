@@ -6,6 +6,13 @@ export interface FoodInfo {
   description: string | null; // nullable
   // feat top places near me: string[] ?
 }
+
+export interface FoodInfoDisplay {
+  foodName: string;
+  image: string;
+  imageType: string;
+}
+
 export interface UserInfo {
   userId: number;
   email: string;

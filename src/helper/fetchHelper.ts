@@ -1,5 +1,6 @@
 import {
   FoodInfo,
+  FoodInfoDisplay,
   RegisterInfo,
   UserInfo,
   LoginInfo,
@@ -7,7 +8,9 @@ import {
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
-async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
+async function sendRegisterInfo<T>(
+  RegisterInfo: RegisterInfo
+): Promise<UserInfo> {
   if (RegisterInfo !== null) {
   }
   const response = await fetch(`${API_URL}/api/signup`, {
@@ -24,7 +27,7 @@ async function sendRegisterInfo<T>(RegisterInfo: RegisterInfo): Promise<T> {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    return (await response.json()) as T;
+    return (await response.json()) as UserInfo;
   } catch (error) {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
@@ -111,17 +114,18 @@ async function sendNewRecord<T>(
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function fetchRecommendation<T>(userId: number): Promise<Record[]> {
-  //change api, fetch recommendation from backend(backend call those api? not sure ,ask about system design)
-  const usersRecordsResponse = await fetch(`${API_URL}/api/records/${userId}`, {
+async function fetchRecommendation<T>(
+  userId: number
+): Promise<FoodInfoDisplay[]> {
+  const randomFoodResponse = await fetch(`${API_URL}/api/random`, {
     method: "GET",
     credentials: "include",
   });
   try {
-    if (!usersRecordsResponse.ok) {
-      throw new Error(usersRecordsResponse.statusText);
+    if (!randomFoodResponse.ok) {
+      throw new Error(randomFoodResponse.statusText);
     }
-    return (await usersRecordsResponse.json()) as Record[];
+    return (await randomFoodResponse.json()) as FoodInfoDisplay[];
   } catch (error) {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
