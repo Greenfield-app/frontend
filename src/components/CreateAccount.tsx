@@ -1,8 +1,9 @@
-import { RegisterInfo, RegisterError } from "../vite-env";
+import { RegisterInfo, RegisterError, UserInfo } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
 import { validateEmail } from "../helper/validateEmali";
 interface CreateAccountProps {
+  setCurrentUser: (userInfo: UserInfo) => void;
   newRegisterInfo: RegisterInfo;
   setNewRegisterInfo: (registerInfo: RegisterInfo) => void;
   setView: (view: string) => void;
@@ -12,6 +13,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   newRegisterInfo,
   setNewRegisterInfo,
   setView,
+  setCurrentUser,
 }) => {
   useEffect(() => {
     validateInput();
@@ -30,10 +32,10 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const result = await sendRegisterInfo(newRegisterInfo);
-      console.log(result);
+      const result: UserInfo = await sendRegisterInfo(newRegisterInfo);
       if (result) {
         setSubmitSuccess(true);
+        setCurrentUser(result);
         await setTimeout(() => {
           setView("foodlist");
         }, 3000);

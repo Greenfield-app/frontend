@@ -18,9 +18,9 @@ function App() {
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("home");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
-    userId: 38,
-    email: "a@a.a",
-    userName: "aaa",
+    userId: 0,
+    email: "",
+    userName: "",
   });
   const [newRegisterInfo, setNewRegisterInfo] = useState<RegisterInfo>({
     userName: "",
@@ -81,6 +81,7 @@ function App() {
         />
       ) : view === "createaccount" ? (
         <CreateAccount
+          setCurrentUser={setCurrentUser}
           setView={setView}
           newRegisterInfo={newRegisterInfo}
           setNewRegisterInfo={setNewRegisterInfo}
@@ -102,7 +103,7 @@ function App() {
           setView={setView}
           availableFoods={availableFoods}
           singleUsersFoods={singleUsersFoods}
-          setFoods={setAvailableFoods}
+          setAvailableFoods={setAvailableFoods}
         />
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
