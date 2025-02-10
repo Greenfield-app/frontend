@@ -45,22 +45,6 @@ const Home: React.FC<HomeProps> = (props) => {
           <h1>Help me Choose</h1>
         </div>
       </section>
-      <section className='l-content-container'>
-        <div
-          className='eats-history pop-dim'
-          onClick={() => props.setView("foodlist")}
-        >
-          <img className='history-icon' src={handHistory} />
-          <h1>Eats History</h1>
-        </div>
-        <div
-          className='help-me-choose pop-dim'
-          onClick={() => props.setView("eatitorleaveit")}
-        >
-          <img className='swipe-icon' src={handSwipe} />
-          <h1>Help me Choose</h1>
-        </div>
-      </section>
     </>
   );
 };
