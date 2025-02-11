@@ -2,9 +2,8 @@
 import this to main.tsx
 add any additional module css files here
 */
-@import "foodlist.css";
+@import "eats-history.css";
 @import "header.css";
-@import "addnewcard.css";
 @import "login&signup-page.css";
 @import "eatitorleaveit.css";
 @import "home.css";
