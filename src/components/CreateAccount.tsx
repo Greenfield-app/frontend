@@ -2,6 +2,7 @@ import { RegisterInfo, RegisterError, UserInfo } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
 import { validateEmail } from "../helper/validateEmali";
+import whatsEat from "../assets/icons/whatsEat-icon.png";
 interface CreateAccountProps {
   setCurrentUser: (userInfo: UserInfo) => void;
   newRegisterInfo: RegisterInfo;
@@ -102,10 +103,13 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
   };
 
   return (
-    <section className='l-content-container'>
+    <section className="l-content-container">
       {/* title side */}
-      <header className='login-signup-title'>
-        <h1>WhatsEat</h1>
+      <header className="login-signup-title">
+        <div className="icon-title">
+          <img className="whatseat-icon" src={whatsEat} />
+          <h1>WhatsEat</h1>
+        </div>
         <p>
           Hungry but can't decide? <br />
           We've got you!
@@ -114,70 +118,72 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 
       {/* signup side */}
       <form
-        className='login-signup-form'
+        className="login-signup-form"
         onSubmit={(e) => {
           submitHandler(e);
         }}
       >
         <h1>Create Account</h1>
-        <label htmlFor=''>Username: </label>
+        <label htmlFor="">Username: </label>
         <input
-          type='text'
-          id='username'
+          type="text"
+          id="username"
           onChange={(e) => changeHandler(e)}
-          placeholder='UserName'
+          placeholder="UserName"
         />
         {error.userName && (
-          <span className='error-signin'>
+          <span className="error-signin">
             Username must be at least 3 characters
           </span>
         )}
 
-        <label htmlFor=''>Emial: </label>
+        <label htmlFor="">Email: </label>
         <input
-          type='email'
-          id='email'
+          type="email"
+          id="email"
           onChange={(e) => changeHandler(e)}
-          placeholder='Email'
+          placeholder="Email"
         />
         {error.email && (
-          <span className='error-signin'>Not valid email address</span>
+          <span className="error-signin">Not valid email address</span>
         )}
 
-        <label htmlFor=''>Password: </label>
+        <label htmlFor="">Password: </label>
         <input
-          type='password'
-          id='password'
+          type="password"
+          id="password"
           onChange={(e) => changeHandler(e)}
-          placeholder='Password'
+          placeholder="Password"
         />
         {error.password && (
-          <span className='error-signin'>
+          <span className="error-signin">
             Password must be at least 6 characters
           </span>
         )}
-        <label htmlFor=''>Confirm Password: </label>
+        <label htmlFor="">Confirm Password: </label>
         <input
-          type='password'
-          id='password-confirm'
+          type="password"
+          id="password-confirm"
           onChange={(e) => changeHandler(e)}
-          placeholder='Confirm Password'
+          placeholder="Confirm Password"
         />
         {error.confirmPassword && (
-          <span className='error-register'>Passwords do not match</span>
+          <span className="error-register">Passwords do not match</span>
         )}
-        <button type='submit'>Submit</button>
+        <button className="login-signup-btn" type="submit">
+          sign up
+        </button>
 
         <small
-          className='cursor-pointer login-signup-link'
+          className="cursor-pointer login-signup-link"
           onClick={() => setView("login")}
         >
           Have an account? Sign in today!
         </small>
         <div>
-          {submitError && <span className='error-submit'>Sign Up Failed</span>}
+          {submitError && <span className="error-submit">Sign Up Failed</span>}
           {submitSuccess && (
-            <span className='success-submit'>Sign Up Success</span>
+            <span className="success-submit">Sign Up Success</span>
           )}
         </div>
       </form>

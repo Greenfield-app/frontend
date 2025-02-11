@@ -1,6 +1,8 @@
 import { UserInfo, LoginError, LoginInfo } from "../vite-env";
 import { useState, FormEvent } from "react";
 import { vertifyLogin } from "../helper/fetchHelper";
+import whatsEat from "../assets/icons/whatsEat-icon.png";
+
 interface LoginPageProps {
   setCurrentUser: (UserInfo: UserInfo) => void;
   setView: (view: string) => void;
@@ -51,7 +53,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
       <section className="l-content-container">
         {/* left side of login-container: Title + small description */}
         <header className="login-signup-title">
-          <h1>WhatsEat</h1>
+          <div className="icon-title">
+            <img className="whatseat-icon" src={whatsEat} />
+            <h1>WhatsEat</h1>
+          </div>
           <p>
             Hungry but can't decide? <br />
             We've got you!
@@ -65,12 +70,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
           }}
         >
           <h1>Login</h1>
-          <label htmlFor="">Emial: </label>
+          <label htmlFor="">Email: </label>
           <input type="email" id="email" placeholder="Email" />
 
           <label htmlFor="">Password: </label>
           <input type="password" id="password" placeholder="Password" />
-          <button type="submit">Submit</button>
+          <button className="login-signup-btn" type="submit">
+            login
+          </button>
           <small
             className="cursor-pointer login-signup-link"
             onClick={() => setView("createaccount")}

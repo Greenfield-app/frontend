@@ -1,6 +1,7 @@
 import { FoodInfo, UserInfo } from "../vite-env";
 
 import FoodCard from "./FoodCard";
+import whatsEat from "../assets/icons/whatsEat-icon.png";
 
 // types from App.tsx
 interface FoodListProps {
@@ -17,8 +18,12 @@ const FoodList: React.FC<FoodListProps> = (props) => {
   return (
     <>
       <nav className="l-header header">
-        <h1 onClick={() => props.setView("home")}>What's Eat</h1>
+        <header className="home-header">
+          <img className="whatseat-icon" src={whatsEat} />
+          <h1 onClick={() => props.setView("home")}>WhatsEat</h1>
+        </header>
         {/* <button
+          className="btn-addfoodcard"
           className="btn-addfoodcard"
           onClick={() => props.setView("addnewcard")}
         >
@@ -29,9 +34,12 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         </h1> */}
         <div className="username-and-logout">
           <h1>{props.currentUser.userName}</h1>
-          <h1 onClick={() => props.setView("loginpage")}>Logout</h1>
+          <h3 className="nav-text" onClick={() => props.setView("loginpage")}>
+            Logout
+          </h3>
         </div>
       </nav>
+      <h2 className="eats-history-title">Eats History:</h2>
       <ul className="food-list l-food-list">
         {props.singleUsersFoods.map((food) => (
           <li key={food.foodName} className="food">

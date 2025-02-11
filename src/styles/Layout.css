@@ -3,6 +3,7 @@
   justify-content: space-between;
   width: 100%;
   min-height: 10vh;
+  background-color: #111b21e1;
 }
 
 .l-header h1 {
@@ -12,7 +13,10 @@
 .l-header .username-and-logout {
   display: flex;
   justify-content: space-between;
-  width: 13%;
+  gap: 2rem;
+  align-items: center;
+  font-size: small;
+  padding-right: 2vw;
 }
 
 .l-food-list {
@@ -42,6 +46,7 @@
 @media (max-width: 680px) {
   .l-content-container {
     width: 65vw;
+    min-height: auto;
     height: auto;
     /* consisder overflow:auto */
     flex-direction: column;

@@ -63,3 +63,8 @@ export interface Location {
   longitude: number;
   city: string;
 }
+export interface Location {
+  latitude: number;
+  longitude: number;
+  city: string;
+}

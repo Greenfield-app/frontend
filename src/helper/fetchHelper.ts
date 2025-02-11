@@ -6,6 +6,8 @@ import {
   Record,
   Location,
   RandomFoodWithRestaurant,
+  Location,
+  RandomFoodWithRestaurant,
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -175,5 +177,6 @@ export {
   sendNewRecord,
   fetchRecommendation,
   addNewFood,
+  fetchLocationByIP,
   fetchLocationByIP,
 };
