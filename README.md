@@ -25,9 +25,11 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 
 ### Eat it or leave it
 
-On this page, the app randomly displays a food to the user. 
+On this page, the app randomly displays a food to the user as well as nearby locations that serve the food and ratings. The user can either hit the eat button (eat it) to save the food to their history, or hit the delete button (leave it) if they're not interested.
 
 ### My Eats
+
+For a logged in user, it will display their past eats. For a guest user, it will not show anything.
 
 ## Pictures of Front End
 
