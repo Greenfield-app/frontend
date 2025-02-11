@@ -34,16 +34,15 @@ function App() {
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
+      console.log(recordData);
       //foreach, replace map,
       const recordWithFoodArr = recordData.map(async (record) => {
         const foodId = record.foodId;
         const foodResponse = await fetchSingleFoodById(foodId);
-        console.log(foodResponse); //sofar ok
         const recordWithFood: RecordWithFood = {
           record: record,
           food: foodResponse,
         };
-        console.log(recordWithFood);
         return recordWithFood;
       });
       const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
@@ -54,12 +53,13 @@ function App() {
 
   useEffect(() => {}, [currentUser]);
   useEffect(() => {
-    console.log(recordsWithFood);
+    recordsWithFood;
   }, [recordsWithFood]);
 
   return (
     <>
       {/* background image whole screen */}
+      <div className="bg-image is-unfocused" />
       <div className="bg-image is-unfocused" />
       {/* <p>{fetchedResult}</p> */}
 
