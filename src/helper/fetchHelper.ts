@@ -45,7 +45,7 @@ async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
   });
   try {
     if (!response.ok) {
-      console.log("RES ERROR ", response);
+      console.error("RES ERROR ", response);
       throw new Error(response.statusText);
     }
     return (await response.json()) as T;
@@ -68,6 +68,7 @@ async function fetchSingleFoodById(foodId: number): Promise<FoodInfo> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+
 async function addNewFood(foodName: string): Promise<FoodInfo> {
   const newFoodResponse = await fetch(`${API_URL}/api/new-food`, {
     method: "POST",
@@ -86,20 +87,6 @@ async function addNewFood(foodName: string): Promise<FoodInfo> {
   }
 }
 
-async function getAllAvailableFoods(): Promise<FoodInfo[]> {
-  const response = await fetch(`${API_URL}/api/foods`, {
-    method: "GET",
-    credentials: "include",
-  });
-  try {
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return (await response.json()) as FoodInfo[];
-  } catch (error) {
-    throw error instanceof Error ? error : new Error("Fetch error");
-  }
-}
 async function fetchAllRecordsOfSingleUser(userId: number): Promise<Record[]> {
   const usersRecordsResponse = await fetch(`${API_URL}/api/records/${userId}`, {
     method: "GET",
@@ -114,6 +101,25 @@ async function fetchAllRecordsOfSingleUser(userId: number): Promise<Record[]> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
+
+async function deleteRecordById(recordId: number): Promise<Record> {
+  const deleteRecordResponse = await fetch(
+    `${API_URL}/api/record/${recordId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+    }
+  );
+  try {
+    if (!deleteRecordResponse.ok) {
+      throw new Error(deleteRecordResponse.statusText);
+    }
+    return (await deleteRecordResponse.json()) as Record;
+  } catch (error) {
+    throw error instanceof Error ? error : new Error("Fetch error");
+  }
+}
+
 async function sendNewRecord(userId: number, foodId: number): Promise<Record> {
   const newRecord = await fetch(`${API_URL}/api/record/${userId}/${foodId}`, {
     method: "POST",
@@ -154,7 +160,6 @@ async function fetchRecommendation(): Promise<RandomFoodWithRestaurant> {
 async function fetchLocationByIP(): Promise<Location> {
   //get cached location first
   let cachedData = localStorage.getItem(CACHE_KEY_LOCATION);
-  console.log(cachedData, "CACHE");
   if (cachedData) {
     const oldCachedLocation: CachedLocation = JSON.parse(cachedData);
     const timeNow = Date.now();
@@ -200,11 +205,11 @@ async function fetchLocationByIP(): Promise<Location> {
 export {
   sendRegisterInfo,
   vertifyLogin,
-  getAllAvailableFoods,
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
   sendNewRecord,
   fetchRecommendation,
   addNewFood,
+  deleteRecordById,
   fetchLocationByIP,
 };

@@ -1,11 +1,10 @@
-import { FoodInfo, UserInfo } from "../vite-env";
+import { FoodInfo, UserInfo, RecordWithFood } from "../vite-env";
 import FoodCard from "./FoodCard";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
-
 // types from App.tsx
 interface FoodListProps {
-  setAvailableFoods: React.Dispatch<React.SetStateAction<FoodInfo[]>>; // to be used for deleting and editing Food Cards
-  availableFoods: FoodInfo[]; // to get current Food list
+  recordsWithFood: RecordWithFood[];
+  setRecordsWithFood: Function;
   currentUser: UserInfo;
   setView: Function;
   setSingleUsersFoods: (FoodInfo: FoodInfo[]) => void;
@@ -16,23 +15,27 @@ interface FoodListProps {
 const FoodList: React.FC<FoodListProps> = (props) => {
   return (
     <>
-      <nav className='l-header header'>
-        <header className='home-header'>
-          <img className='whatseat-icon' src={whatsEat} />
+      <nav className="l-header header">
+        <header className="home-header">
+          <img className="whatseat-icon" src={whatsEat} />
           <h1 onClick={() => props.setView("home")}>WhatsEat</h1>
         </header>
-        <div className='username-and-logout'>
+        <div className="username-and-logout">
           <h1>{props.currentUser.userName}</h1>
-          <h3 className='nav-text' onClick={() => props.setView("loginpage")}>
+          <h3 className="nav-text" onClick={() => props.setView("loginpage")}>
             Logout
           </h3>
         </div>
       </nav>
-      <h2 className='eats-history-title'>Eats History:</h2>
-      <ul className='food-list l-food-list'>
-        {props.singleUsersFoods.map((food) => (
-          <li key={food.foodName} className='food'>
-            <FoodCard food={food} />
+      <h2 className="eats-history-title">Eats History:</h2>
+      <ul className="food-list l-food-list">
+        {props.recordsWithFood.map((data) => (
+          <li key={data.food.foodName + Math.random()} className="food">
+            <FoodCard
+              recordWithFood={data}
+              recordsWithFood={props.recordsWithFood}
+              setRecordsWithFood={props.setRecordsWithFood}
+            />
           </li>
         ))}
       </ul>

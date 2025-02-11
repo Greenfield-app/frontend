@@ -53,11 +53,16 @@ export interface LoginError {
   loginSuccessful: boolean;
 }
 export interface Record {
-  id: number;
+  recordId: number;
   userId: number;
   foodId: number;
   recordAt: string;
 }
+export interface RecordWithFood {
+  record: Record;
+  food: FoodInfo;
+}
+
 export interface Location {
   latitude: number;
   longitude: number;
