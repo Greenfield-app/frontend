@@ -115,7 +115,6 @@ async function fetchAllRecordsOfSingleUser(userId: number): Promise<Record[]> {
   }
 }
 async function sendNewRecord(userId: number, foodId: number): Promise<Record> {
-  console.log(userId, foodId);
   const newRecord = await fetch(`${API_URL}/api/record/${userId}/${foodId}`, {
     method: "POST",
     credentials: "include",

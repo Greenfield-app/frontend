@@ -18,7 +18,6 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
 }) => {
   useEffect(() => {
     validateInput();
-    console.log(newRegisterInfo);
   }, [newRegisterInfo]);
 
   const [error, setError] = useState<RegisterError>({
