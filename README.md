@@ -29,6 +29,22 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 
 ![Screenshot 2025-02-11 163126](https://github.com/user-attachments/assets/1a58353c-88f0-4872-8020-9c69eca2e87a)
 
+### Create Account
+
+![Screenshot 2025-02-11 163138](https://github.com/user-attachments/assets/dfbe92ce-b476-4d4e-b994-f049d787f1fc)
+
+### Home Page (as guest)
+
+![Screenshot 2025-02-11 163157](https://github.com/user-attachments/assets/b5aecebe-2756-43ba-a903-7c7f90c576c4)
+
+### Eat It or Leave It
+
+![Screenshot 2025-02-11 163217](https://github.com/user-attachments/assets/934de06b-8792-4e17-b691-ef874642f01a)
+
+### Eats History (for user 'dude')
+
+![Screenshot 2025-02-11 163341](https://github.com/user-attachments/assets/15e25dd0-d14c-4c08-9821-a6c15cfda964)
+
 
 
 ## Getting Started
