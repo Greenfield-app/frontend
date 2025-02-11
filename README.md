@@ -6,8 +6,6 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 ## What's Eat - Front End
  This is the front end UI for What's Eat. 
 
- To make this repo work locally, you will also need the What's eat backend repo: https://github.com/Greenfield-app/backend/tree/main
-
  To check out the deployed front-end, here is the link:
 
  https://frontend-gd1y.onrender.com/
@@ -74,6 +72,8 @@ On this page, the app randomly displays a food to the user.
 ## Getting Started
 
 Download this repo 
+
+To make this repo work locally, you will also need the What's eat backend repo: https://github.com/Greenfield-app/backend/tree/main
 
 In the frontend root directory, run the command:
 
