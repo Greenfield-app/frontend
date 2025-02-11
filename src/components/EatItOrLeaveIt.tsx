@@ -1,5 +1,7 @@
-import "../styles/modules/eatitorleaveit.css";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
+import eatIt from "../assets/icons/eat-it.png";
+import leaveIT from "../assets/icons/leave-it.png";
+import { useState, useEffect } from "react";
 import {
   UserInfo,
   FoodInfoDisplay,
@@ -12,9 +14,6 @@ import {
   addNewFood,
   fetchLocationByIP,
 } from "../helper/fetchHelper";
-import { useState, useEffect } from "react";
-import trashIcon from "../assets/icons/icon-monster-trash.svg";
-import eatIcon from "../assets/icons/eat.svg";
 
 interface EatItOrLeaveItProps {
   currentUser: UserInfo;
@@ -75,8 +74,8 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
         }
       }
       //if guest or user not exist, just get another random food
-      getNextFood();
     }
+    getNextFood();
   };
 
   return (
@@ -93,41 +92,52 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
           </h3>
         </div>
       </nav>
-      <div className="eatitorleaveit-container">
+      <div className="eatitleaveit-content-container">
         <h1 className="eatitorleaveit-title">Eat it or leave it</h1>
         {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
-        <div className="food">
+        <div className="eatitorleaveit-container">
           {randomFood && (
             <div>
               <img
-                src={trashIcon}
-                alt="trash icon"
-                className="food-delete-icon"
-                onClick={() => handleDeleteFood()}
-              />
-              <img
+                className="eat-leave-img"
                 src={randomFood.image}
                 alt={randomFood.foodName || "Food Name"}
               />
               <h3 className="food-title">{randomFood.foodName}</h3>
-              <img
-                className="food-eat-icon"
-                src={eatIcon}
-                alt="red trash icon"
-                onClick={() => handleEatFood()}
-              />
+              <div className="eat-or-leave-btns">
+                <img
+                  className="eat-it-icon"
+                  src={eatIt}
+                  alt="eat it icon"
+                  onClick={() => handleEatFood()}
+                />
+                <p>Or</p>
+                <img
+                  src={leaveIT}
+                  alt="leave it icon"
+                  className="leave-it-icon"
+                  onClick={() => handleDeleteFood()}
+                />
+              </div>
               {restaurantsInfo !== null && (
-                <div id="places">
+                <ul className="single-restaurant">
                   {restaurantsInfo.map((restaurant) => {
                     return (
-                      <div key={restaurant.name} className="single-restaurant">
-                        <div>{restaurant.name} </div>
-                        <div>{restaurant.address} </div>
-                      </div>
+                      <li key={restaurant.name}>
+                        <a
+                          href={`https://www.google.com/maps/search/?q=${
+                            restaurant.name + ", " + restaurant.address
+                          }`}
+                          target="blank"
+                        >
+                          {restaurant.name}
+                        </a>
+                        <p>{`rating: ${restaurant.rating}⭐`}</p>
+                      </li>
                     );
                   })}
-                </div>
+                </ul>
               )}
             </div>
           )}

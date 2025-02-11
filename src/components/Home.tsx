@@ -1,5 +1,3 @@
-import FoodList from "./FoodList";
-import EatItOrLeaveIt from "./EatItOrLeaveIt";
 import { FoodInfo, UserInfo } from "../vite-env";
 import handHistory from "../assets/icons/history-hand.svg";
 import handSwipe from "../assets/icons/swipe-hand.svg";
