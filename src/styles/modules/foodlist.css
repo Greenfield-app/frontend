@@ -26,12 +26,17 @@
   cursor: pointer;
 }
 
+.eats-history-title {
+  text-align: center;
+  padding: 10px;
+}
+
 @media (max-width: 768px) {
   .food-card {
     min-width: 30vh;
   }
 }
 
-.btn-addfoodcard {
+/* .btn-addfoodcard {
   width: 50px;
-}
+} */
