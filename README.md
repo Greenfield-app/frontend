@@ -18,9 +18,9 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 Login Page<br>
 Create Account<br>
 Home<br>
-  &nbsp;Eat it or leave it<br>
-  &nbsp;Food List<br>
-    &nbsp;&nbsp;Food Card<br>
+  &nbsp;&nbsp;Eat it or leave it<br>
+  &nbsp;&nbsp;Food List<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Food Card<br>
 </p>
 
 ## Getting Started
