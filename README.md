@@ -15,12 +15,12 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 ## React Component Structure
 
 <p>
-Login Page<br>
-Create Account<br>
-Home<br>
-  &nbsp;&nbsp;Eat it or leave it<br>
-  &nbsp;&nbsp;Food List<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;Food Card<br>
+* Login Page<br>
+* Create Account<br>
+* Home<br>
+  &nbsp;&nbsp;- Eat it or leave it<br>
+  &nbsp;&nbsp;- Food List<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;+ Food Card<br>
 </p>
 
 ## Getting Started
