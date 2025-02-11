@@ -63,6 +63,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 currentUser.userId,
                 foodInfoResponse.foodId
               );
+              console.log(response);
             }
           } catch (error) {
             console.error(error, "Current user do not exist in database");
