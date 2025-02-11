@@ -52,9 +52,7 @@ function App() {
   }, [currentUser, view]);
 
   useEffect(() => {}, [currentUser]);
-  useEffect(() => {
-    recordsWithFood;
-  }, [recordsWithFood]);
+
 
   return (
     <>
