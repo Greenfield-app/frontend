@@ -15,8 +15,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   const handleDeleteFood = async () => {
-    console.log(" was deleted!", recordWithFood.record.recordId);
-    // delete in database
+    console.log(recordWithFood);
     const result = await deleteRecordById(recordWithFood.record.recordId);
     setRecordsWithFood((prev: RecordWithFood[]) =>
       prev.filter(
