@@ -58,6 +58,11 @@ export interface Record {
   foodId: number;
   recordAt: string;
 }
+export interface RecordWithFood {
+  record: Record;
+  food: FoodInfo;
+}
+
 export interface Location {
   latitude: number;
   longitude: number;
