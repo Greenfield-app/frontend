@@ -19,9 +19,17 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 * Create Account<br>
 * Home<br>
   &nbsp;&nbsp;- Eat it or leave it<br>
-  &nbsp;&nbsp;- Food List<br>
+  &nbsp;&nbsp;- Food List / My History<br>
     &nbsp;&nbsp;&nbsp;&nbsp;+ Food Card<br>
 </p>
+
+## Pictures of Front End
+
+### Login
+
+![Screenshot 2025-02-11 163126](https://github.com/user-attachments/assets/1a58353c-88f0-4872-8020-9c69eca2e87a)
+
+
 
 ## Getting Started
 
