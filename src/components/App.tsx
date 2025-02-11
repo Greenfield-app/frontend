@@ -31,9 +31,7 @@ function App() {
   });
 
   // useEffects
-  useEffect(() => {
-    console.log("view changed");
-  }, [view]);
+  useEffect(() => {}, [view]);
 
   // pulls available foods from database (if database not set up locally, can change back to sample data in food list)
   useEffect(() => {
@@ -42,7 +40,6 @@ function App() {
       setAvailableFoods(foodData);
     }
     resolveAvailableFoodsPromise();
-    console.log(availableFoods);
   }, []);
 
   // gets all of the foods of a logged in user when currentUser changes
@@ -58,12 +55,9 @@ function App() {
       });
     }
     resolveRecordArrayPromise();
-    console.log(singleUsersFoods);
   }, [currentUser, view]);
 
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+  useEffect(() => {}, [currentUser]);
 
   return (
     <>
