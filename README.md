@@ -12,6 +12,16 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 
  https://frontend-gd1y.onrender.com/
 
+## React Component Structure
+
+Login Page
+Create Account
+Home
+  Eat it or leave it
+  Food List
+    Food Card
+
+
 ## Getting Started
 
 Download this repo 
