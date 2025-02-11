@@ -5,7 +5,7 @@ import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
 import AddNewCard from "./AddNewCard.tsx";
-import { FoodInfo, FoodInfoDisplay, RegisterInfo, UserInfo } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -15,8 +15,7 @@ import {
 function App() {
   // useStates and variables
   const [availableFoods, setAvailableFoods] = useState<FoodInfo[]>([]);
-  const [availableFoodsWithImg, setAvailableFoodsWithImg] =
-    useState<FoodInfoDisplay | null>();
+
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [view, setView] = useState<string | null>("login");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
@@ -50,7 +49,6 @@ function App() {
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      console.log(recordData);
       const foodIdArr = recordData.map((record) => record.foodId);
       const foodPromisesArr = foodIdArr.map(
         async (foodId) => await fetchSingleFoodById(foodId)

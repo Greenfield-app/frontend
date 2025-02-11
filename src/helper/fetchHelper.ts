@@ -1,28 +1,27 @@
 import {
   FoodInfo,
-  FoodInfoDisplay,
   RegisterInfo,
   UserInfo,
   LoginInfo,
   Record,
   Location,
   RandomFoodWithRestaurant,
+  CachedLocation,
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
-
-async function sendRegisterInfo<T>(
-  RegisterInfo: RegisterInfo
-): Promise<UserInfo> {
-  if (RegisterInfo !== null) {
+const CACHE_KEY_LOCATION = "ip_location_cache";
+const CACHE_DURATION = 24 * 60 * 60 * 1000;
+async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
+  if (registerInfo !== null) {
   }
   const response = await fetch(`${API_URL}/api/signup`, {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
-      userName: RegisterInfo.userName,
-      email: RegisterInfo.email,
-      password: RegisterInfo.password,
+      userName: registerInfo.userName,
+      email: registerInfo.email,
+      password: registerInfo.password,
     }),
   });
   try {
@@ -55,7 +54,7 @@ async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
   }
 }
 
-async function fetchSingleFoodById<T>(foodId: number): Promise<FoodInfo> {
+async function fetchSingleFoodById(foodId: number): Promise<FoodInfo> {
   const singleFoodResponse = await fetch(`${API_URL}/api/food/${foodId}`, {
     method: "GET",
     credentials: "include",
@@ -69,7 +68,7 @@ async function fetchSingleFoodById<T>(foodId: number): Promise<FoodInfo> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function addNewFood<T>(foodName: string): Promise<FoodInfo> {
+async function addNewFood(foodName: string): Promise<FoodInfo> {
   const newFoodResponse = await fetch(`${API_URL}/api/new-food`, {
     method: "POST",
     credentials: "include",
@@ -87,7 +86,7 @@ async function addNewFood<T>(foodName: string): Promise<FoodInfo> {
   }
 }
 
-async function getAllAvailableFoods<T>(): Promise<FoodInfo[]> {
+async function getAllAvailableFoods(): Promise<FoodInfo[]> {
   const response = await fetch(`${API_URL}/api/foods`, {
     method: "GET",
     credentials: "include",
@@ -101,9 +100,7 @@ async function getAllAvailableFoods<T>(): Promise<FoodInfo[]> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function fetchAllRecordsOfSingleUser<T>(
-  userId: number
-): Promise<Record[]> {
+async function fetchAllRecordsOfSingleUser(userId: number): Promise<Record[]> {
   const usersRecordsResponse = await fetch(`${API_URL}/api/records/${userId}`, {
     method: "GET",
     credentials: "include",
@@ -117,10 +114,7 @@ async function fetchAllRecordsOfSingleUser<T>(
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-async function sendNewRecord<T>(
-  userId: number,
-  foodId: number
-): Promise<Record> {
+async function sendNewRecord(userId: number, foodId: number): Promise<Record> {
   console.log(userId, foodId);
   const newRecord = await fetch(`${API_URL}/api/record/${userId}/${foodId}`, {
     method: "POST",
@@ -136,9 +130,7 @@ async function sendNewRecord<T>(
   }
 }
 
-async function fetchRecommendation<T>(
-  userId: number
-): Promise<RandomFoodWithRestaurant> {
+async function fetchRecommendation(): Promise<RandomFoodWithRestaurant> {
   const location: Location = await fetchLocationByIP();
   const url = new URL(`${API_URL}/api/random`);
   if (location) {
@@ -160,19 +152,50 @@ async function fetchRecommendation<T>(
   }
 }
 
-async function fetchLocationByIP<T>(): Promise<Location> {
+async function fetchLocationByIP(): Promise<Location> {
+  //get cached location first
+  let cachedData = localStorage.getItem(CACHE_KEY_LOCATION);
+  console.log(cachedData, "CACHE");
+  if (cachedData) {
+    const oldCachedLocation: CachedLocation = JSON.parse(cachedData);
+    const timeNow = Date.now();
+    if (timeNow - Number(oldCachedLocation.timestamp) < CACHE_DURATION) {
+      return oldCachedLocation.location;
+    }
+  }
+  //if cached data not exist, fetch new location
   try {
-    const response = await fetch("https://ipapi.co/json/");
+    const response = await fetch("https://ipapi.co/json/", {
+      mode: "cors",
+      credentials: "omit",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
     const pardedResponse = await response.json();
     const location = {
       latitude: pardedResponse.latitude,
       longitude: pardedResponse.longitude,
-      city: pardedResponse.city,
     };
+    const newCachedLocatio: CachedLocation = {
+      location: location,
+      timestamp: Date.now().toString(),
+    };
+    localStorage.setItem(CACHE_KEY_LOCATION, JSON.stringify(newCachedLocatio));
     console.log(location);
     return location;
   } catch (error) {
-    throw error instanceof Error ? error : new Error("Fetch error");
+    const location: Location = {
+      latitude: 35.65,
+      longitude: 139.73333,
+    };
+    const newCachedLocatio: CachedLocation = {
+      location: location,
+      timestamp: Date.now().toString(),
+    };
+    localStorage.setItem(CACHE_KEY_LOCATION, JSON.stringify(newCachedLocatio));
+    return location;
   }
 }
 

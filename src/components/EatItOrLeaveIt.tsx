@@ -1,7 +1,6 @@
 import "../styles/modules/eatitorleaveit.css";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 import {
-  FoodInfo,
   UserInfo,
   FoodInfoDisplay,
   RandomFoodWithRestaurant,
@@ -13,7 +12,7 @@ import {
   addNewFood,
   fetchLocationByIP,
 } from "../helper/fetchHelper";
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect } from "react";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 import eatIcon from "../assets/icons/eat.svg";
 
@@ -31,7 +30,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo[]>([]);
   const getNextFood = async () => {
     const recommendationResponse: RandomFoodWithRestaurant =
-      await fetchRecommendation(0);
+      await fetchRecommendation();
     console.log(recommendationResponse);
     setRandomFood(recommendationResponse.randomFoodInfo);
     setRestaurantsInfo(recommendationResponse.restaurants);
@@ -44,79 +43,85 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     resolveRecommendation();
   }, []);
 
-  const handleDeleteFood = (e: MouseEvent<HTMLImageElement>) => {
-    console.log(e, " was deleted!");
+  const handleDeleteFood = () => {
     getNextFood();
     //change to get next food
   };
 
-  const handleEatFood = async (e: MouseEvent<HTMLImageElement>) => {
-    console.log(randomFood, " was eaten!");
+  const handleEatFood = async () => {
     //send only not guest record to db
     if (currentUser && currentUser.userId !== -1 && currentUser.userId !== 0) {
-      if (randomFood && randomFood.foodName) {
-        try {
-          const foodInfoResponse = await addNewFood(randomFood.foodName);
-          if (foodInfoResponse) {
-            console.log(foodInfoResponse);
-            const response = await sendNewRecord(
-              currentUser.userId,
-              foodInfoResponse.foodId
-            );
-            console.log(response);
+      //send only not guest record to db
+      if (
+        currentUser &&
+        currentUser.userId !== -1 &&
+        currentUser.userId !== 0
+      ) {
+        if (randomFood && randomFood.foodName) {
+          try {
+            const foodInfoResponse = await addNewFood(randomFood.foodName);
+            if (foodInfoResponse) {
+              console.log(foodInfoResponse);
+              const response = await sendNewRecord(
+                currentUser.userId,
+                foodInfoResponse.foodId
+              );
+              //check if response is ok
+              console.log(response);
+            }
+          } catch (error) {
+            console.error(error, "Current user do not exist in database");
           }
-        } catch (error) {
-          console.error(error, "Current user do not exist in database");
         }
       }
+      //if guest or user not exist, just get another random food
+      getNextFood();
     }
-    //if guest or user not exist, just get another random food
-    getNextFood();
   };
 
   return (
     <>
-      <nav className='l-header header'>
-        <header className='home-header'>
-          <img className='whatseat-icon' src={whatsEat} />
+      <nav className="l-header header">
+        <header className="home-header">
+          <img className="whatseat-icon" src={whatsEat} />
           <h1 onClick={() => setView("home")}>WhatsEat</h1>
         </header>
-        <div className='username-and-logout'>
+        <div className="username-and-logout">
           <h1>{currentUser.userName}</h1>
-          <h3 className='nav-text' onClick={() => setView("loginpage")}>
+          <h3 className="nav-text" onClick={() => setView("loginpage")}>
             Logout
           </h3>
         </div>
       </nav>
-      <div className='eatitorleaveit-container'>
-        <h1 className='eatitorleaveit-title'>Eat it or leave it</h1>
+      <div className="eatitorleaveit-container">
+        <h1 className="eatitorleaveit-title">Eat it or leave it</h1>
         {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
-        <div className='food'>
+        <div className="food">
           {randomFood && (
             <div>
               <img
                 src={trashIcon}
-                alt='trash icon'
-                className='food-delete-icon'
-                onClick={(e) => handleDeleteFood(e)}
+                alt="trash icon"
+                className="food-delete-icon"
+                onClick={() => handleDeleteFood()}
               />
               <img
                 src={randomFood.image}
                 alt={randomFood.foodName || "Food Name"}
               />
-              <h3 className='food-title'>{randomFood.foodName}</h3>
+              <h3 className="food-title">{randomFood.foodName}</h3>
               <img
-                className='food-eat-icon'
+                className="food-eat-icon"
                 src={eatIcon}
-                alt='red trash icon'
-                onClick={(e) => handleEatFood(e)}
+                alt="red trash icon"
+                onClick={() => handleEatFood()}
               />
               {restaurantsInfo !== null && (
-                <div id='places'>
+                <div id="places">
                   {restaurantsInfo.map((restaurant) => {
                     return (
-                      <div key={restaurant.name} className='single-restaurant'>
+                      <div key={restaurant.name} className="single-restaurant">
                         <div>{restaurant.name} </div>
                         <div>{restaurant.address} </div>
                       </div>

@@ -1,5 +1,5 @@
 import { UserInfo, LoginError, LoginInfo } from "../vite-env";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import { vertifyLogin } from "../helper/fetchHelper";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 
@@ -50,11 +50,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
   return (
     <>
       {/* container for Title and login form sections */}
-      <section className='l-content-container'>
+      <section className="l-content-container">
         {/* left side of login-container: Title + small description */}
-        <header className='login-signup-title'>
-          <div className='icon-title'>
-            <img className='whatseat-icon' src={whatsEat} />
+        <header className="login-signup-title">
+          <div className="icon-title">
+            <img className="whatseat-icon" src={whatsEat} />
             <h1>WhatsEat</h1>
           </div>
           <p>
@@ -64,29 +64,29 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
         </header>
         {/* right side of login-container: Form for input feild login credentials */}
         <form
-          className='login-signup-form'
+          className="login-signup-form"
           onSubmit={(e) => {
             vertifyHandler(e);
           }}
         >
           <h1>Login</h1>
-          <label htmlFor=''>Email: </label>
-          <input type='email' id='email' placeholder='Email' />
+          <label htmlFor="">Email: </label>
+          <input type="email" id="email" placeholder="Email" />
 
-          <label htmlFor=''>Password: </label>
-          <input type='password' id='password' placeholder='Password' />
-          <button className='login-signup-btn' type='submit'>
+          <label htmlFor="">Password: </label>
+          <input type="password" id="password" placeholder="Password" />
+          <button className="login-signup-btn" type="submit">
             login
           </button>
           <small
-            className='cursor-pointer login-signup-link'
+            className="cursor-pointer login-signup-link"
             onClick={() => setView("createaccount")}
           >
             No Account? Sign up today!
           </small>
           <small>or</small>
           <small
-            className='cursor-point login-signup-link'
+            className="cursor-point login-signup-link"
             onClick={() => handleSignInAsGuest()}
           >
             Sign in as guest
@@ -94,11 +94,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
           <div>
             {submitState.submitted === true &&
               submitState.loginSuccessful === false && (
-                <span className='error-submit'>Log In Failed</span>
+                <span className="error-submit">Log In Failed</span>
               )}
             {submitState.submitted === true &&
               submitState.loginSuccessful === true && (
-                <span className='success-submit'>Log In Success</span>
+                <span className="success-submit">Log In Success</span>
               )}
           </div>
         </form>
