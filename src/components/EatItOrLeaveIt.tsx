@@ -78,7 +78,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     getNextFood();
   };
 
-  const address =
     "Ramen Issei, 3 Chome-40-23 Maeharacho, Koganei, Tokyo 184-0013";
   return (
     <>
