@@ -1,4 +1,4 @@
-import { FoodInfo, UserInfo } from "../vite-env";
+import { UserInfo } from "../vite-env";
 import handHistory from "../assets/icons/history-hand.svg";
 import handSwipe from "../assets/icons/swipe-hand.svg";
 import whatsEat from "../assets/icons/whatsEat-icon.png";

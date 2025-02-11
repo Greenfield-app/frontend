@@ -1,5 +1,5 @@
 import { RecordWithFood } from "../vite-env";
-import { useState, MouseEvent } from "react";
+import { useState } from "react";
 import { deleteRecordById } from "../helper/fetchHelper";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 
@@ -10,12 +10,11 @@ interface FoodCardProps {
 }
 const FoodCard: React.FC<FoodCardProps> = ({
   recordWithFood,
-  recordsWithFood,
   setRecordsWithFood,
 }) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
-  const handleDeleteFood = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleDeleteFood = async () => {
     console.log(" was deleted!", recordWithFood.record.recordId);
     // delete in database
     const result = await deleteRecordById(recordWithFood.record.recordId);
@@ -59,7 +58,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
               </button>
               <button
                 className="del-modal-delete"
-                onClick={(e) => handleDeleteFood(e)}
+                onClick={() => handleDeleteFood()}
               >
                 Delete
               </button>

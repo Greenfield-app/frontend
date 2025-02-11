@@ -7,7 +7,6 @@ import {
   Location,
   RandomFoodWithRestaurant,
   CachedLocation,
-  RecordWithFood,
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
 const CACHE_KEY_LOCATION = "ip_location_cache";
