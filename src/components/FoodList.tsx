@@ -1,5 +1,4 @@
 import { FoodInfo, UserInfo } from "../vite-env";
-
 import FoodCard from "./FoodCard";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 
@@ -17,32 +16,22 @@ interface FoodListProps {
 const FoodList: React.FC<FoodListProps> = (props) => {
   return (
     <>
-      <nav className="l-header header">
-        <header className="home-header">
-          <img className="whatseat-icon" src={whatsEat} />
+      <nav className='l-header header'>
+        <header className='home-header'>
+          <img className='whatseat-icon' src={whatsEat} />
           <h1 onClick={() => props.setView("home")}>WhatsEat</h1>
         </header>
-        {/* <button
-          className="btn-addfoodcard"
-          className="btn-addfoodcard"
-          onClick={() => props.setView("addnewcard")}
-        >
-          +
-        </button> */}
-        {/* <h1 onClick={() => props.changeView("createaccount")}>
-          Create Account
-        </h1> */}
-        <div className="username-and-logout">
+        <div className='username-and-logout'>
           <h1>{props.currentUser.userName}</h1>
-          <h3 className="nav-text" onClick={() => props.setView("loginpage")}>
+          <h3 className='nav-text' onClick={() => props.setView("loginpage")}>
             Logout
           </h3>
         </div>
       </nav>
-      <h2 className="eats-history-title">Eats History:</h2>
-      <ul className="food-list l-food-list">
+      <h2 className='eats-history-title'>Eats History:</h2>
+      <ul className='food-list l-food-list'>
         {props.singleUsersFoods.map((food) => (
-          <li key={food.foodName} className="food">
+          <li key={food.foodName} className='food'>
             <FoodCard food={food} />
           </li>
         ))}

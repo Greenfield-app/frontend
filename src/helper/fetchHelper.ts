@@ -182,7 +182,6 @@ async function fetchLocationByIP(): Promise<Location> {
       timestamp: Date.now().toString(),
     };
     localStorage.setItem(CACHE_KEY_LOCATION, JSON.stringify(newCachedLocatio));
-    console.log(location);
     return location;
   } catch (error) {
     const location: Location = {

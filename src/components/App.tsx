@@ -4,7 +4,6 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import AddNewCard from "./AddNewCard.tsx";
 import { FoodInfo, RegisterInfo, UserInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
@@ -62,7 +61,7 @@ function App() {
   return (
     <>
       {/* background image whole screen */}
-      <div className="bg-image is-unfocused" />
+      <div className='bg-image is-unfocused' />
       {/* <p>{fetchedResult}</p> */}
 
       {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
@@ -80,8 +79,6 @@ function App() {
           newRegisterInfo={newRegisterInfo}
           setNewRegisterInfo={setNewRegisterInfo}
         />
-      ) : view === "addnewcard" ? (
-        <AddNewCard setView={setView} />
       ) : view === "foodlist" ? (
         <FoodList
           setAvailableFoods={setAvailableFoods}
