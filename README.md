@@ -27,8 +27,11 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 
 ### Login
 
-![Screenshot 2025-02-11 163126](https://github.com/user-attachments/assets/1a58353c-88f0-4872-8020-9c69eca2e87a) ![Screenshot 2025-02-11 164859](https://github.com/user-attachments/assets/4c2053fa-914c-45cc-b734-2a0ca5a3ee0e)
+#### Desktop
+![Screenshot 2025-02-11 163126](https://github.com/user-attachments/assets/1a58353c-88f0-4872-8020-9c69eca2e87a) 
 
+#### Mobile
+![Screenshot 2025-02-11 164859](https://github.com/user-attachments/assets/4c2053fa-914c-45cc-b734-2a0ca5a3ee0e)
 
 ### Create Account
 
