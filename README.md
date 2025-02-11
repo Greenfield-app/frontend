@@ -8,7 +8,9 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
 
  To make this repo work locally, you will also need the What's eat backend repo: https://github.com/Greenfield-app/backend/tree/main
 
- To check out the deployed front-end, her
+ To check out the deployed front-end, here is the link:
+
+ https://frontend-gd1y.onrender.com/
 
 ## Getting Started
 
