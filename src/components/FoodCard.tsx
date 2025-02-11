@@ -1,13 +1,31 @@
-import { FoodInfo } from "../vite-env";
+import { RecordWithFood } from "../vite-env";
 import { useState, MouseEvent } from "react";
+import { deleteRecordById } from "../helper/fetchHelper";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
 
-const FoodCard: React.FC<{ food: FoodInfo }> = ({ food }) => {
+interface FoodCardProps {
+  recordWithFood: RecordWithFood;
+  recordsWithFood: RecordWithFood[];
+  setRecordsWithFood: Function;
+}
+const FoodCard: React.FC<FoodCardProps> = ({
+  recordWithFood,
+  recordsWithFood,
+  setRecordsWithFood,
+}) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
-  const handleDeleteFood = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e, " was deleted!");
+  const handleDeleteFood = async (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(" was deleted!", recordWithFood.record.recordId);
     // delete in database
+    const result = await deleteRecordById(recordWithFood.record.recordId);
+    setRecordsWithFood((prev: RecordWithFood[]) =>
+      prev.filter(
+        (data: RecordWithFood) =>
+          data.record.recordId !== recordWithFood.record.recordId
+      )
+    );
+    console.log(result);
     setDeleteModal(false);
   };
 
@@ -15,7 +33,7 @@ const FoodCard: React.FC<{ food: FoodInfo }> = ({ food }) => {
     <>
       {/* Food Card  w/trashIcon*/}
       <div className="food-card">
-        <h3 className="food-title">{food.foodName}</h3>
+        <h3 className="food-title">{recordWithFood.food.foodName}</h3>
         <img
           className="food-delete-icon"
           src={trashIcon}

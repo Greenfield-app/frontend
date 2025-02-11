@@ -4,13 +4,7 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import {
-  FoodInfo,
-  RegisterInfo,
-  UserInfo,
-  Record,
-  RecordWithFood,
-} from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo, RecordWithFood } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -19,7 +13,6 @@ import {
 function App() {
   // useStates and variables
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [records, setRecords] = useState<Record[]>([]);
   const [recordsWithFood, setRecordsWithFood] = useState<RecordWithFood[]>([]);
   const [view, setView] = useState<string | null>("foodlist");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
@@ -41,7 +34,6 @@ function App() {
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      setRecords(recordData);
       //foreach, replace map,
       const recordWithFoodArr = recordData.map(async (record) => {
         const foodId = record.foodId;
@@ -60,10 +52,10 @@ function App() {
     resolveRecordArrayPromise();
   }, [currentUser, view]);
 
+  useEffect(() => {}, [currentUser]);
   useEffect(() => {
     console.log(recordsWithFood);
   }, [recordsWithFood]);
-  useEffect(() => {}, [currentUser]);
 
   return (
     <>
@@ -82,6 +74,8 @@ function App() {
         />
       ) : view === "foodlist" ? (
         <FoodList
+          recordsWithFood={recordsWithFood}
+          setRecordsWithFood={setRecordsWithFood}
           setSingleUsersFoods={setSingleUsersFoods}
           singleUsersFoods={singleUsersFoods}
           currentUser={currentUser}
