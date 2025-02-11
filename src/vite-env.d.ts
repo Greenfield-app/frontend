@@ -21,7 +21,7 @@ export interface RestaurantInfo {
 }
 export interface RandomFoodWithRestaurant {
   randomFoodInfo: FoodInfoDisplay;
-  restaurant: RestaurantInfo;
+  restaurants: RestaurantInfo[];
 }
 export interface UserInfo {
   userId: number;

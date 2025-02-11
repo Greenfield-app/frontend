@@ -1,12 +1,57 @@
+.eatitleaveit-content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
 .eatitorleaveit-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+  background-color: white;
+  width: 40%;
+  padding: 30px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 420px) {
+  .eatitorleaveit-container {
+    padding: 20px 20px;
+    min-width: 70%;
+  }
+}
+
+@media (min-width: 420px) and (max-width: 680px) {
+  .eatitorleaveit-container {
+    padding: 20px 20px;
+    min-width: 60%;
+  }
+}
+
+.leave-it-icon,
+.eat-it-icon {
+  width: 2.5rem;
+  height: auto;
+  cursor: pointer;
+}
+
+.eat-leave-img {
+  border-radius: 5px;
+  border: solid 1.5px;
 }
 
 .eatitorleaveit-title {
+  text-align: center;
   padding: 8px;
+}
+
+.food-title {
+  color: black;
 }
 
 #places {
@@ -15,9 +60,32 @@
 }
 
 .single-restaurant {
+  list-style: none;
   display: inline;
   border: 1px, solid, rgba(0, 0, 0, 0, 5);
   border-radius: 1em;
   margin-top: 1vh;
   margin-bottom: 1vh;
+  min-width: 25%;
+}
+
+.single-restaurant li {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 10px 0px;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.eat-or-leave-btns {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+}
+
+.eat-or-leave-btns p {
+  color: black;
 }
