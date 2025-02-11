@@ -46,7 +46,7 @@ left side of login box, unless in mobile(top portion of box)
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2px;
+  padding: 15px;
 }
 
 .login-signup-form h1 {
