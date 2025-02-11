@@ -78,6 +78,8 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     getNextFood();
   };
 
+  const address =
+    "Ramen Issei, 3 Chome-40-23 Maeharacho, Koganei, Tokyo 184-0013";
   return (
     <>
       <nav className="l-header header">
@@ -142,6 +144,31 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
             </div>
           )}
         </div>
+        {/* <ul className='single-restaurant'>
+          <li>
+            <a>Ramen Issei</a>
+          </li>
+          <li>
+            <div> ichigo2</div>
+            <div> sample address 2</div>
+          </li>
+          <li>
+            <div> ichigo3</div>
+            <div> sample address 3</div>
+          </li>
+          <li>
+            <div> ichigo3</div>
+            <div> sample address 3</div>
+          </li>
+          <li>
+            <div> ichigo3</div>
+            <div> sample address 3</div>
+          </li>
+          <li>
+            <div> ichigo3</div>
+            <div> sample address 3</div>
+          </li>
+        </ul> */}
       </div>
     </>
   );
