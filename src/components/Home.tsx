@@ -4,8 +4,6 @@ import handSwipe from "../assets/icons/swipe-hand.svg";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 
 interface HomeProps {
-  availableFoods: FoodInfo[];
-  setAvailableFoods: Function;
   setView: Function;
   currentUser: UserInfo;
   view: string;
