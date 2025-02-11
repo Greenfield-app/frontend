@@ -34,13 +34,9 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     console.log(recommendationResponse);
     setRandomFood(recommendationResponse.randomFoodInfo);
     setRestaurantsInfo(recommendationResponse.restaurants);
-    setRandomFood(recommendationResponse.randomFoodInfo);
-    setRestaurantsInfo(recommendationResponse.restaurants);
   };
   useEffect(() => {
     const resolveRecommendation = async () => {
-      getNextFood();
-      await fetchLocationByIP();
       getNextFood();
       await fetchLocationByIP();
     };
@@ -70,6 +66,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                 currentUser.userId,
                 foodInfoResponse.foodId
               );
+              //check if response is ok
               console.log(response);
             }
           } catch (error) {
@@ -80,44 +77,25 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
       //if guest or user not exist, just get another random food
       getNextFood();
     }
-      if (randomFood && randomFood.foodName) {
-        try {
-          const foodInfoResponse = await addNewFood(randomFood.foodName);
-          if (foodInfoResponse) {
-            console.log(foodInfoResponse);
-            const response = await sendNewRecord(
-              currentUser.userId,
-              foodInfoResponse.foodId
-            );
-            //check if response is ok
-            console.log(response);
-          }
-        } catch (error) {
-          console.error(error, "Current user do not exist in database");
-        }
-      }
-    }
-    //if guest or user not exist, just get another random food
-    getNextFood();
   };
 
-    return (
-      <>
-        <nav className="l-header header">
-          <header className="home-header">
-            <img className="whatseat-icon" src={whatsEat} />
-            <h1 onClick={() => setView("home")}>WhatsEat</h1>
-          </header>
-          <div className="username-and-logout">
-            <h1>{currentUser.userName}</h1>
-            <h3 className="nav-text" onClick={() => setView("loginpage")}>
-              Logout
-            </h3>
-          </div>
-        </nav>
-        <div className="eatitorleaveit-container">
-          <h1 className="eatitorleaveit-title">Eat it or leave it</h1>
-          {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
+  return (
+    <>
+      <nav className="l-header header">
+        <header className="home-header">
+          <img className="whatseat-icon" src={whatsEat} />
+          <h1 onClick={() => setView("home")}>WhatsEat</h1>
+        </header>
+        <div className="username-and-logout">
+          <h1>{currentUser.userName}</h1>
+          <h3 className="nav-text" onClick={() => setView("loginpage")}>
+            Logout
+          </h3>
+        </div>
+      </nav>
+      <div className="eatitorleaveit-container">
+        <h1 className="eatitorleaveit-title">Eat it or leave it</h1>
+        {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
         <div className="food">
           {randomFood && (

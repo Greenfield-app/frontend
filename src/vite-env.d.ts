@@ -61,10 +61,8 @@ export interface Record {
 export interface Location {
   latitude: number;
   longitude: number;
-  city: string;
 }
-export interface Location {
-  latitude: number;
-  longitude: number;
-  city: string;
+export interface CachedLocation {
+  location: Location;
+  timestamp: string;
 }

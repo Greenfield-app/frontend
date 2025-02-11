@@ -6,11 +6,11 @@ import {
   Record,
   Location,
   RandomFoodWithRestaurant,
-  Location,
-  RandomFoodWithRestaurant,
+  CachedLocation,
 } from "../vite-env";
 const API_URL = import.meta.env.VITE_API_URL as string;
-
+const CACHE_KEY_LOCATION = "ip_location_cache";
+const CACHE_DURATION = 24 * 60 * 60 * 1000;
 async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
   if (registerInfo !== null) {
   }
@@ -153,18 +153,49 @@ async function fetchRecommendation(): Promise<RandomFoodWithRestaurant> {
 }
 
 async function fetchLocationByIP(): Promise<Location> {
+  //get cached location first
+  let cachedData = localStorage.getItem(CACHE_KEY_LOCATION);
+  console.log(cachedData, "CACHE");
+  if (cachedData) {
+    const oldCachedLocation: CachedLocation = JSON.parse(cachedData);
+    const timeNow = Date.now();
+    if (timeNow - Number(oldCachedLocation.timestamp) < CACHE_DURATION) {
+      return oldCachedLocation.location;
+    }
+  }
+  //if cached data not exist, fetch new location
   try {
-    const response = await fetch("https://ipapi.co/json/");
+    const response = await fetch("https://ipapi.co/json/", {
+      mode: "cors",
+      credentials: "omit",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
     const pardedResponse = await response.json();
     const location = {
       latitude: pardedResponse.latitude,
       longitude: pardedResponse.longitude,
-      city: pardedResponse.city,
     };
+    const newCachedLocatio: CachedLocation = {
+      location: location,
+      timestamp: Date.now().toString(),
+    };
+    localStorage.setItem(CACHE_KEY_LOCATION, JSON.stringify(newCachedLocatio));
     console.log(location);
     return location;
   } catch (error) {
-    throw error instanceof Error ? error : new Error("Fetch error");
+    const location: Location = {
+      latitude: 35.65,
+      longitude: 139.73333,
+    };
+    const newCachedLocatio: CachedLocation = {
+      location: location,
+      timestamp: Date.now().toString(),
+    };
+    localStorage.setItem(CACHE_KEY_LOCATION, JSON.stringify(newCachedLocatio));
+    return location;
   }
 }
 
@@ -177,6 +208,5 @@ export {
   sendNewRecord,
   fetchRecommendation,
   addNewFood,
-  fetchLocationByIP,
   fetchLocationByIP,
 };

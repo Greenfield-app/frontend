@@ -49,7 +49,6 @@ function App() {
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      console.log(recordData);
       const foodIdArr = recordData.map((record) => record.foodId);
       const foodPromisesArr = foodIdArr.map(
         async (foodId) => await fetchSingleFoodById(foodId)
