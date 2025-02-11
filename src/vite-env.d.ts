@@ -53,7 +53,7 @@ export interface LoginError {
   loginSuccessful: boolean;
 }
 export interface Record {
-  id: number;
+  recordId: number;
   userId: number;
   foodId: number;
   recordAt: string;
