@@ -23,6 +23,14 @@ What's eat helps decide what to eat so you don't have to. The app contains all o
     &nbsp;&nbsp;&nbsp;&nbsp;+ Food Card<br>
 </p>
 
+## Features
+
+### Eat it or leave it
+
+On this page, the app randomly displays a food to the user. 
+
+### My Eats
+
 ## Pictures of Front End
 
 ### Login
