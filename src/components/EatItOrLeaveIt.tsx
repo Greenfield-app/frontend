@@ -30,7 +30,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   const getNextFood = async () => {
     const recommendationResponse: RandomFoodWithRestaurant =
       await fetchRecommendation();
-    console.log(recommendationResponse);
     setRandomFood(recommendationResponse.randomFoodInfo);
     setRestaurantsInfo(recommendationResponse.restaurants);
   };
@@ -60,13 +59,10 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
           try {
             const foodInfoResponse = await addNewFood(randomFood.foodName);
             if (foodInfoResponse) {
-              console.log(foodInfoResponse);
               const response = await sendNewRecord(
                 currentUser.userId,
                 foodInfoResponse.foodId
               );
-              //check if response is ok
-              console.log(response);
             }
           } catch (error) {
             console.error(error, "Current user do not exist in database");
@@ -78,72 +74,70 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     getNextFood();
   };
 
-  const address =
-    "Ramen Issei, 3 Chome-40-23 Maeharacho, Koganei, Tokyo 184-0013";
   return (
     <>
-      <nav className="l-header header">
-        <header className="home-header">
-          <img className="whatseat-icon" src={whatsEat} />
+      <nav className='l-header header'>
+        <header className='home-header'>
+          <img className='whatseat-icon' src={whatsEat} />
           <h1 onClick={() => setView("home")}>WhatsEat</h1>
         </header>
-        <div className="username-and-logout">
+        <div className='username-and-logout'>
           <h1>{currentUser.userName}</h1>
-          <h3 className="nav-text" onClick={() => setView("loginpage")}>
+          <h3 className='nav-text' onClick={() => setView("loginpage")}>
             Logout
           </h3>
         </div>
       </nav>
-      <div className="eatitleaveit-content-container">
-        <h1 className="eatitorleaveit-title">Eat it or leave it</h1>
+      <div className='eatitleaveit-content-container'>
+        <h1 className='eatitorleaveit-title'>Eat it or leave it</h1>
         {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
-        <div className="eatitorleaveit-container">
+        <div className='eatitorleaveit-container'>
           {randomFood && (
             <div>
               <img
-                className="eat-leave-img"
+                className='eat-leave-img'
                 src={randomFood.image}
                 alt={randomFood.foodName || "Food Name"}
               />
-              <h3 className="food-title">{randomFood.foodName}</h3>
-              <div className="eat-or-leave-btns">
+              <h3 className='food-title'>{randomFood.foodName}</h3>
+              <div className='eat-or-leave-btns'>
                 <img
-                  className="eat-it-icon"
+                  className='eat-it-icon'
                   src={eatIt}
-                  alt="eat it icon"
+                  alt='eat it icon'
                   onClick={() => handleEatFood()}
                 />
                 <p>Or</p>
                 <img
                   src={leaveIT}
-                  alt="leave it icon"
-                  className="leave-it-icon"
+                  alt='leave it icon'
+                  className='leave-it-icon'
                   onClick={() => handleDeleteFood()}
                 />
               </div>
-              {restaurantsInfo !== null && (
-                <ul className="single-restaurant">
-                  {restaurantsInfo.map((restaurant) => {
-                    return (
-                      <li key={restaurant.name}>
-                        <a
-                          href={`https://www.google.com/maps/search/?q=${
-                            restaurant.name + ", " + restaurant.address
-                          }`}
-                          target="blank"
-                        >
-                          {restaurant.name}
-                        </a>
-                        <p>{`rating: ${restaurant.rating}⭐`}</p>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
             </div>
           )}
         </div>
+        {restaurantsInfo !== null && (
+          <ul className='single-restaurant'>
+            {restaurantsInfo.map((restaurant) => {
+              return (
+                <li key={restaurant.name}>
+                  <a
+                    href={`https://www.google.com/maps/search/?q=${
+                      restaurant.name + ", " + restaurant.address
+                    }`}
+                    target='blank'
+                  >
+                    {restaurant.name}
+                  </a>
+                  <p>{`rating: ${restaurant.rating}⭐`}</p>
+                </li>
+              );
+            })}
+          </ul>
+        )}
         {/* <ul className='single-restaurant'>
           <li>
             <a>Ramen Issei</a>
