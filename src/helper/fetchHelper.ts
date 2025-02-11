@@ -45,7 +45,7 @@ async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
   });
   try {
     if (!response.ok) {
-      console.log("RES ERROR ", response);
+      console.error("RES ERROR ", response);
       throw new Error(response.statusText);
     }
     return (await response.json()) as T;
@@ -160,7 +160,6 @@ async function fetchRecommendation(): Promise<RandomFoodWithRestaurant> {
 async function fetchLocationByIP(): Promise<Location> {
   //get cached location first
   let cachedData = localStorage.getItem(CACHE_KEY_LOCATION);
-  console.log(cachedData, "CACHE");
   if (cachedData) {
     const oldCachedLocation: CachedLocation = JSON.parse(cachedData);
     const timeNow = Date.now();
