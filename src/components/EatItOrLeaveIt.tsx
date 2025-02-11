@@ -75,39 +75,39 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
 
   return (
     <>
-      <nav className="l-header header">
+      <nav className='l-header header'>
         <h1 onClick={() => setView("home")}>What's Eat</h1>
         <h1 onClick={() => setView("loginpage")}>Logout</h1>
       </nav>
-      <div className="eatitorleaveit-container">
+      <div className='eatitorleaveit-container'>
         <h1>Eat it or leave it</h1>
         {/* <h2>{randomFood.name}</h2> currently doesn't work, will need to refactor*/}
 
-        <div className="food">
+        <div className='food'>
           {randomFood && (
             <div>
               <img
                 src={trashIcon}
-                alt="trash icon"
-                className="food-delete-icon"
+                alt='trash icon'
+                className='food-delete-icon'
                 onClick={(e) => handleDeleteFood(e)}
               />
               <img
                 src={randomFood.image}
                 alt={randomFood.foodName || "Food Name"}
               />
-              <h3 className="food-title">{randomFood.foodName}</h3>
+              <h3 className='food-title'>{randomFood.foodName}</h3>
               <img
-                className="food-eat-icon"
+                className='food-eat-icon'
                 src={eatIcon}
-                alt="red trash icon"
+                alt='red trash icon'
                 onClick={(e) => handleEatFood(e)}
               />
               {restaurantsInfo !== null && (
-                <div id="places">
+                <div id='places'>
                   {restaurantsInfo.map((restaurant) => {
                     return (
-                      <div key={restaurant.name} className="single-restaurant">
+                      <div key={restaurant.name} className='single-restaurant'>
                         <div>{restaurant.name} </div>
                         <div>{restaurant.address} </div>
                       </div>

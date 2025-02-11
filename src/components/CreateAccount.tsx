@@ -2,6 +2,7 @@ import { RegisterInfo, RegisterError, UserInfo } from "../vite-env";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { sendRegisterInfo } from "../helper/fetchHelper";
 import { validateEmail } from "../helper/validateEmali";
+import whatsEat from "../assets/icons/whatsEat-icon.png";
 interface CreateAccountProps {
   setCurrentUser: (userInfo: UserInfo) => void;
   newRegisterInfo: RegisterInfo;
@@ -105,7 +106,10 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
     <section className='l-content-container'>
       {/* title side */}
       <header className='login-signup-title'>
-        <h1>WhatsEat</h1>
+        <div className='icon-title'>
+          <img className='whatseat-icon' src={whatsEat} />
+          <h1>WhatsEat</h1>
+        </div>
         <p>
           Hungry but can't decide? <br />
           We've got you!
@@ -133,7 +137,7 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
           </span>
         )}
 
-        <label htmlFor=''>Emial: </label>
+        <label htmlFor=''>Email: </label>
         <input
           type='email'
           id='email'
@@ -166,7 +170,9 @@ const CreateAccount: React.FC<CreateAccountProps> = ({
         {error.confirmPassword && (
           <span className='error-register'>Passwords do not match</span>
         )}
-        <button type='submit'>Submit</button>
+        <button className='login-signup-btn' type='submit'>
+          sign up
+        </button>
 
         <small
           className='cursor-pointer login-signup-link'

@@ -5,10 +5,11 @@ left side of login box, unless in mobile(top portion of box)
 */
 
 .login-signup-title {
-  width: 40%;
-  font-size: large;
   display: flex;
   flex-direction: column;
+  width: auto;
+  min-width: 40%;
+  font-size: large;
   justify-content: center;
   text-align: center;
   align-items: center;
@@ -18,12 +19,17 @@ left side of login box, unless in mobile(top portion of box)
 
 .login-signup-title h1 {
   color: #25d366;
-  font-size: xx-large;
+  font-size: x-large;
 }
 
 .login-signup-title p {
   color: rgb(65, 65, 65);
-  font-size: medium;
+  font-size: x-small;
+}
+
+.icon-title {
+  display: flex;
+  flex-direction: row;
 }
 
 /*
@@ -66,6 +72,13 @@ left side of login box, unless in mobile(top portion of box)
   max-width: 12rem;
 }
 
+.login-signup-btn {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: small;
+  border-radius: 8px;
+}
+
 /* 
 =========================
 @Media: When under 680pm width (mobile) 
@@ -73,12 +86,26 @@ left side of login box, unless in mobile(top portion of box)
  */
 @media (max-width: 680px) {
   .login-signup-title {
-    width: 100%;
+    width: auto;
+    min-width: 100%;
     height: 40%;
+  }
+
+  .login-signup-title h1 {
+    font-size: large;
+  }
+
+  .login-signup-title p {
+    font-size: x-small;
   }
 
   .login-signup-form {
     width: 100%;
     height: 60%;
+  }
+
+  .icon-title .whatseat-icon {
+    width: 1.6rem;
+    height: 1.6rem;
   }
 }
