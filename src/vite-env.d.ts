@@ -17,7 +17,9 @@ export interface RestaurantInfo {
   name: string;
   address: string;
   rating: number;
-  userRatingsTotal: number;
+  totalRatings: number;
+  priceLevel: number;
+  photoURL: string;
 }
 export interface RandomFoodWithRestaurant {
   randomFoodInfo: FoodInfoDisplay;

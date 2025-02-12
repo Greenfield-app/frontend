@@ -13,6 +13,7 @@ import {
   fetchRecommendation,
   addNewFood,
   fetchLocationByIP,
+  fetchNearbyRestaurants,
 } from "../helper/fetchHelper";
 
 interface EatItOrLeaveItProps {
@@ -24,25 +25,52 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   currentUser,
   setView,
 }) => {
+
+  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+  const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
+  const [randomRestaurant, setRandomRestaurant] = useState<RestaurantInfo | null>(null);
+  const [usedIndices, setUsedIndices] = useState<Number[]>([]);
+
+
   // random food for picking recommendation from foods array
   const [randomFood, setRandomFood] = useState<FoodInfoDisplay | null>(null);
   const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo[]>([]);
-  const getNextFood = async () => {
-    const recommendationResponse: RandomFoodWithRestaurant =
-      await fetchRecommendation();
-    setRandomFood(recommendationResponse.randomFoodInfo);
-    setRestaurantsInfo(recommendationResponse.restaurants);
+  
+  // Function to randomly grab a restaurant from the nearbyRestaurants array
+  const getNextRestaurant = () => {
+
+    let randomIndex:number = Math.floor(Math.random() * (nearbyRestaurants.length));
+    while (usedIndices.includes(randomIndex)) {
+      randomIndex = Math.floor(Math.random() * (nearbyRestaurants.length));
+    }
+
+    setRandomRestaurant(nearbyRestaurants[randomIndex]);
+    setUsedIndices([...usedIndices, randomIndex])
   };
+
+  // Effect to fetch nearby restaurants when current location is updated
+  useEffect(() => {
+    if (currentLocation) {
+      fetchNearbyRestaurants(`restaurants/nearby?location=${currentLocation}`)
+        .then(data => {
+          setNearbyRestaurants(Array.isArray(data) ? data : []);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        })
+    }
+  }, [currentLocation])
+
   useEffect(() => {
     const resolveRecommendation = async () => {
-      getNextFood();
+      getNextRestaurant();
       await fetchLocationByIP();
     };
     resolveRecommendation();
   }, []);
 
   const handleDeleteFood = () => {
-    getNextFood();
+    getNextRestaurant();
     //change to get next food
   };
 
@@ -72,7 +100,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
       }
       //if guest or user not exist, just get another random food
     }
-    getNextFood();
+    getNextRestaurant();
   };
 
   return (
