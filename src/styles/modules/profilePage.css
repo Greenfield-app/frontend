@@ -1,0 +1,10 @@
+.profile-page-container{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.card{
+    background-color: white;
+    opacity: 0.75;
+    border-radius: 25px;
+    padding: 1.25%;
+}
