@@ -46,8 +46,8 @@ function App() {
         };    
         // Success callback
         function success(pos: GeolocationPosition): void {
-          const crd = pos.coords;
-          setCurrentPosition(`${crd.latitude},${crd.longitude}`);
+          const coordinates = pos.coords;
+          setCurrentPosition(`${coordinates.latitude},${coordinates.longitude}`);
         }
         // Error Callback
         function error(err: GeolocationPositionError): void {
@@ -61,10 +61,6 @@ function App() {
         }
       })
   }, [])
-
-  useEffect(() => {
-    console.log(currentPosition)
-  }, [currentPosition])
 
   // Effect to fetch nearby restaurants when current position or search location is updated
   useEffect(() => {
