@@ -13,6 +13,7 @@
 .nav-text {
   display: block;
   color: black;
+  font-weight: bold;
   text-decoration: underline;
   background-color: #25d366;
   border-radius: 10px;
@@ -21,6 +22,8 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   font-size: small;
   align-self: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .eats-history {
@@ -42,7 +45,6 @@
   font-size: larger;
   padding: 6px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  /* border: 1.5px solid black; */
 }
 
 .help-me-choose {
@@ -62,7 +64,6 @@
   background-color: #25d366;
   border-radius: 30px;
   padding: 6px;
-  /* border: 1.5px solid black; */
   font-size: larger;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
