@@ -4,14 +4,21 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo, RegisterInfo, UserInfo, RecordWithFood } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo, RecordWithFood, RestaurantInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
+  fetchNearbyRestaurants
 } from "../helper/fetchHelper";
 
 function App() {
+
   // useStates and variables
+  const [searchLocation, setSearchLocation] = useState<string | null>(null);
+  const [currentPosition, setCurrentPosition] = useState<string | null>(null);
+  const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
+
+
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [recordsWithFood, setRecordsWithFood] = useState<RecordWithFood[]>([]);
   const [view, setView] = useState<string | null>("loginpage");
@@ -26,6 +33,48 @@ function App() {
     password: "",
     confirmPassword: "",
   });
+
+  // Effect to get the current position of the device
+  useEffect(() => {
+    // Define options for geolocation
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };    
+    // Success callback
+    function success(pos: GeolocationPosition): void {
+      const crd = pos.coords;
+      setCurrentPosition(`${crd.latitude},${crd.longitude}`);
+    }
+    // Error Callback
+    function error(err: GeolocationPositionError): void {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }, [])
+
+  // Effect to fetch nearby restaurants when current position or search location is updated
+  useEffect(() => {
+    if (currentPosition) {
+      fetchNearbyRestaurants(`restaurants/nearby?coordinates=${currentPosition}`)
+        .then(data => {
+          setNearbyRestaurants(Array.isArray(data) ? data : []);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        })
+    } else if (searchLocation) {
+      fetchNearbyRestaurants(`restaurants/nearby?location=${searchLocation}`)
+        .then(data => {
+          setNearbyRestaurants(Array.isArray(data) ? data : []);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        })
+    }
+  }, [currentPosition||searchLocation])
 
   // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
@@ -74,7 +123,7 @@ function App() {
           setView={setView}
         />
       ) : view === "eatitorleaveit" ? (
-        <EatItOrLeaveIt currentUser={currentUser} setView={setView} />
+        <EatItOrLeaveIt currentUser={currentUser} setView={setView} nearbyRestaurants={nearbyRestaurants}/>
       ) : (
         <LoginPage setCurrentUser={setCurrentUser} setView={setView} /> //by default, see login page
       )}

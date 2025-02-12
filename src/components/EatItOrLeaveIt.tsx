@@ -1,7 +1,7 @@
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 import eatIt from "../assets/icons/eat-it.png";
 import leaveIT from "../assets/icons/leave-it.png";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   UserInfo,
   FoodInfoDisplay,
@@ -10,24 +10,21 @@ import {
 } from "../vite-env";
 import {
   sendNewRecord,
-  fetchRecommendation,
   addNewFood,
-  fetchLocationByIP,
-  fetchNearbyRestaurants,
 } from "../helper/fetchHelper";
 
 interface EatItOrLeaveItProps {
   currentUser: UserInfo;
   setView: Function;
+  nearbyRestaurants: RestaurantInfo[];
 }
 
 const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   currentUser,
   setView,
+  nearbyRestaurants,
 }) => {
 
-  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
-  const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
   const [randomRestaurant, setRandomRestaurant] = useState<RestaurantInfo | null>(null);
   const [usedIndices, setUsedIndices] = useState<Number[]>([]);
 
@@ -47,27 +44,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     setRandomRestaurant(nearbyRestaurants[randomIndex]);
     setUsedIndices([...usedIndices, randomIndex])
   };
-
-  // Effect to fetch nearby restaurants when current location is updated
-  useEffect(() => {
-    if (currentLocation) {
-      fetchNearbyRestaurants(`restaurants/nearby?location=${currentLocation}`)
-        .then(data => {
-          setNearbyRestaurants(Array.isArray(data) ? data : []);
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-        })
-    }
-  }, [currentLocation])
-
-  useEffect(() => {
-    const resolveRecommendation = async () => {
-      getNextRestaurant();
-      await fetchLocationByIP();
-    };
-    resolveRecommendation();
-  }, []);
 
   const handleDeleteFood = () => {
     getNextRestaurant();
