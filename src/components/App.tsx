@@ -14,7 +14,7 @@ function App() {
   // useStates and variables
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
   const [recordsWithFood, setRecordsWithFood] = useState<RecordWithFood[]>([]);
-  const [view, setView] = useState<string | null>("foodlist");
+  const [view, setView] = useState<string | null>("loginpage");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
     userId: 61,
     email: "",
@@ -27,14 +27,11 @@ function App() {
     confirmPassword: "",
   });
 
-  // useEffects
-  useEffect(() => {}, [view]);
-
   // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
-      console.log(recordData);
+
       //foreach, replace map,
       const recordWithFoodArr = recordData.map(async (record) => {
         const foodId = record.foodId;
@@ -51,15 +48,12 @@ function App() {
     resolveRecordArrayPromise();
   }, [currentUser, view]);
 
-  useEffect(() => {}, [currentUser]);
-
 
   return (
     <>
       {/* background image whole screen */}
       <div className="bg-image is-unfocused" />
       <div className="bg-image is-unfocused" />
-      {/* <p>{fetchedResult}</p> */}
 
       {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
         <Home currentUser={currentUser} setView={setView} view={view} />
