@@ -36,24 +36,35 @@ function App() {
 
   // Effect to get the current position of the device
   useEffect(() => {
-    // Define options for geolocation
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    };    
-    // Success callback
-    function success(pos: GeolocationPosition): void {
-      const crd = pos.coords;
-      setCurrentPosition(`${crd.latitude},${crd.longitude}`);
-    }
-    // Error Callback
-    function error(err: GeolocationPositionError): void {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
-    }
-    
-    navigator.geolocation.getCurrentPosition(success, error, options);
+    navigator.permissions.query({ name: 'geolocation' })
+      .then((result) => {
+        // Define options for geolocation
+        const options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        };    
+        // Success callback
+        function success(pos: GeolocationPosition): void {
+          const crd = pos.coords;
+          setCurrentPosition(`${crd.latitude},${crd.longitude}`);
+        }
+        // Error Callback
+        function error(err: GeolocationPositionError): void {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        if (result.state === 'granted') {
+          navigator.geolocation.getCurrentPosition(success);
+        } else if (result.state === 'prompt') {
+          navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+      })
   }, [])
+
+  useEffect(() => {
+    console.log(currentPosition)
+  }, [currentPosition])
 
   // Effect to fetch nearby restaurants when current position or search location is updated
   useEffect(() => {
