@@ -17,6 +17,7 @@ function App() {
   const [searchLocation, setSearchLocation] = useState<string | null>(null);
   const [currentPosition, setCurrentPosition] = useState<string | null>(null);
   const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
+  const [searchbarShown, setSearchbarShown] = useState<boolean>(false);
 
 
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
@@ -43,7 +44,8 @@ function App() {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0,
-        };    
+        }; 
+        
         // Success callback
         function success(pos: GeolocationPosition): void {
           const coordinates = pos.coords;
@@ -58,6 +60,10 @@ function App() {
           navigator.geolocation.getCurrentPosition(success);
         } else if (result.state === 'prompt') {
           navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+        
+        if (currentPosition === null) {
+          setSearchbarShown(true);
         }
       })
   }, [])
@@ -112,7 +118,7 @@ function App() {
       <div className="bg-image is-unfocused" />
 
       {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
-        <Home currentUser={currentUser} setView={setView} view={view} />
+        <Home currentUser={currentUser} setView={setView} view={view} setSearchLocation={setSearchLocation} searchbarShown={searchbarShown} currentPosition={currentPosition}/>
       ) : view === "createaccount" ? (
         <CreateAccount
           setCurrentUser={setCurrentUser}

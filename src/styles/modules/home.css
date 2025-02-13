@@ -1,8 +1,12 @@
 .home-header {
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding-left: 2vw;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
 }
 
 .whatseat-icon {

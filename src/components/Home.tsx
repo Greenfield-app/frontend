@@ -4,11 +4,17 @@ import handHistory from "../assets/icons/history-hand.svg";
 import handSwipe from "../assets/icons/swipe-hand.svg";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 import ProfilePage from "./ProfilePage";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 interface HomeProps {
   setView: Function;
   currentUser: UserInfo;
   view: string;
+  setSearchLocation: Function
+  searchbarShown: boolean,
+  currentPosition: string | null
 }
 
 const Home: React.FC<HomeProps> = (props) => {
@@ -26,18 +32,41 @@ const Home: React.FC<HomeProps> = (props) => {
           <img className="whatseat-icon" src={whatsEat} />
           <h1 onClick={() => props.setView("home")}>WhatsEat</h1>
         </header>
+        {/* Only Display the search bar when the user has denied location access */}
+        {props.searchbarShown && props.currentPosition === null ? (
+          <Form className="search-bar">
+          <Row>
+            <Col xs="auto">
+              <Form.Control
+                type="text"
+                placeholder="Enter Location"
+                className=" mr-sm-2"
+                onKeyDown={
+                  (event: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (event.key === 'Enter') {
+                      event.preventDefault();
+                      props.setSearchLocation((event.target as HTMLInputElement).value)
+                      props.setView('eatitorleaveit')
+                    }
+                  }
+                }
+              />
+            </Col>
+          </Row>
+        </Form>
+        ) : null}
         <div className="username-and-logout">
           <h1 onClick={checkProfilePage} style={{ cursor: "pointer" }}>
           <span>{props.currentUser.userName}</span>
           </h1>
           <h3 className="nav-text" onClick={() => props.setView("loginpage")}>
             Logout
-          </p>
+          </h3>
         </div>
       </nav>
 
-    {/* Conditional Rendering for ProfilePage */}
-    {showProfile && (
+      {/* Conditional Rendering for ProfilePage */}
+      {showProfile && (
         <ProfilePage
           user={props.currentUser} // Passing current user data
           deleteAccount={() => alert("Account deleted")} // Dummy delete function
