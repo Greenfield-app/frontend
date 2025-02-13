@@ -19,6 +19,24 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
+#ratingStars {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ratingAvg {
+  margin-right: 5px;
+}
+
+.rating-total, .price-range {
+  margin-left: 5px;
+}
+
+.food-title {
+  font-weight: bold;
+  text-decoration: none;
+}
+
 @media (max-width: 420px) {
   .eatitorleaveit-container {
     padding: 20px 20px;
@@ -43,6 +61,7 @@
 .eat-leave-img {
   border-radius: 5px;
   border: solid 1.5px;
+  margin-left: 5px;
 }
 
 .eatitorleaveit-title {
@@ -88,7 +107,7 @@
 .eat-or-leave-btns {
   display: flex;
   justify-content: space-around;
-  flex-direction: row;
+  width: 100%;
   align-items: center;
 }
 
