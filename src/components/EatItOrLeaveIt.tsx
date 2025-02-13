@@ -3,7 +3,6 @@ import eatIt from "../assets/icons/eat-it.png";
 import leaveIT from "../assets/icons/leave-it.png";
 import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
-
 import {
   UserInfo,
   FoodInfoDisplay,
@@ -13,10 +12,7 @@ import {
 
 import {
   sendNewRecord,
-  fetchRecommendation,
   addNewFood,
-  fetchLocationByIP,
-  fetchNearbyRestaurants,
 } from "../helper/fetchHelper";
 
 interface starIconColor {
@@ -27,12 +23,15 @@ interface starIconColor {
 interface EatItOrLeaveItProps {
   currentUser: UserInfo;
   setView: Function;
+  nearbyRestaurants: RestaurantInfo[];
 }
 
 const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   currentUser,
   setView,
+  nearbyRestaurants,
 }) => {
+  
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
   const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>(
     []
@@ -73,7 +72,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     setRandomRestaurant(nearbyRestaurants[randomIndex]);
     setUsedIndices([...usedIndices, randomIndex]);
   };
-
+  
   // Effect to fetch nearby restaurants when current location is updated
   useEffect(() => {
     if (currentLocation) {
