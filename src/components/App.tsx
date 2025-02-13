@@ -61,7 +61,7 @@ function App() {
         } else if (result.state === 'prompt') {
           navigator.geolocation.getCurrentPosition(success, error, options);
         }
-        
+
         if (currentPosition === null) {
           setSearchbarShown(true);
         }
@@ -90,25 +90,25 @@ function App() {
   }, [currentPosition||searchLocation])
 
   // gets all of the foods of a logged in user when currentUser changes
-  useEffect(() => {
-    async function resolveRecordArrayPromise() {
-      const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
+  // useEffect(() => {
+  //   async function resolveRecordArrayPromise() {
+  //     const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
 
-      //foreach, replace map,
-      const recordWithFoodArr = recordData.map(async (record) => {
-        const foodId = record.foodId;
-        const foodResponse = await fetchSingleFoodById(foodId);
-        const recordWithFood: RecordWithFood = {
-          record: record,
-          food: foodResponse,
-        };
-        return recordWithFood;
-      });
-      const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
-      setRecordsWithFood(recordWithFoodArrResolved);
-    }
-    resolveRecordArrayPromise();
-  }, [currentUser, view]);
+  //     //foreach, replace map,
+  //     const recordWithFoodArr = recordData.map(async (record) => {
+  //       const foodId = record.foodId;
+  //       const foodResponse = await fetchSingleFoodById(foodId);
+  //       const recordWithFood: RecordWithFood = {
+  //         record: record,
+  //         food: foodResponse,
+  //       };
+  //       return recordWithFood;
+  //     });
+  //     const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
+  //     setRecordsWithFood(recordWithFoodArrResolved);
+  //   }
+  //   resolveRecordArrayPromise();
+  // }, [currentUser, view]);
 
 
   return (
