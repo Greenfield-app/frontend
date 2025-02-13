@@ -4,7 +4,7 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo, RegisterInfo, UserInfo, RecordWithFood, RestaurantInfo } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo, Record, RestaurantInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -18,10 +18,10 @@ function App() {
   const [currentPosition, setCurrentPosition] = useState<string | null>(null);
   const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
   const [searchbarShown, setSearchbarShown] = useState<boolean>(false);
+  const [savedRestaurants, setSavedRestaurants] = useState<Record[]>([]);
 
 
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [recordsWithFood, setRecordsWithFood] = useState<RecordWithFood[]>([]);
   const [view, setView] = useState<string | null>("loginpage");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
     userId: 61,
@@ -89,6 +89,8 @@ function App() {
     }
   }, [currentPosition||searchLocation])
 
+  
+
   // gets all of the foods of a logged in user when currentUser changes
   // useEffect(() => {
   //   async function resolveRecordArrayPromise() {
@@ -118,7 +120,7 @@ function App() {
       <div className="bg-image is-unfocused" />
 
       {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
-        <Home currentUser={currentUser} setView={setView} view={view} setSearchLocation={setSearchLocation} searchbarShown={searchbarShown} currentPosition={currentPosition}/>
+        <Home currentUser={currentUser} setView={setView} view={view} setSavedRestaurants={setSavedRestaurants} setSearchLocation={setSearchLocation} searchbarShown={searchbarShown} currentPosition={currentPosition}/>
       ) : view === "createaccount" ? (
         <CreateAccount
           setCurrentUser={setCurrentUser}
@@ -128,12 +130,10 @@ function App() {
         />
       ) : view === "foodlist" ? (
         <FoodList
-          recordsWithFood={recordsWithFood}
-          setRecordsWithFood={setRecordsWithFood}
-          setSingleUsersFoods={setSingleUsersFoods}
-          singleUsersFoods={singleUsersFoods}
           currentUser={currentUser}
           setView={setView}
+          savedRestaurants={savedRestaurants}
+          setSavedRestaurants={setSavedRestaurants}
         />
       ) : view === "eatitorleaveit" ? (
         <EatItOrLeaveIt currentUser={currentUser} setView={setView} nearbyRestaurants={nearbyRestaurants}/>

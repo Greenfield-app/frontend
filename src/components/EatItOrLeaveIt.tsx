@@ -1,21 +1,17 @@
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 import eatIt from "../assets/icons/eat-it.png";
 import leaveIT from "../assets/icons/leave-it.png";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { AxiosError } from "axios";
 import fetchPhotoByPhotoReference from "../helper/getPhoto";
 import {
-  UserInfo,
-  FoodInfoDisplay,
-  RandomFoodWithRestaurant,
-  RestaurantInfo,
-} from "../vite-env";
-
-import {
   sendNewRecord,
   addNewFood,
 } from "../helper/fetchHelper";
+import { UserInfo, FoodInfoDisplay, RestaurantInfo} from "../vite-env";
+import { saveRestaurant, fetchRestaurant } from '../api/restaurants'
+import { addRestaurantToEatsHistory } from '../api/history'
 
 interface starIconColor {
   orange: string;
@@ -41,13 +37,10 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     totalRatings: 0,
     priceLevel: 0,
     photoURL: "",
+    placeID: "",
   });
 
   const [usedIndices, setUsedIndices] = useState<Number[]>([]);
-
-  // random food for picking recommendation from foods array
-  const [randomFood, setRandomFood] = useState<FoodInfoDisplay | null>(null);
-  const [restaurantsInfo, setRestaurantsInfo] = useState<RestaurantInfo[]>([]);
 
   // Array needed to loop through for correct stars amount.
   const stars: number[] = [0, 0, 0, 0, 0];
@@ -70,7 +63,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     while (usedIndices.includes(randomIndex)) {
       randomIndex = Math.floor(Math.random() * nearbyRestaurants.length);
     }
-
+    
     if (nearbyRestaurants[randomIndex].photoURL) {
       console.log("photo");
       fetchPhotoByPhotoReference(`restaurants/photo?photo_reference=${nearbyRestaurants[randomIndex].photoURL}`)
@@ -82,40 +75,35 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
         .catch((error: AxiosError) => console.error('Error fetching photo: ', error.response?.data || error.message));
     }
   };
-  
 
-  const handleDeleteFood = () => {
+  const handleDeclineRestaurant = () => {
     getNextRestaurant();
     //change to get next food
   };
 
-  const handleEatFood = async () => {
-    //send only not guest record to db
+  const handleDineAtRestaurant = async () => {
+    // Save restaurant record to the database if the user is a member
     if (currentUser && currentUser.userId !== -1 && currentUser.userId !== 0) {
-      //send only not guest record to db
-      if (
-        currentUser &&
-        currentUser.userId !== -1 &&
-        currentUser.userId !== 0
-      ) {
-        if (randomFood && randomFood.foodName) {
-          try {
-            const foodInfoResponse = await addNewFood(randomFood.foodName);
-            if (foodInfoResponse) {
-              const response = await sendNewRecord(
-                currentUser.userId,
-                foodInfoResponse.foodId
-              );
-              console.log(response);
-            }
-          } catch (error) {
-            console.error(error, "Current user do not exist in database");
+      if (randomRestaurant && randomRestaurant.name) {
+        try {
+
+          const savedRestaurant = await fetchRestaurant(`/restaurants/${randomRestaurant.placeID}`)
+
+          if (savedRestaurant) {
+            await addRestaurantToEatsHistory(`/records/${currentUser.userId}/${savedRestaurant.id}`)
+          } else {
+            await saveRestaurant('/restaurants/new', {
+              name: randomRestaurant.name,
+              placeID: randomRestaurant.placeID
+            });
+            const newRestaurant = await fetchRestaurant(`/restaurants/${randomRestaurant.placeID}`)
+            await addRestaurantToEatsHistory(`/records/${currentUser.userId}/${newRestaurant.id}`)
           }
+        } catch (error) {
+          console.error(error, "Current user do not exist in database");
         }
       }
-      //if guest or user not exist, just get another random food
     }
-    getNextRestaurant();
   };
 
   return (
@@ -178,14 +166,14 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                   className="eat-it-icon"
                   src={eatIt}
                   alt="eat it icon"
-                  onClick={() => handleEatFood()}
+                  onClick={() => handleDineAtRestaurant()}
                 />
                 <p>Or</p>
                 <img
                   src={leaveIT}
                   alt="leave it icon"
                   className="leave-it-icon"
-                  onClick={() => handleDeleteFood()}
+                  onClick={() => handleDeclineRestaurant()}
                 />
               </div>
             </div>

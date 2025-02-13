@@ -1,28 +1,27 @@
-.food-list {
-  color: #128c7e;
-}
-
-.food-list .food {
-  background-color: #ece5dd;
-}
-
-.food-card {
+.restaurant-item {
   display: flex;
   border-radius: 5px;
   height: 30vh;
   max-height: 4.5rem;
   width: 50vw;
-  max-width: 16rem;
-  justify-content: center;
-  justify-content: space-around;
+  max-width: 30rem;
   align-items: center;
+  background-color: #ece5dd;
+  padding: 1em;
 }
 
-.food-eat-icon {
+.restaurant-title {
+  flex: 8;
+  color: black;
+}
+
+.restaurant-heart-icon {
+  flex: 1;
   cursor: pointer;
 }
 
-.food-delete-icon {
+.restaurant-delete-icon {
+  flex: 1;
   cursor: pointer;
 }
 
