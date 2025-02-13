@@ -225,9 +225,9 @@ async function fetchNearbyRestaurants (endpoint: string) : Promise<Array<Restaur
                   name: restaurant.name,
                   address: restaurant.address,
                   rating: restaurant.rating,
-                  totalRatings: restaurant.totalRatings,
+                  totalRatings: restaurant.totalReviews,
                   priceLevel: restaurant.priceLevel,
-                  photoURL: restaurant.photoURL,
+                  photoURL: restaurant.photos,
               };
           })
       }
