@@ -7,10 +7,21 @@ import {
   Location,
   RandomFoodWithRestaurant,
   CachedLocation,
+  RestaurantInfo,
 } from "../vite-env";
+import axios from 'axios';
+
+// Create an Axios instance with base URL and timeout settings
+const instance = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  timeout: 3000,
+  withCredentials: true,
+});
+
 const API_URL = import.meta.env.VITE_API_URL as string;
 const CACHE_KEY_LOCATION = "ip_location_cache";
 const CACHE_DURATION = 24 * 60 * 60 * 1000;
+
 async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
   if (registerInfo !== null) {
   }
@@ -202,6 +213,32 @@ async function fetchLocationByIP(): Promise<Location> {
   }
 }
 
+async function fetchNearbyRestaurants (endpoint: string) : Promise<Array<RestaurantInfo>> {
+  try {
+      const response = await instance.get(endpoint);
+
+      // Check if the response contains an array of restaurants
+      if (Array.isArray(response.data)) {
+          // Map through the array and extract the necessary fields for each restaurant
+          return response.data.map((restaurant: any) => {
+              return {
+                  name: restaurant.name,
+                  address: restaurant.address,
+                  rating: restaurant.rating,
+                  totalRatings: restaurant.totalRatings,
+                  priceLevel: restaurant.priceLevel,
+                  photoURL: restaurant.photoURL,
+              };
+          })
+      }
+      // Return an empty array if no restaurants were found
+      return [];
+  } catch (error) {
+      console.error('Error fetching restaurants: ', error);
+      throw error;
+  }
+}
+
 export {
   sendRegisterInfo,
   verifyLogin,
@@ -212,4 +249,5 @@ export {
   addNewFood,
   deleteRecordById,
   fetchLocationByIP,
+  fetchNearbyRestaurants,
 };

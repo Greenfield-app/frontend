@@ -63,6 +63,7 @@ left side of login box, unless in mobile(top portion of box)
 .login-signup-link {
   color: rgb(128, 128, 128);
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .login-signup-form input {

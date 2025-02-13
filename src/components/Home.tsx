@@ -32,7 +32,7 @@ const Home: React.FC<HomeProps> = (props) => {
           </h1>
           <h3 className="nav-text" onClick={() => props.setView("loginpage")}>
             Logout
-          </h3>
+          </p>
         </div>
       </nav>
 
