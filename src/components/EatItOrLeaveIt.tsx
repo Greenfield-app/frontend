@@ -1,8 +1,9 @@
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 import eatIt from "../assets/icons/eat-it.png";
 import leaveIT from "../assets/icons/leave-it.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import { GiKnifeFork } from "react-icons/gi";
 import { AxiosError } from "axios";
 import fetchPhotoByPhotoReference from "../helper/getPhoto";
 import {
@@ -41,6 +42,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   });
 
   const [usedIndices, setUsedIndices] = useState<Number[]>([]);
+  const [dine, setDine] = useState<boolean>(false);
 
   // Array needed to loop through for correct stars amount.
   const stars: number[] = [0, 0, 0, 0, 0];
@@ -53,6 +55,7 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
 
   useEffect(() => {
     getNextRestaurant();
+    setDine(false);
   }, []);
 
   // Function to randomly grab a restaurant from the nearbyRestaurants array
@@ -124,7 +127,13 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
         <h1 className="eatitorleaveit-title">Dine or Decline</h1>
 
         <div className="eatitorleaveit-container">
-          {randomRestaurant !== null &&
+          {dine ? (
+            <div>
+              <h3>Great choice! Enjoy your meal!</h3>
+              <GiKnifeFork className="knife-fork" size={100} color={'#25d366'}/>
+            </div>
+          ) :
+          randomRestaurant !== null &&
           randomRestaurant !== undefined &&
           Object.keys(randomRestaurant).length > 0 ? (
             <div>
@@ -166,7 +175,10 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
                   className="eat-it-icon"
                   src={eatIt}
                   alt="eat it icon"
-                  onClick={() => handleDineAtRestaurant()}
+                  onClick={() => {
+                    setDine(true);
+                    handleDineAtRestaurant()
+                  }}
                 />
                 <p>Or</p>
                 <img

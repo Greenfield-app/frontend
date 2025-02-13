@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = (HomeProps) => {
           <h1 onClick={() => HomeProps.setView("home")}>WhatsEat</h1>
         </header>
         {/* Only Display the search bar when the user has denied location access */}
-        {props.searchbarShown && props.currentPosition === null ? (
+        {HomeProps.searchbarShown && HomeProps.currentPosition === null ? (
           <Form className="search-bar">
           <Row>
             <Col xs="auto">
@@ -47,8 +47,8 @@ const Home: React.FC<HomeProps> = (HomeProps) => {
                   (event: React.KeyboardEvent<HTMLInputElement>) => {
                     if (event.key === 'Enter') {
                       event.preventDefault();
-                      props.setSearchLocation((event.target as HTMLInputElement).value)
-                      props.setView('eatitorleaveit')
+                      HomeProps.setSearchLocation((event.target as HTMLInputElement).value)
+                      HomeProps.setView('eatitorleaveit')
                     }
                   }
                 }
@@ -63,7 +63,7 @@ const Home: React.FC<HomeProps> = (HomeProps) => {
           </h1>
           <p className="nav-text" onClick={() => HomeProps.setView("loginpage")}>
             Logout
-          </h3>
+          </p>
         </div>
       </nav>
 
