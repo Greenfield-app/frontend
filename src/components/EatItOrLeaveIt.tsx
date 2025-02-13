@@ -3,6 +3,12 @@ import eatIt from "../assets/icons/eat-it.png";
 import leaveIT from "../assets/icons/leave-it.png";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { AxiosError } from "axios";
+import fetchPhotoByPhotoReference from "../helper/getPhoto";
+import {
+  sendNewRecord,
+  addNewFood,
+} from "../helper/fetchHelper";
 import { UserInfo, FoodInfoDisplay, RestaurantInfo} from "../vite-env";
 import { saveRestaurant, fetchRestaurant } from '../api/restaurants'
 import { addRestaurantToEatsHistory } from '../api/history'
@@ -45,6 +51,10 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     grey: "a9a9a9",
   };
 
+  useEffect(() => {
+    getNextRestaurant();
+  }, []);
+
   // Function to randomly grab a restaurant from the nearbyRestaurants array
   const getNextRestaurant = () => {
     let randomIndex: number = Math.floor(
@@ -53,9 +63,17 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     while (usedIndices.includes(randomIndex)) {
       randomIndex = Math.floor(Math.random() * nearbyRestaurants.length);
     }
-
-    setRandomRestaurant(nearbyRestaurants[randomIndex]);
-    setUsedIndices([...usedIndices, randomIndex]);
+    
+    if (nearbyRestaurants[randomIndex].photoURL) {
+      console.log("photo");
+      fetchPhotoByPhotoReference(`restaurants/photo?photo_reference=${nearbyRestaurants[randomIndex].photoURL}`)
+        .then((url:string) => nearbyRestaurants[randomIndex].photoURL = url)
+        .then(() => {
+          setRandomRestaurant(nearbyRestaurants[randomIndex]);
+          setUsedIndices([...usedIndices, randomIndex]);
+        })
+        .catch((error: AxiosError) => console.error('Error fetching photo: ', error.response?.data || error.message));
+    }
   };
 
   const handleDeclineRestaurant = () => {
@@ -128,20 +146,20 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
               <p className="restaurant-address">{randomRestaurant.address}</p>
 
               <div id="ratingStars">
-                <p className="ratingAvg">5</p>
+                <p className="ratingAvg">{randomRestaurant.rating}</p>
                 {stars.map((_, index) => (
                   <FaStar
                     key={index}
                     size={24}
                     color={
-                      3 != undefined && 3 > index
+                      Math.floor(randomRestaurant.rating) != undefined && Math.floor(randomRestaurant.rating) > index
                         ? starColor.orange
                         : starColor.grey
                     }
                   />
                 ))}
                 <p className="rating-total">{`(${randomRestaurant.totalRatings})`}</p>
-                <p className="price-range">{randomRestaurant.priceLevel}</p>
+                <p className="price-range">{randomRestaurant.priceLevel !== undefined ? "¥".repeat(randomRestaurant.priceLevel) : null}</p>
               </div>
               <div className="eat-or-leave-btns">
                 <img

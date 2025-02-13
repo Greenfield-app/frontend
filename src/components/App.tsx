@@ -17,6 +17,7 @@ function App() {
   const [searchLocation, setSearchLocation] = useState<string | null>(null);
   const [currentPosition, setCurrentPosition] = useState<string | null>(null);
   const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
+  const [searchbarShown, setSearchbarShown] = useState<boolean>(false);
   const [savedRestaurants, setSavedRestaurants] = useState<Record[]>([]);
 
 
@@ -43,7 +44,8 @@ function App() {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0,
-        };    
+        }; 
+        
         // Success callback
         function success(pos: GeolocationPosition): void {
           const coordinates = pos.coords;
@@ -58,6 +60,10 @@ function App() {
           navigator.geolocation.getCurrentPosition(success);
         } else if (result.state === 'prompt') {
           navigator.geolocation.getCurrentPosition(success, error, options);
+        }
+
+        if (currentPosition === null) {
+          setSearchbarShown(true);
         }
       })
   }, [])
@@ -86,26 +92,25 @@ function App() {
   
 
   // gets all of the foods of a logged in user when currentUser changes
-  useEffect(() => {
-    
-    async function resolveRecordArrayPromise() {
-      const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
+  // useEffect(() => {
+  //   async function resolveRecordArrayPromise() {
+  //     const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
 
-      //foreach, replace map,
-      // const recordWithFoodArr = recordData.map(async (record) => {
-      //   const foodId = record.foodId;
-      //   const foodResponse = await fetchSingleFoodById(foodId);
-      //   const recordWithFood: RecordWithFood = {
-      //     record: record,
-      //     food: foodResponse,
-      //   };
-      //   return recordWithFood;
-      // });
-      // const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
-      // setRecordsWithFood(recordWithFoodArrResolved);
-    }
-    resolveRecordArrayPromise();
-  }, [currentUser, view]);
+  //     //foreach, replace map,
+  //     const recordWithFoodArr = recordData.map(async (record) => {
+  //       const foodId = record.foodId;
+  //       const foodResponse = await fetchSingleFoodById(foodId);
+  //       const recordWithFood: RecordWithFood = {
+  //         record: record,
+  //         food: foodResponse,
+  //       };
+  //       return recordWithFood;
+  //     });
+  //     const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
+  //     setRecordsWithFood(recordWithFoodArrResolved);
+  //   }
+  //   resolveRecordArrayPromise();
+  // }, [currentUser, view]);
 
 
   return (
@@ -115,7 +120,7 @@ function App() {
       <div className="bg-image is-unfocused" />
 
       {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
-        <Home currentUser={currentUser} setView={setView} view={view} setSavedRestaurants={setSavedRestaurants}/>
+        <Home currentUser={currentUser} setView={setView} view={view} setSavedRestaurants={setSavedRestaurants} setSearchLocation={setSearchLocation} searchbarShown={searchbarShown} currentPosition={currentPosition}/>
       ) : view === "createaccount" ? (
         <CreateAccount
           setCurrentUser={setCurrentUser}
