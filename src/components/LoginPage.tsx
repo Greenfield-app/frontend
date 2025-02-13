@@ -14,7 +14,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
     loginSuccessful: false,
   });
 
-  const vertifyHandler = async (e: FormEvent<HTMLFormElement>) => {
+  const verifyHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const currentLoginInfo: LoginInfo = {
       email: e.currentTarget.email.value,
@@ -65,7 +65,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
         <form
           className='login-signup-form'
           onSubmit={(e) => {
-            vertifyHandler(e);
+            verifyHandler(e);
           }}
         >
           <h1>Login</h1>

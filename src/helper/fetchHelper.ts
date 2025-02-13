@@ -46,7 +46,7 @@ async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
 }
 
 async function verifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
-  const response = await fetch(`http://localhost:8080/api/signin`, {
+  const response = await fetch(`${API_URL}/api/signin`, {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
