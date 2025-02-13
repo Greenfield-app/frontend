@@ -20,6 +20,7 @@ export interface RestaurantInfo {
   totalRatings: number;
   priceLevel: number;
   photoURL: string;
+  placeID: string;
 }
 export interface RandomFoodWithRestaurant {
   randomFoodInfo: FoodInfoDisplay;
@@ -55,15 +56,17 @@ export interface LoginError {
   loginSuccessful: boolean;
 }
 export interface Record {
-  recordId: number;
-  userId: number;
-  foodId: number;
-  recordAt: string;
+  name: string;
+  date: string;
 }
 
-export interface SavedRestaurants {
-  record: Record;
-  restaurant: RestaurantInfo;
+export interface NewRestaurant {
+  name: string;
+  placeID: string;
+}
+
+export interface SavedRestaurant {
+  id: number,
 }
 
 export interface Location {

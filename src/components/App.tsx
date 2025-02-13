@@ -4,7 +4,7 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo, RegisterInfo, UserInfo, SavedRestaurants, RestaurantInfo } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo, Record, RestaurantInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -17,7 +17,7 @@ function App() {
   const [searchLocation, setSearchLocation] = useState<string | null>(null);
   const [currentPosition, setCurrentPosition] = useState<string | null>(null);
   const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
-  const [savedRestaurants, setSavedRestaurants] = useState<SavedRestaurants[]>([]);
+  const [savedRestaurants, setSavedRestaurants] = useState<Record[]>([]);
 
 
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
@@ -83,23 +83,26 @@ function App() {
     }
   }, [currentPosition||searchLocation])
 
+  
+
   // gets all of the foods of a logged in user when currentUser changes
   useEffect(() => {
+    
     async function resolveRecordArrayPromise() {
       const recordData = await fetchAllRecordsOfSingleUser(currentUser.userId); // update the user number based on database or logged in user
 
       //foreach, replace map,
-      const recordWithFoodArr = recordData.map(async (record) => {
-        const foodId = record.foodId;
-        const foodResponse = await fetchSingleFoodById(foodId);
-        const recordWithFood: RecordWithFood = {
-          record: record,
-          food: foodResponse,
-        };
-        return recordWithFood;
-      });
-      const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
-      setRecordsWithFood(recordWithFoodArrResolved);
+      // const recordWithFoodArr = recordData.map(async (record) => {
+      //   const foodId = record.foodId;
+      //   const foodResponse = await fetchSingleFoodById(foodId);
+      //   const recordWithFood: RecordWithFood = {
+      //     record: record,
+      //     food: foodResponse,
+      //   };
+      //   return recordWithFood;
+      // });
+      // const recordWithFoodArrResolved = await Promise.all(recordWithFoodArr);
+      // setRecordsWithFood(recordWithFoodArrResolved);
     }
     resolveRecordArrayPromise();
   }, [currentUser, view]);
@@ -112,7 +115,7 @@ function App() {
       <div className="bg-image is-unfocused" />
 
       {view === "home" && currentUser.userId !== -1 ? ( //use currentUser = 'guest' if user is not logged in. Then they won't see a food list, just the login page by default
-        <Home currentUser={currentUser} setView={setView} view={view} />
+        <Home currentUser={currentUser} setView={setView} view={view} setSavedRestaurants={setSavedRestaurants}/>
       ) : view === "createaccount" ? (
         <CreateAccount
           setCurrentUser={setCurrentUser}
@@ -122,12 +125,10 @@ function App() {
         />
       ) : view === "foodlist" ? (
         <FoodList
-          recordsWithFood={recordsWithFood}
-          setRecordsWithFood={setRecordsWithFood}
-          setSingleUsersFoods={setSingleUsersFoods}
-          singleUsersFoods={singleUsersFoods}
           currentUser={currentUser}
           setView={setView}
+          savedRestaurants={savedRestaurants}
+          setSavedRestaurants={setSavedRestaurants}
         />
       ) : view === "eatitorleaveit" ? (
         <EatItOrLeaveIt currentUser={currentUser} setView={setView} nearbyRestaurants={nearbyRestaurants}/>

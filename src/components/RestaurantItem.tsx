@@ -1,35 +1,39 @@
-import { RecordWithFood } from "../vite-env";
+import { Record } from "../vite-env";
 import { useState } from "react";
 import { deleteRecordById } from "../helper/fetchHelper";
-import trashIcon from "../assets/icons/icon-monster-trash.svg";
-import ListGroup from 'react-bootstrap/ListGroup';
 import { FaTrash } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 
-const RestaurantItem = () => {
+interface RestaurantItemProps {
+  restaurant: Record;
+  savedRestaurants: Record[];
+  index: number,
+  setSavedRestaurants: React.Dispatch<React.SetStateAction<Record[]>>;
+}
+
+const RestaurantItem: React.FC<RestaurantItemProps> = (props) => {
+
+  const [heartClicked, setHeartClicked] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
   const handleDeleteRestaurant = async () => {
-    console.log(recordWithFood);
-    const result = await deleteRecordById(recordWithFood.record.recordId);
-    setRecordsWithFood((prev: RecordWithFood[]) =>
-      prev.filter(
-        (data: RecordWithFood) =>
-          data.record.recordId !== recordWithFood.record.recordId
-      )
-    );
-    console.log(result);
+    const newSavedRestaurants = [...props.savedRestaurants];
+    newSavedRestaurants.splice(props.index, 1);
+    console.log(newSavedRestaurants)
+    props.setSavedRestaurants(newSavedRestaurants);
     setDeleteModal(false);
   };
 
   return (
     <>
-      {/* Food Card  w/trashIcon*/}
-      <ListGroup.Item className="restaurant-item">
-        <h3 className="restaurant-title">Food</h3>
-        <FaHeart className="restaurant-heart-icon" color={'#e74c3c'}/>
+      {/* Restaurant Item */}
+      <div className="restaurant-item">
+        <p className="restaurant-title">{props.restaurant.name}</p>
+        <FaHeart className="restaurant-heart-icon" color={ heartClicked ? '#e74c3c' : '#626567'} onClick={() => {
+          setHeartClicked(!heartClicked)
+        }}/>
         <FaTrash className="restaurant-delete-icon" color={'#626567'} onClick={() => setDeleteModal(true)}/>
-      </ListGroup.Item>
+      </div>
       
       {/* Delete Modal */}
       {deleteModal && (

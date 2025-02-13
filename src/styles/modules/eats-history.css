@@ -1,18 +1,10 @@
-.food-list {
-  color: #128c7e;
-}
-
-.food-list .food {
-  background-color: #ece5dd;
-}
-
 .restaurant-item {
   display: flex;
   border-radius: 5px;
   height: 30vh;
   max-height: 4.5rem;
   width: 50vw;
-  max-width: 16rem;
+  max-width: 30rem;
   align-items: center;
   background-color: #ece5dd;
   padding: 1em;
@@ -20,6 +12,7 @@
 
 .restaurant-title {
   flex: 8;
+  color: black;
 }
 
 .restaurant-heart-icon {

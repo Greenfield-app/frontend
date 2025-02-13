@@ -1,25 +1,28 @@
-import { UserInfo } from "../vite-env";
+import { UserInfo, Record } from "../vite-env";
 import handHistory from "../assets/icons/history-hand.svg";
 import handSwipe from "../assets/icons/swipe-hand.svg";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
+import { fetchEatHistory } from '../api/history.ts'
 
 interface HomeProps {
   setView: Function;
   currentUser: UserInfo;
   view: string;
+  setSavedRestaurants: React.Dispatch<React.SetStateAction<Record[]>>
 }
 
-const Home: React.FC<HomeProps> = (props) => {
+const Home: React.FC<HomeProps> = (HomeProps) => { 
+
   return (
     <>
       <nav className="l-header header">
         <header className="home-header">
           <img className="whatseat-icon" src={whatsEat} />
-          <h1 onClick={() => props.setView("home")}>WhatsEat</h1>
+          <h1 onClick={() => HomeProps.setView("home")}>WhatsEat</h1>
         </header>
         <div className="username-and-logout">
-          <h1>{props.currentUser.userName}</h1>
-          <p className="nav-text" onClick={() => props.setView("loginpage")}>
+          <h1>{HomeProps.currentUser.userName}</h1>
+          <p className="nav-text" onClick={() => HomeProps.setView("loginpage")}>
             Logout
           </p>
         </div>
@@ -27,14 +30,19 @@ const Home: React.FC<HomeProps> = (props) => {
       <section className="l-content-container">
         <div
           className="eats-history pop-dim"
-          onClick={() => props.setView("foodlist")}
+          onClick={async () => {
+            const eatHistory = await fetchEatHistory(`/records/${HomeProps.currentUser.userId}`)
+            console.log(eatHistory)
+            HomeProps.setSavedRestaurants(Array.isArray(eatHistory) ? eatHistory : [])
+            HomeProps.setView("foodlist")
+          }}
         >
           <img className="history-icon" src={handHistory} />
           <h1>Eats History</h1>
         </div>
         <div
           className="help-me-choose pop-dim"
-          onClick={() => props.setView("eatitorleaveit")}
+          onClick={() => HomeProps.setView("eatitorleaveit")}
         >
           <img className="swipe-icon" src={handSwipe} />
           <h1>Help me Choose</h1>

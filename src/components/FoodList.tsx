@@ -1,19 +1,14 @@
-import { FoodInfo, UserInfo, RecordWithFood } from "../vite-env";
+import { FoodInfo, UserInfo, Record } from "../vite-env";
 import FoodCard from "./RestaurantItem";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 import ListGroup from 'react-bootstrap/ListGroup';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 // types from App.tsx
 interface FoodListProps {
-  recordsWithFood: RecordWithFood[];
-  setRecordsWithFood: Function;
   currentUser: UserInfo;
   setView: Function;
-  setSingleUsersFoods: (FoodInfo: FoodInfo[]) => void;
-  singleUsersFoods: FoodInfo[];
+  savedRestaurants: Record[];
+  setSavedRestaurants: React.Dispatch<React.SetStateAction<Record[]>>;
 }
 
 //  (props) temp removed for build
@@ -34,21 +29,15 @@ const FoodList: React.FC<FoodListProps> = (props) => {
       </nav>
       <h2 className="eats-history-title">Eats History:</h2>
 
-      <ListGroup className="food-list l-food-list">
-        <FoodCard />
-      </ListGroup>
+      {console.log(props.savedRestaurants)}
 
-      <ul className="food-list l-food-list">
-        {/* {props.recordsWithFood.map((data) => (
-          <li key={data.food.foodName + Math.random()} className="food">
-            <FoodCard
-              recordWithFood={data}
-              recordsWithFood={props.recordsWithFood}
-              setRecordsWithFood={props.setRecordsWithFood}
-            />
-          </li>
-        ))} */}
-      </ul>
+      <ListGroup className="food-list l-food-list">
+        {props.savedRestaurants.map((restaurant, index) => (
+          <ListGroup.Item key={index}>
+            <FoodCard restaurant={restaurant} savedRestaurants={props.savedRestaurants} index={index} setSavedRestaurants={props.setSavedRestaurants}/>
+          </ListGroup.Item>
+        ))}  
+      </ListGroup>
     </>
   );
 };
