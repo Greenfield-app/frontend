@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { UserInfo, Record } from "../vite-env";
 import handHistory from "../assets/icons/history-hand.svg";
 import handSwipe from "../assets/icons/swipe-hand.svg";
@@ -40,7 +41,7 @@ const Home: React.FC<HomeProps> = (HomeProps) => {
     {/* Conditional Rendering for ProfilePage */}
     {showProfile && (
         <ProfilePage
-          user={props.currentUser} // Passing current user data
+          user={HomeProps.currentUser} // Passing current user data
           deleteAccount={() => alert("Account deleted")} // Dummy delete function
         />
       )}
