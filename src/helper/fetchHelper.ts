@@ -44,8 +44,7 @@ async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
     throw error instanceof Error ? error : new Error("Fetch error");
   }
 }
-
-async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
+async function verifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
   const response = await fetch(`${API_URL}/api/signin`, {
     method: "PATCH",
     credentials: "include",
@@ -242,7 +241,7 @@ async function fetchNearbyRestaurants (endpoint: string) : Promise<Array<Restaur
 
 export {
   sendRegisterInfo,
-  vertifyLogin,
+  verifyLogin,
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
   sendNewRecord,
