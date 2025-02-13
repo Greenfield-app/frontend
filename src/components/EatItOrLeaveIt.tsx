@@ -32,10 +32,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
   nearbyRestaurants,
 }) => {
   
-  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
-  const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>(
-    []
-  );
   const [randomRestaurant, setRandomRestaurant] = useState<RestaurantInfo>({
     name: "",
     address: "",
@@ -73,26 +69,6 @@ const EatItOrLeaveIt: React.FC<EatItOrLeaveItProps> = ({
     setUsedIndices([...usedIndices, randomIndex]);
   };
   
-  // Effect to fetch nearby restaurants when current location is updated
-  useEffect(() => {
-    if (currentLocation) {
-      fetchNearbyRestaurants(`restaurants/nearby?location=${currentLocation}`)
-        .then((data) => {
-          setNearbyRestaurants(Array.isArray(data) ? data : []);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    }
-  }, [currentLocation]);
-
-  useEffect(() => {
-    const resolveRecommendation = async () => {
-      getNextRestaurant();
-      await fetchLocationByIP();
-    };
-    resolveRecommendation();
-  }, []);
 
   const handleDeleteFood = () => {
     getNextRestaurant();
