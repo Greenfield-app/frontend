@@ -18,14 +18,14 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-const API_URL = import.meta.env.VITE_API_URL as string;
+const API_URL = import.meta.env.VITE_BASE_URL;
 const CACHE_KEY_LOCATION = "ip_location_cache";
 const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
   if (registerInfo !== null) {
   }
-  const response = await fetch(`${API_URL}/api/signup`, {
+  const response = await fetch(`http://localhost:8080/api/signup`, {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
@@ -45,9 +45,9 @@ async function sendRegisterInfo(registerInfo: RegisterInfo): Promise<UserInfo> {
   }
 }
 
-async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
-  const response = await fetch(`${API_URL}/api/signin`, {
-    method: "PATCH",
+async function verifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
+  const response = await fetch(`http://localhost:8080/api/signin`, {
+    method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
@@ -57,6 +57,7 @@ async function vertifyLogin<T>(loginInfo: LoginInfo): Promise<T> {
   });
   try {
     if (!response.ok) {
+      console.log(response)
       console.error("RES ERROR ", response);
       throw new Error(response.statusText);
     }
@@ -242,7 +243,7 @@ async function fetchNearbyRestaurants (endpoint: string) : Promise<Array<Restaur
 
 export {
   sendRegisterInfo,
-  vertifyLogin,
+  verifyLogin,
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
   sendNewRecord,

@@ -2,19 +2,14 @@ import { RecordWithFood } from "../vite-env";
 import { useState } from "react";
 import { deleteRecordById } from "../helper/fetchHelper";
 import trashIcon from "../assets/icons/icon-monster-trash.svg";
+import ListGroup from 'react-bootstrap/ListGroup';
+import { FaTrash } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
-interface FoodCardProps {
-  recordWithFood: RecordWithFood;
-  recordsWithFood: RecordWithFood[];
-  setRecordsWithFood: Function;
-}
-const FoodCard: React.FC<FoodCardProps> = ({
-  recordWithFood,
-  setRecordsWithFood,
-}) => {
+const RestaurantItem = () => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
 
-  const handleDeleteFood = async () => {
+  const handleDeleteRestaurant = async () => {
     console.log(recordWithFood);
     const result = await deleteRecordById(recordWithFood.record.recordId);
     setRecordsWithFood((prev: RecordWithFood[]) =>
@@ -30,20 +25,17 @@ const FoodCard: React.FC<FoodCardProps> = ({
   return (
     <>
       {/* Food Card  w/trashIcon*/}
-      <div className="food-card">
-        <h3 className="food-title">{recordWithFood.food.foodName}</h3>
-        <img
-          className="food-delete-icon"
-          src={trashIcon}
-          alt="red trash icon"
-          onClick={() => setDeleteModal(true)}
-        />
-      </div>
+      <ListGroup.Item className="restaurant-item">
+        <h3 className="restaurant-title">Food</h3>
+        <FaHeart className="restaurant-heart-icon" color={'#e74c3c'}/>
+        <FaTrash className="restaurant-delete-icon" color={'#626567'} onClick={() => setDeleteModal(true)}/>
+      </ListGroup.Item>
+      
       {/* Delete Modal */}
       {deleteModal && (
-        // Everything in the screen if clicked will setDeleteModal = false
+        // Clicking outside of the modal will close it
         <div className="modal-outofbox" onClick={() => setDeleteModal(false)}>
-          {/* prevents the above function to effect the modal itself => stopPropagation */}
+          {/* Prevents closing the modal when you click inside it */}
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <h3>Are you sure you want to delete?</h3>
 
@@ -57,7 +49,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
               </button>
               <button
                 className="del-modal-delete"
-                onClick={() => handleDeleteFood()}
+                onClick={() => handleDeleteRestaurant()}
               >
                 Delete
               </button>
@@ -69,4 +61,4 @@ const FoodCard: React.FC<FoodCardProps> = ({
   );
 };
 
-export default FoodCard;
+export default RestaurantItem;

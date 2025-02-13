@@ -4,7 +4,7 @@ import Home from "./Home.tsx";
 import EatItOrLeaveIt from "./EatItOrLeaveIt.tsx";
 import LoginPage from "./LoginPage.tsx";
 import CreateAccount from "./CreateAccount.tsx";
-import { FoodInfo, RegisterInfo, UserInfo, RecordWithFood, RestaurantInfo } from "../vite-env";
+import { FoodInfo, RegisterInfo, UserInfo, SavedRestaurants, RestaurantInfo } from "../vite-env";
 import {
   fetchAllRecordsOfSingleUser,
   fetchSingleFoodById,
@@ -17,10 +17,10 @@ function App() {
   const [searchLocation, setSearchLocation] = useState<string | null>(null);
   const [currentPosition, setCurrentPosition] = useState<string | null>(null);
   const [nearbyRestaurants, setNearbyRestaurants] = useState<RestaurantInfo[]>([]);
+  const [savedRestaurants, setSavedRestaurants] = useState<SavedRestaurants[]>([]);
 
 
   const [singleUsersFoods, setSingleUsersFoods] = useState<FoodInfo[]>([]);
-  const [recordsWithFood, setRecordsWithFood] = useState<RecordWithFood[]>([]);
   const [view, setView] = useState<string | null>("loginpage");
   const [currentUser, setCurrentUser] = useState<UserInfo>({
     userId: 61,

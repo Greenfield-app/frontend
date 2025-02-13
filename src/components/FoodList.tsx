@@ -1,6 +1,11 @@
 import { FoodInfo, UserInfo, RecordWithFood } from "../vite-env";
-import FoodCard from "./FoodCard";
+import FoodCard from "./RestaurantItem";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
+import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 // types from App.tsx
 interface FoodListProps {
   recordsWithFood: RecordWithFood[];
@@ -28,8 +33,13 @@ const FoodList: React.FC<FoodListProps> = (props) => {
         </div>
       </nav>
       <h2 className="eats-history-title">Eats History:</h2>
+
+      <ListGroup className="food-list l-food-list">
+        <FoodCard />
+      </ListGroup>
+
       <ul className="food-list l-food-list">
-        {props.recordsWithFood.map((data) => (
+        {/* {props.recordsWithFood.map((data) => (
           <li key={data.food.foodName + Math.random()} className="food">
             <FoodCard
               recordWithFood={data}
@@ -37,7 +47,7 @@ const FoodList: React.FC<FoodListProps> = (props) => {
               setRecordsWithFood={props.setRecordsWithFood}
             />
           </li>
-        ))}
+        ))} */}
       </ul>
     </>
   );

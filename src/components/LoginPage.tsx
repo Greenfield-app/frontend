@@ -1,6 +1,6 @@
 import { UserInfo, LoginError, LoginInfo } from "../vite-env";
 import { useState, FormEvent } from "react";
-import { vertifyLogin } from "../helper/fetchHelper";
+import { verifyLogin } from "../helper/fetchHelper";
 import whatsEat from "../assets/icons/whatsEat-icon.png";
 
 interface LoginPageProps {
@@ -21,7 +21,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ setView, setCurrentUser }) => {
       password: e.currentTarget.password.value,
     };
     try {
-      const result: UserInfo = await vertifyLogin(currentLoginInfo);
+      const result: UserInfo = await verifyLogin(currentLoginInfo);
       setCurrentUser(result);
       setSubmitState({
         submitted: true,

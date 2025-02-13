@@ -60,9 +60,10 @@ export interface Record {
   foodId: number;
   recordAt: string;
 }
-export interface RecordWithFood {
+
+export interface SavedRestaurants {
   record: Record;
-  food: FoodInfo;
+  restaurant: RestaurantInfo;
 }
 
 export interface Location {
